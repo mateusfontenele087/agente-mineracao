@@ -1,0 +1,13 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.core.Instances C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\weather.nominal.arff
+
+Relation Name:  weather.symbolic
+Num Instances:  14
+Num Attributes: 5
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+1 outlook                    Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+2 temperature                Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+3 humidity                   Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+4 windy                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+5 play                       Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

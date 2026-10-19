@@ -1,0 +1,66 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.rules.ZeroR -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\weather.nominal.arff -x 10 -s 1
+
+
+=== Classifier model (full training set) ===
+
+ZeroR predicts class value: yes
+
+Time taken to build model: 0.09 seconds
+
+Time taken to test model on training data: 0 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances           9               64.2857 %
+Incorrectly Classified Instances         5               35.7143 %
+Kappa statistic                          0     
+Mean absolute error                      0.4643
+Root mean squared error                  0.4795
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances               14     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    1,000    0,643      1,000    0,783      ?        0,500     0,643     yes
+                 0,000    0,000    ?          0,000    ?          ?        0,500     0,357     no
+Weighted Avg.    0,643    0,643    ?          0,643    ?          ?        0,500     0,541     
+
+
+=== Confusion Matrix ===
+
+ a b   <-- classified as
+ 9 0 | a = yes
+ 5 0 | b = no
+
+Time taken to perform cross-validation: 0 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances           9               64.2857 %
+Incorrectly Classified Instances         5               35.7143 %
+Kappa statistic                          0     
+Mean absolute error                      0.4762
+Root mean squared error                  0.4934
+Relative absolute error                100      %
+Root relative squared error            100      %
+Total Number of Instances               14     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1,000    1,000    0,643      1,000    0,783      ?        0,178     0,555     yes
+                 0,000    0,000    ?          0,000    ?          ?        0,178     0,318     no
+Weighted Avg.    0,643    0,643    ?          0,643    ?          ?        0,178     0,470     
+
+
+=== Confusion Matrix ===
+
+ a b   <-- classified as
+ 9 0 | a = yes
+ 5 0 | b = no
+
