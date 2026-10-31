@@ -10,7 +10,7 @@ O agente tem três camadas:
 
 | Camada | Arquivo | Função |
 |---|---|---|
-| Conhecimento | `conhecimento/manual_decisoes.md` | 81 regras de decisão de especialista, destiladas do livro *Introduction to Data Mining* (Tan, Steinbach, Kumar, 1ª ed.) e reescritas com palavras próprias |
+| Conhecimento | `conhecimento/manual_decisoes.md` | 116 regras de decisão de especialista, destiladas do livro *Introduction to Data Mining* (Tan, Steinbach, Kumar, 1ª ed.) e reescritas com palavras próprias |
 | Ferramentas | `ferramentas/weka_runner.py` | Executa o Weka 3.8.7 pela linha de comando (resumo da base e comparação com a linha de base) e grava cada saída em `resultados/` com o comando exato |
 | Ferramentas | `ferramentas/significancia.py` | Compara dois classificadores com o teste t pareado corrigido (Nadeau e Bengio, o mesmo do Weka Experimenter), em 10 repetições da validação cruzada de 10 partes |
 | Raciocínio | `.github/agents/especialista-mineracao.agent.md` | Define o papel, as regras inegociáveis, o fluxo de trabalho e o formato da resposta do agente |
@@ -47,7 +47,7 @@ O agente foi testado três vezes na mesma tarefa (base `credit-g.arff`, 1.000 cl
 
 Correções no manual que saíram desses testes: R5.48 (duas linhas de base com custo), R5.49 (quando o acerto no treino não diz nada), R5.50 (empate técnico), R5.51 (uma métrica principal, nunca recall sozinho; correção de Bonferroni para as demais) e R5.52 (quais pares testar). As três respostas estão em `analises/`, **sem edição**, e as saídas correspondentes do Weka em `resultados/`.
 
-**Limite conhecido:** as regras foram ajustadas olhando para a mesma base em que foram testadas. O desempenho do agente em bases diferentes ainda precisa ser verificado.
+**Limite conhecido:** as regras foram ajustadas olhando para a mesma base em que foram testadas. Por isso o agente foi testado em seguida numa base diferente (`diabetes.arff`), **sem nenhum ajuste de regra** (seção abaixo).
 
 ## Resultado da versão 3 — `credit-g.arff`
 
@@ -64,6 +64,28 @@ Matriz de custo informada pelo usuário: aprovar um mau pagador custa 5; recusar
 | RandomForest | 70,1% | 0,787 | 0,501 | 0,612 | 0,795 | 555 |
 
 Todos os classificadores rodaram dentro do `CostSensitiveClassifier` do Weka com essa matriz. Teste de significância no custo (10 × 10 validações cruzadas): NaiveBayes contra "recusar todos", p = 0,000028; NaiveBayes contra RandomForest, p = 0,137 (empate técnico).
+
+## Teste de generalização — `diabetes.arff`
+
+Base que o agente nunca tinha visto: 768 pacientes, 8 atributos numéricos, 34,9% com diabetes. Nenhuma regra foi alterada antes do teste. O agente perguntou o custo dos erros antes de modelar; o usuário definiu que deixar de detectar diabetes custa 5 vezes mais que um alarme falso.
+
+| Modelo | Acurácia | Recall positivo | Precisão positiva | F1 positivo | Custo total |
+|---|---:|---:|---:|---:|---:|
+| Linha de base: todos negativos (ZeroR) | 65,1% | 0,000 | — | — | 1.340 |
+| Linha de base: todos positivos | 34,9% | 1,000 | 0,349 | 0,517 | **500** |
+| J48 | 62,2% | 0,854 | 0,477 | 0,612 | 446 |
+| NaiveBayes | 70,3% | 0,836 | 0,549 | 0,663 | 404 |
+| IBk | 70,2% | 0,530 | 0,580 | 0,554 | 733 |
+| SMO | 60,7% | 0,963 | 0,469 | 0,631 | **342** |
+| RandomForest | 72,4% | 0,821 | 0,573 | 0,675 | 404 |
+
+Conclusões do agente: o IBk é pior que não usar modelo; o SMO supera a linha de base no custo (p < 0,000001), mas empata com o NaiveBayes (p = 0,110), que é preferido por ser mais simples; o menor custo observado pode ser otimista, porque cinco candidatos foram testados.
+
+**O que o teste revelou:**
+- **Acerto que vai além do manual:** o agente identificou que os zeros em insulina (374 registros), espessura da pele (227), pressão (35), massa corporal (11) e glicose (5) são, provavelmente, valores ausentes disfarçados, e declarou os resultados preliminares por isso. Esse tema ainda não estava no manual e motivou a Parte 3 (v0.6).
+- **Falhas:** duas regras existentes não foram aplicadas. A AUC do SMO foi relatada sem o aviso de que, sem a opção `-M`, ela não é interpretável (R5.26), e o NaiveBayes foi usado com a suposição de normalidade apesar dos zeros falsos (R5.16).
+
+Os custos, acurácias e linhas de base foram recalculados a partir das matrizes de confusão e conferem. Resposta completa, sem edição, em `analises/2026-10-31_diabetes.md`.
 
 ## Primeiro teste — `weather.nominal.arff`
 
@@ -92,6 +114,7 @@ python ferramentas/significancia.py credit-g.arff --a weka.classifiers.bayes.Nai
 - [x] Camada Weka validada contra a interface gráfica
 - [x] Ferramenta de teste de significância validada
 - [x] Agente testado e corrigido em três rodadas na `credit-g`
-- [ ] Teste em bases diferentes (ex.: `diabetes.arff`)
-- [ ] Manual – Parte 3 (qualidade dos dados, pré-processamento, exploração)
+- [x] Teste de generalização em base nova (`diabetes.arff`), sem ajuste de regras
+- [x] Manual de decisões – Parte 3 (tipos de dados, qualidade, valores ausentes, pré-processamento e exploração)
+- [ ] Reanálise da `diabetes.arff` com o manual v0.6, para verificar se o agente trata os zeros falsos em vez de só apontá-los
 - [ ] Manual – Partes 4 a 6 (associação, agrupamento, anomalias)

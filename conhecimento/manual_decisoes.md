@@ -1,8 +1,8 @@
 # Manual de Decisões do Especialista
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
-> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos.
-> Status: **rascunho v0.5** — para revisão regra a regra.
+> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração.
+> Status: **rascunho v0.6** — para revisão regra a regra.
 
 ---
 
@@ -431,6 +431,210 @@ Cada comparação de dois modelos com 10 × 10 validações cruzadas leva minuto
 
 ---
 
+# Parte 3 — Dados: Tipos, Qualidade, Pré-processamento e Exploração
+
+> Regras R2.xx (dados e pré-processamento) e R3.xx (exploração). Estas etapas vêm **antes** de qualquer modelo: no fluxo do agente, correspondem a "Explorar" e "Preparar".
+
+---
+
+## Bloco Q — Tipos de atributo
+
+**R2.01 — O tipo do atributo define o que se pode fazer com ele.**
+
+| Tipo | O que os valores informam | Exemplos | Operações válidas |
+|---|---|---|---|
+| Nominal | Só identidade (igual ou diferente) | Setor, CEP, cor, número de matrícula | Moda, contagem, entropia, qui-quadrado |
+| Ordinal | Ordem, sem distância definida | Baixo/médio/alto, nota de satisfação, nível hierárquico | Mediana, percentis, correlação de postos |
+| Intervalo | Diferença tem sentido; o zero é arbitrário | Data, temperatura em °C | Média, desvio-padrão, correlação de Pearson |
+| Razão | Diferença e proporção têm sentido; o zero é real | Valor em reais, idade, contagem, duração em dias | Todas as anteriores, mais razões e porcentagens |
+
+Cada tipo herda as operações dos de cima. O agente nunca calcula média de um atributo nominal, mesmo que ele esteja escrito com números.
+
+**R2.02 — Código numérico é nominal.**
+Números de processo, matrícula, CEP, código de setor ou de órgão **parecem** numéricos, mas são nomes. O Weka os trata como números e vai procurar limiares sem sentido ("setor ≤ 37"). O agente:
+- remove o atributo, se for identificador (R4.04);
+- converte para nominal, se for categoria (`weka.filters.unsupervised.attribute.NumericToNominal -R <colunas>`).
+
+**R2.03 — Ordinal codificado como inteiro.**
+Se "baixo/médio/alto" virou 1/2/3, o algoritmo supõe que a distância entre baixo e médio é igual à de médio e alto. Às vezes é aceitável, mas o agente declara a suposição.
+
+**R2.04 — Datas viram atributos derivados.**
+Uma data isolada raramente é útil para prever. O que costuma servir é o que se deriva dela: duração entre duas datas, mês, dia da semana, se caiu em período de fechamento de exercício (R2.25).
+
+---
+
+## Bloco R — Diagnóstico de qualidade (obrigatório antes de modelar)
+
+**R2.05 — Os dados não foram feitos para a análise.**
+Dados de mineração quase sempre foram coletados para outro fim (cadastro, controle, cobrança). Por isso não se pode supor que estejam corretos. O diagnóstico de qualidade é etapa obrigatória do fluxo, não um extra.
+
+**R2.06 — Lista de verificação de qualidade.**
+Para cada base, o agente verifica e relata:
+1. Valores ausentes **explícitos** (`?` no `.arff`).
+2. Valores ausentes **disfarçados** (R2.07).
+3. Valores impossíveis ou inconsistentes (R2.08).
+4. Registros duplicados (R2.09).
+5. Valores extremos (R2.10).
+6. Distribuição da classe (R5.33).
+7. Atributos constantes ou quase constantes (um valor em mais de ~95% dos registros), que não ajudam a separar as classes.
+8. Identificadores e códigos numéricos (R2.02, R4.04).
+
+**R2.07 — Ausentes disfarçados.**
+Sistemas e planilhas muitas vezes registram "não informado" como **0**, **-1**, **9999**, **-9999** ou texto como "N/A". O Weka não sabe disso e trata esses valores como medidas reais.
+- **Detecção:** para cada atributo numérico, contar zeros e valores-sentinela, e julgar pelo domínio. Pressão arterial, massa corporal ou glicose iguais a zero são impossíveis numa pessoa viva; número de gestações igual a zero é perfeitamente possível.
+- Quando o domínio não deixa claro, o agente **pergunta ao usuário** antes de tratar.
+
+**R2.08 — Valores inconsistentes.**
+Exemplos: idade negativa, data de conclusão anterior à de abertura, valor pago maior que o empenhado. Só é possível **corrigir** com informação redundante (outro campo, outra fonte). Sem isso, o agente marca o valor como ausente e informa quantos casos houve. Nunca "chuta" o valor correto.
+
+**R2.09 — Duplicatas.**
+- Dois registros do **mesmo** objeto real (o mesmo processo cadastrado duas vezes) devem ser unificados.
+- Dois objetos **diferentes** com valores idênticos são legítimos e devem ficar.
+- Duplicatas indevidas inflam a avaliação: o mesmo caso aparece no treino e no teste, e o modelo "acerta" porque já o viu.
+- Weka: `weka.filters.unsupervised.instance.RemoveDuplicates`. Se o filtro não existir na versão instalada, o agente conta as duplicatas em Python (R3.05) e informa.
+
+**R2.10 — Ruído não é o mesmo que valor extremo.**
+- **Ruído** é erro aleatório de medição ou registro: deve ser corrigido, se possível, ou tolerado com algoritmos robustos (árvores podadas, NaiveBayes, comitês por bagging).
+- **Valor extremo (outlier)** pode ser legítimo e, às vezes, é justamente o caso de interesse (uma fraude, um processo que travou).
+- O agente **nunca remove um valor só por ser extremo**. Primeiro verifica se é erro; se for legítimo, mantém e avalia o impacto. Weka: `weka.filters.unsupervised.attribute.InterquartileRange` marca candidatos a extremo.
+
+**R2.11 — Relevância, atualidade e viés de seleção.**
+- A base só contém quem foi registrado: processos que chegaram ao sistema, pacientes que fizeram o exame, clientes que pediram crédito. Conclusões não se estendem automaticamente a quem ficou de fora.
+- Dados envelhecem: um modelo treinado com processos de anos anteriores pode não valer depois de uma mudança de procedimento.
+- O agente declara esses limites quando forem relevantes.
+
+---
+
+## Bloco S — Tratamento de valores ausentes
+
+**R2.12 — Quatro estratégias.**
+
+| Estratégia | Quando usar | Risco |
+|---|---|---|
+| Eliminar registros | Poucos registros afetados | Perde informação; pode criar viés se a ausência não for aleatória |
+| Eliminar o atributo | Atributo com ausência muito alta | Pode ser justamente o atributo importante |
+| Estimar (média, moda, vizinhos) | Ausência moderada | Inventa uniformidade; reduz a variabilidade real |
+| Deixar o algoritmo lidar | Algoritmo tolera ausentes | Cada algoritmo trata de um jeito (R2.13) |
+
+**R2.13 — Como cada algoritmo do Weka trata ausentes** (além do livro: comportamento do Weka).
+- **J48 e RandomForest:** distribuem o registro pelos ramos, proporcionalmente.
+- **NaiveBayes:** ignora o atributo ausente naquele registro.
+- **JRip:** um teste sobre um valor ausente não é satisfeito.
+- **IBk:** usa uma regra própria na distância, que tende a supor a maior diferença possível.
+- **SMO e MultilayerPerceptron:** substituem internamente o ausente pela média ou moda.
+O agente declara qual tratamento está em jogo.
+
+**R2.14 — Converter ausentes disfarçados é decisão de domínio.**
+1. O agente **propõe** quais valores de quais atributos são ausentes disfarçados (R2.07) e explica por quê.
+2. O usuário **confirma**.
+3. O agente gera uma **nova base** em `dados/`, com sufixo (ex.: `diabetes_ausentes.arff`), trocando esses valores por `?`. A base original não é alterada.
+4. Registra quantos valores foram trocados em cada atributo e o script usado.
+Essa conversão pode ser feita em Python, porque não inventa número nenhum: só marca como desconhecido o que já era desconhecido.
+
+**R2.15 — A ausência pode ser informação.**
+**Além do livro:** às vezes o fato de faltar o dado diz algo (o exame não foi pedido porque o caso parecia simples; o campo ficou vazio porque o processo foi arquivado cedo). Antes de imputar, o agente considera criar um atributo indicador ("insulina ausente: sim/não") e testa se ele ajuda.
+
+**R2.16 — Tratamento não é melhoria garantida.**
+O agente roda os mesmos modelos na base original e na base tratada, com a mesma validação, e compara na métrica principal com o teste de significância (R5.51). Se o tratamento não melhorar, a conclusão é essa: o tratamento é mais correto conceitualmente, mas não mudou o desempenho.
+
+---
+
+## Bloco T — Regra geral: o que aprende com os dados fica dentro da validação
+
+**R2.17 — Vazamento de informação no pré-processamento.**
+Qualquer passo que **calcula algo a partir dos dados** precisa ser aprendido **só com o treino** de cada parte da validação cruzada. Senão, informação do teste vaza para o modelo e a avaliação fica otimista.
+- **Precisam ficar dentro da validação:** imputação por média ou moda, normalização com média e desvio, discretização supervisionada, seleção de atributos, balanceamento (R5.40) e componentes principais.
+  - Weka: `weka.classifiers.meta.FilteredClassifier -F <filtro> -W <classificador>` para filtros; `weka.classifiers.meta.AttributeSelectedClassifier` para seleção de atributos.
+- **Podem ser feitos antes:** remover identificadores pelo nome, converter códigos para nominal, marcar como ausente um valor impossível por regra de domínio. Esses passos não olham para a distribuição dos dados.
+
+---
+
+## Bloco U — Seleção de atributos e dimensionalidade
+
+**R2.18 — Maldição da dimensionalidade.**
+Com muitos atributos e poucos registros, os dados ficam esparsos: não há exemplos suficientes para cobrir as combinações, e as distâncias perdem o sentido. O k-NN e o agrupamento sofrem mais.
+
+**R2.19 — Primeiro o bom senso.**
+Antes de qualquer método automático: remover identificadores, um de cada par de atributos redundantes óbvios (valor e valor com imposto) e atributos claramente sem relação com o objetivo.
+
+**R2.20 — Três abordagens de seleção.**
+- **Embutida:** o próprio algoritmo escolhe (árvores já fazem isso).
+- **Filtro:** escolhe antes, independente do algoritmo. Weka: `CfsSubsetEval`, que procura atributos muito relacionados com a classe e pouco relacionados entre si.
+- **Envoltória (wrapper):** testa subconjuntos usando o próprio algoritmo. É mais cara e corre mais risco de sobreajuste (R5.46).
+- Weka: `weka.classifiers.meta.AttributeSelectedClassifier -W <classificador>`. O padrão do Weka já é `CfsSubsetEval` com busca `BestFirst`, e a seleção roda dentro de cada parte da validação (R2.17).
+
+**R2.21 — Onde a seleção mais ajuda.**
+NaiveBayes, que sofre com atributos correlacionados (R5.15), e IBk, que sofre com irrelevantes (R5.11). Em árvores e florestas, que já selecionam atributos, o ganho costuma ser pequeno.
+
+**R2.22 — Validar a seleção.**
+Comparar o modelo com todos os atributos e com os selecionados, na mesma validação e na métrica principal. Se empatarem, ficar com menos atributos (R4.15). Se a seleção piorar, descartá-la.
+
+**R2.23 — Componentes principais (PCA).**
+Cria atributos novos que combinam os originais. Reduz a dimensão de dados numéricos, mas os atributos novos **não têm significado direto**. Não usar quando o objetivo é entender (R4.03). Weka: `weka.filters.unsupervised.attribute.PrincipalComponents`.
+
+---
+
+## Bloco V — Criação, agregação e transformação de atributos
+
+**R2.24 — Um bom atributo vale mais que um algoritmo melhor.**
+Muitas vezes, criar o atributo certo melhora mais o resultado do que trocar de algoritmo. Exemplos: duração (data final menos data inicial), número de etapas percorridas, valor por unidade, índice de massa corporal a partir de peso e altura. O agente sugere atributos derivados quando o domínio indicar e testa se eles ajudam (R2.22).
+
+**R2.25 — Agregação e unidade de análise.**
+Quando há vários registros por objeto (vários movimentos por processo, várias compras por cliente), é preciso decidir **qual é o objeto da análise** antes de modelar, e agregar os registros até ele: soma, média, contagem, primeiro e último valor, duração.
+- Agregar reduz a variabilidade e o volume, mas **perde detalhe** (a média mensal esconde o dia da semana).
+- Misturar níveis (um registro por movimento, mas classe definida por processo) faz o mesmo processo aparecer no treino e no teste, e a avaliação fica otimista (mesmo efeito da R2.09).
+
+**R2.26 — Discretização.**
+Transforma um número em faixas. Alguns algoritmos exigem (regras de associação); árvores não precisam (R4.09).
+- **Não supervisionada** (faixas de largura igual ou de frequência igual): não usa a classe e pode ser feita antes.
+- **Supervisionada** (usa a classe para escolher os cortes; Weka: `weka.filters.supervised.attribute.Discretize`): precisa ficar dentro da validação (R2.17).
+- Sempre perde informação. Usar só com motivo.
+
+**R2.27 — Binarização.**
+Transformar uma categoria em várias colunas sim/não (uma por valor) evita criar relações artificiais entre categorias. Weka: `weka.filters.unsupervised.attribute.NominalToBinary`. O SMO faz isso sozinho (R5.25).
+
+**R2.28 — Transformações funcionais (logaritmo, raiz etc.).**
+Servem para amplitudes enormes (de 1 a 1 bilhão) ou distribuições muito assimétricas. Cuidados:
+- logaritmo não aceita zero nem negativos;
+- 1/x **inverte a ordem** dos valores;
+- perguntar sempre: a ordem precisa ser mantida? A transformação vale para todos os valores?
+- **Além do livro:** árvores não mudam com transformações que preservam a ordem (logaritmo, raiz). A transformação só faz diferença para algoritmos que usam distâncias ou somas (IBk, SMO, MultilayerPerceptron) e para o NaiveBayes com distribuição normal (R5.16).
+
+**R2.29 — Normalização.**
+- **Padronização** (média 0, desvio 1) ou **normalização para o intervalo 0–1**: necessária quando atributos de escalas diferentes entram juntos numa distância ou soma.
+- A normalização 0–1 depende do mínimo e do máximo, e por isso é sensível a valores extremos.
+- IBk, SMO e MultilayerPerceptron já normalizam no Weka (R5.10, R5.25, R5.20). O agente declara isso e não normaliza duas vezes.
+
+---
+
+## Bloco W — Exploração dos dados
+
+**R3.01 — Perfil da base antes de modelar.**
+O resumo do Weka não basta. O agente monta um perfil com:
+- **Atributos numéricos:** mínimo, máximo, média, mediana, desvio-padrão, intervalo interquartil (IQR), número de zeros e número de ausentes.
+- **Atributos nominais:** número de valores distintos, valor mais frequente e frequência do valor mais raro.
+- **Classe:** distribuição (R5.33).
+
+**R3.02 — Média longe da mediana é sinal de alerta.**
+A média é sensível a valores extremos e a distribuições assimétricas; a mediana não. Se as duas forem muito diferentes, o agente relata a mediana e investiga extremos e ausentes disfarçados (zeros puxam a média para baixo).
+
+**R3.03 — Medidas de dispersão robustas.**
+O desvio-padrão e a amplitude são sensíveis a valores extremos. Para descrever a dispersão de atributos assimétricos, usar o IQR (diferença entre o 3º e o 1º quartis).
+- **Além do livro:** candidatos a extremo são os valores abaixo de Q1 − 1,5 × IQR ou acima de Q3 + 1,5 × IQR (regra de Tukey). O filtro `InterquartileRange` do Weka usa fatores próprios (opções `-O` e `-E`); o agente informa quais usou.
+
+**R3.04 — Correlação entre atributos.**
+Uma correlação alta (em módulo) entre dois atributos numéricos indica redundância, o que prejudica o NaiveBayes (R5.15). Limites:
+- a correlação só mede relação **linear**;
+- correlação de um atributo com a classe não substitui o modelo;
+- não vale para atributos nominais (usar tabela de contingência).
+
+**R3.05 — Exploração em Python é permitida, com registro.**
+Estatísticas descritivas (contagens, quartis, correlações) podem ser calculadas em Python a partir do `.arff`, porque descrevem os dados e não são modelagem. O agente registra o código usado e salva a saída em `resultados/` com data e hora, como faz com o Weka. Modelos, matrizes de confusão e métricas de desempenho continuam vindo **só** do Weka.
+
+**R3.06 — A exploração gera hipóteses, não conclusões.**
+O que o perfil sugere ("estes zeros parecem ausentes", "estes dois atributos parecem redundantes") vira uma hipótese: o agente confirma com o usuário (R2.14) ou testa no Weka (R2.16, R2.22) antes de agir.
+
+---
+
 ## Pendências para próximas partes
-- Parte 3 (caps. 2–3): qualidade dos dados, pré-processamento, exploração.
 - Partes 4–6 (caps. 6–10): associação (Apriori), agrupamento (SimpleKMeans etc.), anomalias.
