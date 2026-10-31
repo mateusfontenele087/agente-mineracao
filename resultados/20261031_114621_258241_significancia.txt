@@ -1,0 +1,35 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff
+Classificador A: weka.classifiers.bayes.NaiveBayes
+Classificador B: weka.classifiers.trees.RandomForest
+Matriz de custo: [0.0 1.0; 5.0 0.0]
+Classe positiva: bad
+Repetições: 10; partes por repetição: 10; total de pares: 100
+Sementes: 1..10; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.bayes.NaiveBayes --
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_j0zw3sbo\teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.trees.RandomForest --
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 2/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 3/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 4/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 5/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 6/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 7/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 8/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 9/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 10/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.688800 | 0.041519 | 0.694900 | 0.038625 | -0.006100 | -0.421778 | 0.674101 | empate técnico |
+| recall_bad | 0.814000 | 0.069175 | 0.760667 | 0.068882 | 0.053333 | 2.226842 | 0.028224 | diferença significativa (A melhor) |
+| precisao_bad | 0.490584 | 0.041984 | 0.496188 | 0.041987 | -0.005604 | -0.370026 | 0.712153 | empate técnico |
+| f1_bad | 0.611117 | 0.045296 | 0.599434 | 0.045053 | 0.011684 | 0.713415 | 0.477267 | empate técnico |
+| custo_total | 53.440000 | 10.839807 | 59.230000 | 10.624780 | -5.790000 | -1.500050 | 0.136784 | empate técnico |

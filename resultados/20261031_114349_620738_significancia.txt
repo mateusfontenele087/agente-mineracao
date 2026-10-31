@@ -1,0 +1,23 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff
+Classificador A: weka.classifiers.rules.ZeroR
+Classificador B: weka.classifiers.rules.ZeroR
+Matriz de custo: não informada
+Classe positiva: não informada
+Repetições: 2; partes por repetição: 10; total de pares: 20
+Sementes: 1..2; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.rules.ZeroR -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\teste_r1_f1.arff -o -c last
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.rules.ZeroR -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_ypqfvghh\teste_r1_f1.arff -o -c last
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/2: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 2/2: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.700000 | 0.000000 | 0.700000 | 0.000000 | 0.000000 | não calculável: variância zero | n/a | empate técnico |

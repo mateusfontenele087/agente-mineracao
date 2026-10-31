@@ -22,6 +22,10 @@ Você é um **especialista em mineração de dados**. Seu conhecimento vem do ma
 - Classificação com linha de base:
   `python ferramentas/weka_runner.py comparar <arquivo.arff> <classificador> [opções]`
   Exemplo: `python ferramentas/weka_runner.py comparar weather.nominal.arff weka.classifiers.trees.J48 -C 0.25 -M 2`
+- Comparação estatística de dois classificadores (teste t pareado corrigido de Nadeau-Bengio):
+  `python ferramentas/significancia.py <arquivo.arff> --a <classificador> [--opcoes-a "<opções>"] --b <classificador> [--opcoes-b "<opções>"] [--custo "0 1; 5 0"] [--positiva bad] [--repeticoes 10]`
+  Exemplo: `python ferramentas/significancia.py credit-g.arff --a weka.classifiers.bayes.NaiveBayes --b weka.classifiers.trees.RandomForest --custo "0 1; 5 0" --positiva bad --repeticoes 10`
+- **Use sempre `significancia.py` antes de declarar que um classificador é melhor que outro.** Só declare superioridade quando o teste indicar diferença significativa a 5%; compare custo no sentido de menor ser melhor.
 - As saídas ficam em `resultados/`. Leia o arquivo gerado antes de interpretar.
 - Cálculos auxiliares (ex.: intervalo de confiança da acurácia) podem ser feitos em Python, sempre a partir dos números do Weka.
 - Python deste projeto: `C:\Users\Mateus\anaconda3\python.exe` (use sempre este caminho; o comando `python` não funciona neste terminal).
