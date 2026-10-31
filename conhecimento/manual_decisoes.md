@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos.
-> Status: **rascunho v0.2** — para revisão regra a regra.
+> Status: **rascunho v0.4** — para revisão regra a regra.
 
 ---
 
@@ -388,7 +388,7 @@ A matriz de confusão fica k × k. O agente aponta **quais pares de classes se c
 2. Montar a lista de candidatos (R5.03) e justificar cada escolha pelos dados (R5.02).
 3. Rodar ZeroR e todos os candidatos com **a mesma validação cruzada** (10 partes, semente 1).
 4. Montar uma tabela com acurácia, kappa e as métricas da classe positiva (R5.36).
-5. Testar a significância das diferenças com o teste t pareado corrigido (R4.26).
+5. Definir a **métrica principal** antes de olhar os resultados (R5.51) e testar a significância das diferenças entre os melhores candidatos com o teste t pareado corrigido (R4.26), usando `ferramentas/significancia.py`.
 6. Escolher (R5.45) e relatar (R5.47).
 
 **R5.45 — Critério de escolha.**
@@ -401,6 +401,29 @@ Ao testar muitos algoritmos e configurações e escolher o melhor resultado, aqu
 
 **R5.47 — Formato da comparação na resposta.**
 Tabela única com uma linha por modelo (ZeroR incluído) e colunas: acurácia (com intervalo de confiança), kappa, recall, precisão e F1 da classe positiva, AUC e, se houver matriz de custo, custo total. Abaixo: resultado dos testes de significância, escolha justificada e o que **não** foi rodado.
+
+**R5.48 — Com matriz de custo, há duas linhas de base.**
+Além do ZeroR comum (prever tudo como a classe majoritária), calcular o custo de **prever tudo como a classe positiva**. A linha de base é a **mais barata** das duas.
+- Exemplo: 700 bons e 300 maus pagadores, custo 5 para aprovar um mau e 1 para recusar um bom. Aprovar todos custa 300 × 5 = 1.500; recusar todos custa 700 × 1 = 700. A linha de base é **700**.
+- Todo modelo cujo custo seja **maior** que essa linha de base é **pior que não ter modelo**. O agente diz isso explicitamente, com essas palavras, e descarta o modelo.
+
+**R5.49 — Quando o acerto no treino não diz nada.**
+Alguns modelos acertam (quase) 100% dos dados de treino **por construção**, qualquer que seja a qualidade:
+- IBk com k = 1: cada registro é o vizinho mais próximo de si mesmo.
+- RandomForest e árvores sem poda (`-U`): crescem até separar quase todos os registros.
+Para esses modelos, a diferença entre treino e validação **não é evidência de sobreajuste** e não deve ser apresentada como tal. O diagnóstico vem da validação: comparar configurações mais e menos complexas (ex.: k = 1 contra k maior; árvore podada contra não podada) e ver qual generaliza melhor.
+
+**R5.50 — Vocabulário diante de diferenças pequenas.**
+Sem teste de significância, diferenças pequenas entre modelos são **empate técnico**. O agente não usa "mais promissor", "melhor" ou "vencedor" para um modelo que não foi testado contra os outros. Escreve, por exemplo: "NaiveBayes (530) e RandomForest (555) estão em empate técnico; sem teste de significância, prefere-se o mais simples (R5.45)".
+
+**R5.51 — Uma métrica principal, escolhida antes.**
+Cada teste de significância tem 5% de chance de apontar uma diferença que não existe. Testar várias métricas e destacar a que deu "significativa" é procurar sorte: com 5 métricas, a chance de pelo menos uma dar falso positivo passa de 20%.
+- Antes de rodar a comparação, o agente define **uma métrica principal**, a que corresponde ao objetivo do usuário: custo total, se houver matriz de custo; senão, F1 ou recall da classe positiva, se as classes forem desbalanceadas; senão, acurácia. A decisão sobre qual modelo é melhor é tomada **só** por essa métrica.
+- As demais métricas são **descritivas**. Se alguma delas der p < 0,05, o agente só a chama de significativa se ela também passar no limiar corrigido: 0,05 dividido pelo número de métricas testadas (correção de Bonferroni; com 5 métricas, p < 0,01).
+- Exemplo real: NaiveBayes contra RandomForest na credit-g, com matriz de custo. Métrica principal: custo, p = 0,137, empate técnico. O recall da classe "bad" deu p = 0,028, que não passa em 0,05 / 5 = 0,01. Conclusão correta: **empate técnico**; prefere-se o NaiveBayes por ser mais simples (R5.45), e não por ter "recall significativamente maior".
+
+**R5.52 — Comparar todos contra todos é caro e multiplica testes.**
+Cada comparação de dois modelos com 10 × 10 validações cruzadas leva minutos. Com muitos candidatos, o agente não testa todos os pares. Ele testa: (1) o melhor candidato contra a **linha de base** (R4.20, R5.48), para saber se há modelo útil; (2) o melhor contra o segundo melhor na métrica principal, para saber se a escolha se sustenta. Ele informa ao usuário quantas comparações fez.
 
 ---
 
