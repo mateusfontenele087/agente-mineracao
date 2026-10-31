@@ -1,0 +1,118 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff -x 10 -s 1 -cost-matrix "[0 1; 5 0]" -W weka.classifiers.functions.SMO -- -M
+
+
+Options: -cost-matrix "[0 1; 5 0]" -W weka.classifiers.functions.SMO -- -M 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -M -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+
+Classifier Model
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: tested_negative, tested_positive
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         1.154  * (normalized) preg
+ +       3.7621 * (normalized) plas
+ +      -0.9295 * (normalized) pres
+ +       0.1799 * (normalized) skin
+ +      -0.3742 * (normalized) insu
+ +       3.4436 * (normalized) mass
+ +       1.6734 * (normalized) pedi
+ +       1.7549 * (normalized) age
+ -       3.6733
+
+Number of kernel evaluations: 15228 (63.412% cached)
+
+Calibration model fit to the output:
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+                       Class
+Variable     tested_negative
+============================
+pred                 -1.5954
+Intercept             0.2822
+
+
+Odds Ratios...
+                       Class
+Variable     tested_negative
+============================
+pred                  0.2028
+
+
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.24 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         506               65.8854 %
+Incorrectly Classified Instances       262               34.1146 %
+Kappa statistic                          0.3693
+Mean absolute error                      0.3944
+Root mean squared error                  0.4812
+Relative absolute error                 86.7841 %
+Root relative squared error            100.9476 %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,518    0,078    0,925      0,518    0,664      0,435    0,833     0,902     tested_negative
+                 0,922    0,482    0,506      0,922    0,653      0,435    0,833     0,703     tested_positive
+Weighted Avg.    0,659    0,219    0,779      0,659    0,660      0,435    0,833     0,832     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 259 241 |   a = tested_negative
+  21 247 |   b = tested_positive
+
+Time taken to perform cross-validation: 0.23 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         505               65.7552 %
+Incorrectly Classified Instances       263               34.2448 %
+Kappa statistic                          0.3683
+Mean absolute error                      0.3977
+Root mean squared error                  0.4842
+Relative absolute error                 87.4929 %
+Root relative squared error            101.5953 %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,514    0,075    0,928      0,514    0,662      0,436    0,827     0,896     tested_negative
+                 0,925    0,486    0,505      0,925    0,653      0,436    0,827     0,697     tested_positive
+Weighted Avg.    0,658    0,218    0,780      0,658    0,659      0,436    0,827     0,826     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 257 243 |   a = tested_negative
+  20 248 |   b = tested_positive
+

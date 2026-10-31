@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração.
-> Status: **rascunho v0.6** — para revisão regra a regra.
+> Status: **rascunho v0.7** — para revisão regra a regra.
 
 ---
 
@@ -529,6 +529,7 @@ O agente declara qual tratamento está em jogo.
 2. O usuário **confirma**.
 3. O agente gera uma **nova base** em `dados/`, com sufixo (ex.: `diabetes_ausentes.arff`), trocando esses valores por `?`. A base original não é alterada.
 4. Registra quantos valores foram trocados em cada atributo e o script usado.
+5. **Se o usuário não souber dizer** o que os valores significam, o agente não fica paralisado nem decide sozinho. Ele faz uma **análise de sensibilidade**: mantém a base original como análise principal, gera a base tratada como **cenário alternativo** e roda os mesmos modelos nas duas. Se as conclusões forem as mesmas, a dúvida não importa para a decisão; se mudarem, o agente mostra as duas e diz que a resposta depende de esclarecer o significado dos valores com quem conhece os dados.
 Essa conversão pode ser feita em Python, porque não inventa número nenhum: só marca como desconhecido o que já era desconhecido.
 
 **R2.15 — A ausência pode ser informação.**

@@ -1,0 +1,18 @@
+Codigo: analisador pontual em Python (biblioteca padrao), lendo o ARFF sem modificar a base.
+
+Fonte: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff
+Registros: 768
+Atributos: 9
+Distribuicao de classe: {'tested_positive': 268, 'tested_negative': 500}
+Ausentes explicitos: 0
+Duplicatas identicas excedentes: 0
+
+Atributo | min | Q1 | mediana | Q3 | IQR | max | media | zeros | ausentes
+preg | 0 | 1.000 | 3 | 6.000 | 5.000 | 17 | 3.845 | 111 | 0
+plas | 0 | 99.000 | 117 | 140.250 | 41.250 | 199 | 120.895 | 5 | 0
+pres | 0 | 62.000 | 72 | 80.000 | 18.000 | 122 | 69.105 | 35 | 0
+skin | 0 | 0.000 | 23 | 32.000 | 32.000 | 99 | 20.536 | 227 | 0
+insu | 0 | 0.000 | 30.5 | 127.250 | 127.250 | 846 | 79.799 | 374 | 0
+mass | 0 | 27.300 | 32 | 36.600 | 9.300 | 67.1 | 31.993 | 11 | 0
+pedi | 0.078 | 0.244 | 0.3725 | 0.626 | 0.382 | 2.42 | 0.472 | 0 | 0
+age | 21 | 24.000 | 29 | 41.000 | 17.000 | 81 | 33.241 | 0 | 0

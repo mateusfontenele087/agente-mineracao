@@ -1,0 +1,17 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.core.Instances C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff
+
+Relation Name:  pima_diabetes
+Num Instances:  768
+Num Attributes: 9
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+1 preg                       Num   0% 100%   0%     0 /  0%     2 /  0%    17 
+2 plas                       Num   0% 100%   0%     0 /  0%    19 /  2%   136 
+3 pres                       Num   0% 100%   0%     0 /  0%     8 /  1%    47 
+4 skin                       Num   0% 100%   0%     0 /  0%     5 /  1%    51 
+5 insu                       Num   0% 100%   0%     0 /  0%    93 / 12%   186 
+6 mass                       Num   0%  12%  88%     0 /  0%    76 / 10%   248 
+7 pedi                       Num   0%   0% 100%     0 /  0%   346 / 45%   517 
+8 age                        Num   0% 100%   0%     0 /  0%     5 /  1%    52 
+9 class                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

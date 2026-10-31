@@ -1,0 +1,8 @@
+Intervalos de Wilson de 95% para acuracia, calculados dos acertos/total da validacao cruzada Weka (N=768).
+ZeroR: 65.10% (61.67%?68.39%)
+J48: 62.24% (58.76%?65.60%)
+NaiveBayes: 70.31% (66.99%?73.44%)
+NaiveBayes-K: 64.45% (61.00%?67.76%)
+IBk: 69.92% (66.59%?73.06%)
+SMO-M: 65.76% (62.33%?69.03%)
+RandomForest: 72.40% (69.13%?75.44%)
