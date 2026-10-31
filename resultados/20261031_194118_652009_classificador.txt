@@ -1,0 +1,132 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff -x 10 -s 1 -cost-matrix "[0 1; 5 0]" -W weka.classifiers.bayes.NaiveBayes --
+
+
+Options: -cost-matrix "[0 1; 5 0]" -W weka.classifiers.bayes.NaiveBayes -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.bayes.NaiveBayes 
+
+Classifier Model
+Naive Bayes Classifier
+
+                         Class
+Attribute      tested_negative tested_positive
+                        (0.27)          (0.73)
+===============================================
+preg
+  mean                   3.4234          4.9795
+  std. dev.              3.0166          3.6827
+  weight sum           208.6957        559.3043
+  precision              1.0625          1.0625
+
+plas
+  mean                 109.9541        141.2581
+  std. dev.             26.1114         31.8728
+  weight sum           208.6957        559.3043
+  precision              1.4741          1.4741
+
+pres
+  mean                  68.1397          70.718
+  std. dev.             17.9834         21.4094
+  weight sum           208.6957        559.3043
+  precision              2.6522          2.6522
+
+skin
+  mean                  19.8356         22.2824
+  std. dev.             14.8974         17.6992
+  weight sum           208.6957        559.3043
+  precision                1.98            1.98
+
+insu
+  mean                  68.8507        100.2812
+  std. dev.              98.828        138.4883
+  weight sum           208.6957        559.3043
+  precision               4.573           4.573
+
+mass
+  mean                  30.3009         35.1475
+  std. dev.              7.6833          7.2537
+  weight sum           208.6957        559.3043
+  precision              0.2717          0.2717
+
+pedi
+  mean                   0.4297          0.5504
+  std. dev.              0.2986          0.3715
+  weight sum           208.6957        559.3043
+  precision              0.0045          0.0045
+
+age
+  mean                  31.2494         37.0808
+  std. dev.             11.6059         10.9146
+  weight sum           208.6957        559.3043
+  precision              1.1765          1.1765
+
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.16 seconds
+
+Time taken to test model on training data: 0.02 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         547               71.224  %
+Incorrectly Classified Instances       221               28.776  %
+Kappa statistic                          0.4347
+Mean absolute error                      0.3427
+Root mean squared error                  0.4569
+Relative absolute error                 75.4103 %
+Root relative squared error             95.8532 %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,640    0,153    0,886      0,640    0,743      0,465    0,825     0,902     tested_negative
+                 0,847    0,360    0,558      0,847    0,673      0,465    0,825     0,684     tested_positive
+Weighted Avg.    0,712    0,225    0,772      0,712    0,719      0,465    0,825     0,826     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 320 180 |   a = tested_negative
+  41 227 |   b = tested_positive
+
+Time taken to perform cross-validation: 0.04 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         540               70.3125 %
+Incorrectly Classified Instances       228               29.6875 %
+Kappa statistic                          0.4173
+Mean absolute error                      0.3463
+Root mean squared error                  0.4599
+Relative absolute error                 76.1848 %
+Root relative squared error             96.4868 %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,632    0,164    0,878      0,632    0,735      0,447    0,819     0,892     tested_negative
+                 0,836    0,368    0,549      0,836    0,663      0,447    0,819     0,671     tested_positive
+Weighted Avg.    0,703    0,235    0,763      0,703    0,710      0,447    0,819     0,815     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 316 184 |   a = tested_negative
+  44 224 |   b = tested_positive
+

@@ -1,0 +1,78 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff -x 10 -s 1 -cost-matrix "[0 1; 5 0]" -W weka.classifiers.rules.ZeroR --
+
+
+Options: -cost-matrix "[0 1; 5 0]" -W weka.classifiers.rules.ZeroR -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.rules.ZeroR 
+
+Classifier Model
+ZeroR predicts class value: tested_positive
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.11 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         268               34.8958 %
+Incorrectly Classified Instances       500               65.1042 %
+Kappa statistic                          0     
+Mean absolute error                      0.5688
+Root mean squared error                  0.6088
+Relative absolute error                125.1453 %
+Root relative squared error            127.722  %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,000    0,000    ?          0,000    ?          ?        0,500     0,651     tested_negative
+                 1,000    1,000    0,349      1,000    0,517      ?        0,500     0,349     tested_positive
+Weighted Avg.    0,349    0,349    ?          0,349    ?          ?        0,500     0,546     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+   0 500 |   a = tested_negative
+   0 268 |   b = tested_positive
+
+Time taken to perform cross-validation: 0.02 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         268               34.8958 %
+Incorrectly Classified Instances       500               65.1042 %
+Kappa statistic                          0     
+Mean absolute error                      0.5688
+Root mean squared error                  0.6087
+Relative absolute error                125.1372 %
+Root relative squared error            127.7128 %
+Total Number of Instances              768     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,000    0,000    ?          0,000    ?          ?        0,497     0,650     tested_negative
+                 1,000    1,000    0,349      1,000    0,517      ?        0,497     0,347     tested_positive
+Weighted Avg.    0,349    0,349    ?          0,349    ?          ?        0,497     0,544     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+   0 500 |   a = tested_negative
+   0 268 |   b = tested_positive
+
