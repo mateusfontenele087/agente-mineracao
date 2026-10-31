@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação.
-> Status: **rascunho v0.8** — para revisão regra a regra.
+> Status: **rascunho v0.9** — para revisão regra a regra.
 
 ---
 
@@ -699,6 +699,7 @@ O número possível de regras cresce exponencialmente com o número de itens. O 
 
 **R6.08 — Regras redundantes.**
 Se "A → C" e "A, B → C" têm confiança parecida, a segunda não acrescenta nada: o item B é supérfluo. O agente relata a regra mais geral e descarta as que só acrescentam itens sem aumentar o interesse.
+- **Regras longas e regras no limite de corte são frágeis.** Regras com muitos itens só servem se forem interpretáveis e úteis para o usuário. Regras cujo suporte está exatamente no limite mínimo mudariam com um limite um pouco diferente. Quando as regras de maior lift estiverem todas no limite, o agente diz isso, testa um segundo limite e verifica quais regras sobrevivem. Para apresentar ao usuário, prefere regras de 2 ou 3 itens, a menos que as mais longas tragam algo que as curtas não trazem.
 
 **R6.09 — Apriori ou FP-Growth.**
 Os dois encontram os mesmos conjuntos frequentes; o FP-Growth costuma ser mais rápido em bases grandes. **Além do livro (Weka):** o `weka.associations.FPGrowth` exige atributos binários. A escolha afeta o tempo de execução, não a validade dos padrões.
@@ -727,7 +728,12 @@ Com itens raros, o lift pode ficar alto mesmo quando os itens quase nunca aparec
 Uma associação que aparece nos dados juntos pode **sumir ou se inverter** dentro de cada grupo, quando existe uma variável escondida (ano, setor, tipo de processo; em saúde, idade e sexo). Antes de apresentar uma regra como achado, o agente verifica se ela se mantém nos principais grupos (estratificação).
 
 **R6.15 — Muitas regras, muito acaso.**
-**Além do livro:** quanto mais regras se examinam, mais aparecem regras fortes por puro acaso, como no caso das várias métricas (R5.51). Para os achados que serão usados, o agente faz uma **verificação de replicação**: divide as transações ao meio, minera numa metade e confere suporte, confiança e lift das regras na outra. A contagem na segunda metade pode ser feita em Python (R3.05). Regras que não se repetem são descartadas ou apresentadas como fracas.
+**Além do livro:** quanto mais regras se examinam, mais aparecem regras fortes por puro acaso, como no caso das várias métricas (R5.51). Para os achados que serão usados, o agente faz uma **verificação de replicação**:
+1. Embaralha as transações com semente fixa e as divide ao meio, gerando dois arquivos (Weka: `weka.filters.unsupervised.instance.Randomize -S 1` e depois `weka.filters.unsupervised.instance.RemovePercentage -P 50`, uma vez sem e outra com `-V`).
+2. Roda o Apriori **só na metade de descoberta**.
+3. Confere suporte, confiança e lift dessas regras **na metade de conferência**, que o Apriori nunca viu. A contagem pode ser feita em Python (R3.05).
+- **Erro a evitar:** minerar com a base inteira e conferir numa metade dela não é replicação, porque a metade de conferência participou da descoberta. É como corrigir a prova olhando o gabarito.
+- Regras que não se repetem na metade de conferência são descartadas ou apresentadas como fracas.
 
 **R6.16 — Regras com classe não substituem classificador.**
 O Weka pode gerar regras cujo consequente é a classe (`Apriori -A`). Elas descrevem combinações frequentes, mas **não foram validadas para prever** casos novos. Para prever, usar classificadores (JRip, J48) com validação cruzada (Partes 1 e 2).
