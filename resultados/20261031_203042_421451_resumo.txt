@@ -1,0 +1,225 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.core.Instances C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\supermarket.arff
+
+Relation Name:  supermarket
+Num Instances:  4627
+Num Attributes: 217
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+  1 department1                Nom  23%   0%   0%  3580 / 77%     0 /  0%     1 
+  2 department2                Nom   3%   0%   0%  4496 / 97%     0 /  0%     1 
+  3 department3                Nom   2%   0%   0%  4537 / 98%     0 /  0%     1 
+  4 department4                Nom   2%   0%   0%  4543 / 98%     0 /  0%     1 
+  5 department5                Nom   4%   0%   0%  4452 / 96%     0 /  0%     1 
+  6 department6                Nom   0%   0%   0%  4625 /100%     0 /  0%     1 
+  7 department7                Nom   1%   0%   0%  4560 / 99%     0 /  0%     1 
+  8 department8                Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+  9 department9                Nom   2%   0%   0%  4545 / 98%     0 /  0%     1 
+ 10 grocery misc               Nom   4%   0%   0%  4449 / 96%     0 /  0%     1 
+ 11 department11               Nom   0%   0%   0%  4622 /100%     0 /  0%     1 
+ 12 baby needs                 Nom  13%   0%   0%  4008 / 87%     0 /  0%     1 
+ 13 bread and cake             Nom  72%   0%   0%  1297 / 28%     0 /  0%     1 
+ 14 baking needs               Nom  60%   0%   0%  1832 / 40%     0 /  0%     1 
+ 15 coupons                    Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 16 juice-sat-cord-ms          Nom  53%   0%   0%  2164 / 47%     0 /  0%     1 
+ 17 tea                        Nom  19%   0%   0%  3731 / 81%     0 /  0%     1 
+ 18 biscuits                   Nom  56%   0%   0%  2022 / 44%     0 /  0%     1 
+ 19 canned fish-meat           Nom  20%   0%   0%  3686 / 80%     0 /  0%     1 
+ 20 canned fruit               Nom  28%   0%   0%  3344 / 72%     0 /  0%     1 
+ 21 canned vegetables          Nom  34%   0%   0%  3050 / 66%     0 /  0%     1 
+ 22 breakfast food             Nom  40%   0%   0%  2765 / 60%     0 /  0%     1 
+ 23 cigs-tobacco pkts          Nom  15%   0%   0%  3928 / 85%     0 /  0%     1 
+ 24 cigarette cartons          Nom   1%   0%   0%  4590 / 99%     0 /  0%     1 
+ 25 cleaners-polishers         Nom  27%   0%   0%  3365 / 73%     0 /  0%     1 
+ 26 coffee                     Nom  24%   0%   0%  3533 / 76%     0 /  0%     1 
+ 27 sauces-gravy-pkle          Nom  48%   0%   0%  2426 / 52%     0 /  0%     1 
+ 28 confectionary              Nom  37%   0%   0%  2937 / 63%     0 /  0%     1 
+ 29 puddings-deserts           Nom  17%   0%   0%  3839 / 83%     0 /  0%     1 
+ 30 dishcloths-scour           Nom   8%   0%   0%  4265 / 92%     0 /  0%     1 
+ 31 deod-disinfectant          Nom   8%   0%   0%  4248 / 92%     0 /  0%     1 
+ 32 frozen foods               Nom  59%   0%   0%  1910 / 41%     0 /  0%     1 
+ 33 razor blades               Nom   4%   0%   0%  4427 / 96%     0 /  0%     1 
+ 34 fuels-garden aids          Nom   4%   0%   0%  4458 / 96%     0 /  0%     1 
+ 35 spices                     Nom   8%   0%   0%  4268 / 92%     0 /  0%     1 
+ 36 jams-spreads               Nom  28%   0%   0%  3349 / 72%     0 /  0%     1 
+ 37 insecticides               Nom  10%   0%   0%  4142 / 90%     0 /  0%     1 
+ 38 pet foods                  Nom  40%   0%   0%  2760 / 60%     0 /  0%     1 
+ 39 laundry needs              Nom  34%   0%   0%  3064 / 66%     0 /  0%     1 
+ 40 party snack foods          Nom  50%   0%   0%  2297 / 50%     0 /  0%     1 
+ 41 tissues-paper prd          Nom  49%   0%   0%  2380 / 51%     0 /  0%     1 
+ 42 wrapping                   Nom  29%   0%   0%  3291 / 71%     0 /  0%     1 
+ 43 dried vegetables           Nom   1%   0%   0%  4598 / 99%     0 /  0%     1 
+ 44 pkt-canned soup            Nom  10%   0%   0%  4174 / 90%     0 /  0%     1 
+ 45 soft drinks                Nom  41%   0%   0%  2739 / 59%     0 /  0%     1 
+ 46 health food other          Nom   7%   0%   0%  4286 / 93%     0 /  0%     1 
+ 47 beverages hot              Nom  10%   0%   0%  4172 / 90%     0 /  0%     1 
+ 48 health&beauty misc         Nom   2%   0%   0%  4549 / 98%     0 /  0%     1 
+ 49 deodorants-soap            Nom  23%   0%   0%  3549 / 77%     0 /  0%     1 
+ 50 mens toiletries            Nom   6%   0%   0%  4368 / 94%     0 /  0%     1 
+ 51 medicines                  Nom   4%   0%   0%  4423 / 96%     0 /  0%     1 
+ 52 haircare                   Nom  18%   0%   0%  3781 / 82%     0 /  0%     1 
+ 53 dental needs               Nom  23%   0%   0%  3563 / 77%     0 /  0%     1 
+ 54 lotions-creams             Nom   6%   0%   0%  4333 / 94%     0 /  0%     1 
+ 55 sanitary pads              Nom   9%   0%   0%  4211 / 91%     0 /  0%     1 
+ 56 cough-cold-pain            Nom   8%   0%   0%  4265 / 92%     0 /  0%     1 
+ 57 department57               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 58 meat misc                  Nom   3%   0%   0%  4496 / 97%     0 /  0%     1 
+ 59 cheese                     Nom  41%   0%   0%  2748 / 59%     0 /  0%     1 
+ 60 chickens                   Nom   0%   0%   0%  4606 /100%     0 /  0%     1 
+ 61 milk-cream                 Nom  64%   0%   0%  1688 / 36%     0 /  0%     1 
+ 62 cold-meats                 Nom  15%   0%   0%  3955 / 85%     0 /  0%     1 
+ 63 deli gourmet               Nom   4%   0%   0%  4419 / 96%     0 /  0%     1 
+ 64 margarine                  Nom  49%   0%   0%  2339 / 51%     0 /  0%     1 
+ 65 salads                     Nom   0%   0%   0%  4621 /100%     0 /  0%     1 
+ 66 small goods                Nom  24%   0%   0%  3511 / 76%     0 /  0%     1 
+ 67 dairy foods                Nom  36%   0%   0%  2958 / 64%     0 /  0%     1 
+ 68 fruit drinks               Nom   1%   0%   0%  4595 / 99%     0 /  0%     1 
+ 69 delicatessen misc          Nom   2%   0%   0%  4519 / 98%     0 /  0%     1 
+ 70 department70               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 71 beef                       Nom  38%   0%   0%  2888 / 62%     0 /  0%     1 
+ 72 hogget                     Nom   2%   0%   0%  4532 / 98%     0 /  0%     1 
+ 73 lamb                       Nom  10%   0%   0%  4154 / 90%     0 /  0%     1 
+ 74 pet food                   Nom  12%   0%   0%  4094 / 88%     0 /  0%     1 
+ 75 pork                       Nom   7%   0%   0%  4282 / 93%     0 /  0%     1 
+ 76 poultry                    Nom  16%   0%   0%  3888 / 84%     0 /  0%     1 
+ 77 veal                       Nom   2%   0%   0%  4536 / 98%     0 /  0%     1 
+ 78 gourmet meat               Nom   0%   0%   0%  4625 /100%     0 /  0%     1 
+ 79 department79               Nom   8%   0%   0%  4237 / 92%     0 /  0%     1 
+ 80 department80               Nom   3%   0%   0%  4471 / 97%     0 /  0%     1 
+ 81 department81               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 82 produce misc               Nom   5%   0%   0%  4384 / 95%     0 /  0%     1 
+ 83 fruit                      Nom  64%   0%   0%  1665 / 36%     0 /  0%     1 
+ 84 plants                     Nom   1%   0%   0%  4598 / 99%     0 /  0%     1 
+ 85 potatoes                   Nom  16%   0%   0%  3893 / 84%     0 /  0%     1 
+ 86 vegetables                 Nom  64%   0%   0%  1666 / 36%     0 /  0%     1 
+ 87 flowers                    Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 88 department88               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 89 department89               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 90 variety misc               Nom   7%   0%   0%  4308 / 93%     0 /  0%     1 
+ 91 brushware                  Nom   2%   0%   0%  4518 / 98%     0 /  0%     1 
+ 92 electrical                 Nom  11%   0%   0%  4113 / 89%     0 /  0%     1 
+ 93 haberdashery               Nom   1%   0%   0%  4582 / 99%     0 /  0%     1 
+ 94 kitchen                    Nom   7%   0%   0%  4301 / 93%     0 /  0%     1 
+ 95 manchester                 Nom   4%   0%   0%  4454 / 96%     0 /  0%     1 
+ 96 pantyhose                  Nom   1%   0%   0%  4584 / 99%     0 /  0%     1 
+ 97 plasticware                Nom   1%   0%   0%  4558 / 99%     0 /  0%     1 
+ 98 department98               Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+ 99 stationary                 Nom  31%   0%   0%  3170 / 69%     0 /  0%     1 
+100 department100              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+101 department101              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+102 department102              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+103 prepared meals             Nom  27%   0%   0%  3356 / 73%     0 /  0%     1 
+104 preserving needs           Nom   1%   0%   0%  4571 / 99%     0 /  0%     1 
+105 condiments                 Nom   6%   0%   0%  4364 / 94%     0 /  0%     1 
+106 cooking oils               Nom  10%   0%   0%  4149 / 90%     0 /  0%     1 
+107 department107              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+108 department108              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+109 department109              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+110 department110              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+111 department111              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+112 department112              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+113 department113              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+114 department114              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+115 health food bulk           Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+116 department116              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+117 department117              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+118 department118              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+119 department119              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+120 department120              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+121 bake off products          Nom  12%   0%   0%  4065 / 88%     0 /  0%     1 
+122 department122              Nom  24%   0%   0%  3515 / 76%     0 /  0%     1 
+123 department123              Nom   1%   0%   0%  4588 / 99%     0 /  0%     1 
+124 department124              Nom   2%   0%   0%  4532 / 98%     0 /  0%     1 
+125 department125              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+126 department126              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+127 department127              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+128 department128              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+129 department129              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+130 department130              Nom   7%   0%   0%  4298 / 93%     0 /  0%     1 
+131 small goods2               Nom  21%   0%   0%  3665 / 79%     0 /  0%     1 
+132 offal                      Nom   2%   0%   0%  4528 / 98%     0 /  0%     1 
+133 mutton                     Nom   0%   0%   0%  4604 /100%     0 /  0%     1 
+134 trim pork                  Nom   3%   0%   0%  4500 / 97%     0 /  0%     1 
+135 trim lamb                  Nom   1%   0%   0%  4581 / 99%     0 /  0%     1 
+136 imported cheese            Nom   5%   0%   0%  4394 / 95%     0 /  0%     1 
+137 department137              Nom  40%   0%   0%  2773 / 60%     0 /  0%     1 
+138 department138              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+139 department139              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+140 department140              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+141 department141              Nom   0%   0%   0%  4617 /100%     0 /  0%     1 
+142 department142              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+143 department143              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+144 department144              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+145 department145              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+146 department146              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+147 department147              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+148 department148              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+149 department149              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+150 department150              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+151 department151              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+152 department152              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+153 department153              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+154 department154              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+155 department155              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+156 department156              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+157 department157              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+158 department158              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+159 department159              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+160 department160              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+161 department161              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+162 department162              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+163 department163              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+164 department164              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+165 department165              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+166 department166              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+167 department167              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+168 department168              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+169 department169              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+170 department170              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+171 department171              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+172 department172              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+173 department173              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+174 department174              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+175 department175              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+176 department176              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+177 department177              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+178 department178              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+179 department179              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+180 casks white wine           Nom   4%   0%   0%  4453 / 96%     0 /  0%     1 
+181 casks red wine             Nom   1%   0%   0%  4576 / 99%     0 /  0%     1 
+182 750ml white nz             Nom   6%   0%   0%  4346 / 94%     0 /  0%     1 
+183 750ml red nz               Nom   2%   0%   0%  4536 / 98%     0 /  0%     1 
+184 750ml white imp            Nom   2%   0%   0%  4528 / 98%     0 /  0%     1 
+185 750ml red imp              Nom   2%   0%   0%  4530 / 98%     0 /  0%     1 
+186 sparkling nz               Nom   3%   0%   0%  4498 / 97%     0 /  0%     1 
+187 sparkling imp              Nom   0%   0%   0%  4604 /100%     0 /  0%     1 
+188 brew kits/accesry          Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+189 department189              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+190 port and sherry            Nom   1%   0%   0%  4602 / 99%     0 /  0%     1 
+191 ctrled label wine          Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+192 department192              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+193 department193              Nom   0%   0%   0%  4617 /100%     0 /  0%     1 
+194 department194              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+195 department195              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+196 department196              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+197 department197              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+198 department198              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+199 department199              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+200 non host support           Nom   2%   0%   0%  4540 / 98%     0 /  0%     1 
+201 department201              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+202 department202              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+203 department203              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+204 department204              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+205 department205              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+206 department206              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+207 department207              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+208 department208              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+209 department209              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+210 department210              Nom   4%   0%   0%  4436 / 96%     0 /  0%     1 
+211 department211              Nom   4%   0%   0%  4420 / 96%     0 /  0%     1 
+212 department212              Nom   1%   0%   0%  4589 / 99%     0 /  0%     1 
+213 department213              Nom   0%   0%   0%  4605 /100%     0 /  0%     1 
+214 department214              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+215 department215              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+216 department216              Nom   0%   0%   0%  4627 /100%     0 /  0%     0 
+217 total                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

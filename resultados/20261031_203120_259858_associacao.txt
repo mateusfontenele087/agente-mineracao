@@ -1,0 +1,63 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.associations.Apriori -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\supermarket.arff -N 30 -T 1 -C 1.0 -U 0.1 -M 0.1
+
+
+Apriori
+=======
+
+Minimum support: 0.1 (463 instances)
+Minimum metric <lift>: 1
+Number of cycles performed: 18
+
+Generated sets of large itemsets:
+
+Size of set of large itemsets L(1): 52
+
+Size of set of large itemsets L(2): 634
+
+Size of set of large itemsets L(3): 2598
+
+Size of set of large itemsets L(4): 3950
+
+Size of set of large itemsets L(5): 2470
+
+Size of set of large itemsets L(6): 558
+
+Size of set of large itemsets L(7): 20
+
+Best rules found:
+
+ 1. bread and cake=t baking needs=t frozen foods=t pet foods=t 753 ==> vegetables=t total=high 463    conf:(0.61) < lift:(2.24)> lev:(0.06) [256] conv:(1.88)
+ 2. vegetables=t total=high 1270 ==> bread and cake=t baking needs=t frozen foods=t pet foods=t 463    conf:(0.36) < lift:(2.24)> lev:(0.06) [256] conv:(1.32)
+ 3. frozen foods=t cheese=t fruit=t 889 ==> bread and cake=t biscuits=t total=high 463    conf:(0.52) < lift:(2.23)> lev:(0.06) [255] conv:(1.6)
+ 4. bread and cake=t biscuits=t total=high 1082 ==> frozen foods=t cheese=t fruit=t 463    conf:(0.43) < lift:(2.23)> lev:(0.06) [255] conv:(1.41)
+ 5. biscuits=t total=high 1228 ==> bread and cake=t frozen foods=t cheese=t fruit=t 463    conf:(0.38) < lift:(2.22)> lev:(0.06) [254] conv:(1.33)
+ 6. bread and cake=t frozen foods=t cheese=t fruit=t 785 ==> biscuits=t total=high 463    conf:(0.59) < lift:(2.22)> lev:(0.06) [254] conv:(1.79)
+ 7. bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t frozen foods=t 779 ==> fruit=t total=high 463    conf:(0.59) < lift:(2.21)> lev:(0.05) [253] conv:(1.8)
+ 8. fruit=t total=high 1243 ==> bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t frozen foods=t 463    conf:(0.37) < lift:(2.21)> lev:(0.05) [253] conv:(1.32)
+ 9. bread and cake=t frozen foods=t cheese=t 1023 ==> biscuits=t fruit=t total=high 463    conf:(0.45) < lift:(2.2)> lev:(0.05) [252] conv:(1.45)
+10. biscuits=t fruit=t total=high 954 ==> bread and cake=t frozen foods=t cheese=t 463    conf:(0.49) < lift:(2.2)> lev:(0.05) [252] conv:(1.51)
+11. biscuits=t frozen foods=t cheese=t fruit=t 692 ==> bread and cake=t total=high 463    conf:(0.67) < lift:(2.19)> lev:(0.05) [251] conv:(2.09)
+12. bread and cake=t total=high 1413 ==> biscuits=t frozen foods=t cheese=t fruit=t 463    conf:(0.33) < lift:(2.19)> lev:(0.05) [251] conv:(1.26)
+13. bread and cake=t biscuits=t frozen foods=t cheese=t 791 ==> fruit=t total=high 463    conf:(0.59) < lift:(2.18)> lev:(0.05) [250] conv:(1.76)
+14. fruit=t total=high 1243 ==> bread and cake=t biscuits=t frozen foods=t cheese=t 463    conf:(0.37) < lift:(2.18)> lev:(0.05) [250] conv:(1.32)
+15. bread and cake=t vegetables=t total=high 1110 ==> baking needs=t frozen foods=t pet foods=t 463    conf:(0.42) < lift:(2.17)> lev:(0.05) [249] conv:(1.38)
+16. baking needs=t frozen foods=t pet foods=t 888 ==> bread and cake=t vegetables=t total=high 463    conf:(0.52) < lift:(2.17)> lev:(0.05) [249] conv:(1.58)
+17. baking needs=t frozen foods=t pet foods=t vegetables=t 698 ==> bread and cake=t total=high 463    conf:(0.66) < lift:(2.17)> lev:(0.05) [249] conv:(2.05)
+18. bread and cake=t total=high 1413 ==> baking needs=t frozen foods=t pet foods=t vegetables=t 463    conf:(0.33) < lift:(2.17)> lev:(0.05) [249] conv:(1.26)
+19. juice-sat-cord-ms=t sauces-gravy-pkle=t frozen foods=t fruit=t 701 ==> bread and cake=t total=high 463    conf:(0.66) < lift:(2.16)> lev:(0.05) [248] conv:(2.04)
+20. bread and cake=t total=high 1413 ==> juice-sat-cord-ms=t sauces-gravy-pkle=t frozen foods=t fruit=t 463    conf:(0.33) < lift:(2.16)> lev:(0.05) [248] conv:(1.26)
+21. bread and cake=t biscuits=t cheese=t 1025 ==> frozen foods=t fruit=t total=high 463    conf:(0.45) < lift:(2.16)> lev:(0.05) [248] conv:(1.44)
+22. frozen foods=t fruit=t total=high 969 ==> bread and cake=t biscuits=t cheese=t 463    conf:(0.48) < lift:(2.16)> lev:(0.05) [248] conv:(1.49)
+23. bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t fruit=t 784 ==> frozen foods=t total=high 463    conf:(0.59) < lift:(2.15)> lev:(0.05) [247] conv:(1.76)
+24. frozen foods=t total=high 1273 ==> bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t fruit=t 463    conf:(0.36) < lift:(2.15)> lev:(0.05) [247] conv:(1.3)
+25. sauces-gravy-pkle=t frozen foods=t fruit=t 1049 ==> bread and cake=t juice-sat-cord-ms=t total=high 463    conf:(0.44) < lift:(2.14)> lev:(0.05) [246] conv:(1.42)
+26. bread and cake=t juice-sat-cord-ms=t total=high 956 ==> sauces-gravy-pkle=t frozen foods=t fruit=t 463    conf:(0.48) < lift:(2.14)> lev:(0.05) [246] conv:(1.5)
+27. bread and cake=t sauces-gravy-pkle=t frozen foods=t fruit=t 901 ==> juice-sat-cord-ms=t total=high 463    conf:(0.51) < lift:(2.13)> lev:(0.05) [245] conv:(1.56)
+28. juice-sat-cord-ms=t total=high 1118 ==> bread and cake=t sauces-gravy-pkle=t frozen foods=t fruit=t 463    conf:(0.41) < lift:(2.13)> lev:(0.05) [245] conv:(1.37)
+29. bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t 1043 ==> frozen foods=t fruit=t total=high 463    conf:(0.44) < lift:(2.12)> lev:(0.05) [244] conv:(1.42)
+30. frozen foods=t fruit=t total=high 969 ==> bread and cake=t juice-sat-cord-ms=t sauces-gravy-pkle=t 463    conf:(0.48) < lift:(2.12)> lev:(0.05) [244] conv:(1.48)
+
+=== Evaluation ===
+
+Elapsed time: 5.144s
+

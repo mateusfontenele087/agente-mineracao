@@ -1,0 +1,26 @@
+Validacao em metade reservada da base.
+Divisao aleatoria com semente 1; ausencias nao contam como itens.
+O atributo total foi excluido por nao ser um departamento.
+Transacoes na validacao: 2314
+
+geral
+bread and cake + canned vegetables + frozen foods -> baking needs + biscuits + vegetables | n=213 (9.2%) | confianca=0.489 | lift=1.841
+canned vegetables + frozen foods -> biscuits + margarine + vegetables | n=215 (9.3%) | confianca=0.407 | lift=1.837
+bread and cake + juice-sat-cord-ms + biscuits -> party snack foods + tissues-paper prd + fruit | n=224 (9.7%) | confianca=0.361 | lift=1.825
+juice-sat-cord-ms + sauces-gravy-pkle + fruit -> bread and cake + party snack foods + vegetables | n=221 (9.6%) | confianca=0.477 | lift=1.781
+laundry needs + party snack foods -> sauces-gravy-pkle + tissues-paper prd | n=219 (9.5%) | confianca=0.512 | lift=1.888
+
+total=low
+bread and cake + canned vegetables + frozen foods -> baking needs + biscuits + vegetables | n=50 (3.3%) | confianca=0.301 | lift=1.813
+canned vegetables + frozen foods -> biscuits + margarine + vegetables | n=54 (3.5%) | confianca=0.242 | lift=1.808
+bread and cake + juice-sat-cord-ms + biscuits -> party snack foods + tissues-paper prd + fruit | n=44 (2.9%) | confianca=0.168 | lift=1.541
+juice-sat-cord-ms + sauces-gravy-pkle + fruit -> bread and cake + party snack foods + vegetables | n=43 (2.8%) | confianca=0.243 | lift=1.345
+laundry needs + party snack foods -> sauces-gravy-pkle + tissues-paper prd | n=41 (2.7%) | confianca=0.253 | lift=1.713
+
+total=high
+bread and cake + canned vegetables + frozen foods -> baking needs + biscuits + vegetables | n=163 (20.6%) | confianca=0.604 | lift=1.323
+canned vegetables + frozen foods -> biscuits + margarine + vegetables | n=161 (20.4%) | confianca=0.528 | lift=1.351
+bread and cake + juice-sat-cord-ms + biscuits -> party snack foods + tissues-paper prd + fruit | n=180 (22.8%) | confianca=0.503 | lift=1.362
+juice-sat-cord-ms + sauces-gravy-pkle + fruit -> bread and cake + party snack foods + vegetables | n=178 (22.5%) | confianca=0.622 | lift=1.427
+laundry needs + party snack foods -> sauces-gravy-pkle + tissues-paper prd | n=178 (22.5%) | confianca=0.669 | lift=1.317
+
