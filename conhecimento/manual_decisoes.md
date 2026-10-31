@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos.
-> Status: **rascunho v0.4** — para revisão regra a regra.
+> Status: **rascunho v0.5** — para revisão regra a regra.
 
 ---
 
@@ -325,7 +325,9 @@ No resumo da base, verificar a proporção das classes. Se a classe de interesse
 Se 99% dos casos são de uma classe, um modelo que sempre prevê essa classe acerta 99% e não detecta nenhum caso raro. O ZeroR (R4.20) expõe isso: a acurácia do ZeroR **é** a proporção da classe majoritária.
 
 **R5.35 — Definir a classe positiva com o usuário.**
-A classe rara, ou a de maior interesse, é a **positiva**. O agente pergunta, se não estiver claro: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)?
+A classe rara, ou a de maior interesse, é a **positiva**. Em classes desbalanceadas, a pergunta é **obrigatória e vem antes de qualquer modelagem**: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)? **E quantas vezes mais?** Só com a proporção (ex.: 5 para 1) é possível montar a matriz de custo (R5.38).
+- Se o usuário não souber a proporção, o agente propõe uma, explica de onde ela veio e pede confirmação.
+- Se não for possível perguntar, o agente declara no início da resposta qual suposição adotou (ex.: "sem informação de custo, usei F1 da classe positiva como métrica principal").
 
 **R5.36 — Métricas certas, sempre da classe positiva.**
 
@@ -418,7 +420,9 @@ Sem teste de significância, diferenças pequenas entre modelos são **empate t�
 
 **R5.51 — Uma métrica principal, escolhida antes.**
 Cada teste de significância tem 5% de chance de apontar uma diferença que não existe. Testar várias métricas e destacar a que deu "significativa" é procurar sorte: com 5 métricas, a chance de pelo menos uma dar falso positivo passa de 20%.
-- Antes de rodar a comparação, o agente define **uma métrica principal**, a que corresponde ao objetivo do usuário: custo total, se houver matriz de custo; senão, F1 ou recall da classe positiva, se as classes forem desbalanceadas; senão, acurácia. A decisão sobre qual modelo é melhor é tomada **só** por essa métrica.
+- Antes de rodar a comparação, o agente define **uma métrica principal**, a que corresponde ao objetivo do usuário: custo total, se houver matriz de custo; senão, F1 da classe positiva (ou AUC), se as classes forem desbalanceadas; senão, acurácia. A decisão sobre qual modelo é melhor é tomada **só** por essa métrica.
+- **Nunca usar recall sozinho, nem precisão sozinha, como métrica principal.** Cada uma pode ser maximizada por um modelo trivial: prever **todos** como positivos dá recall 1,0; prever positivo só nos casos óbvios dá precisão alta. Recall e precisão só servem como principal quando combinados (F1, Fβ) ou embutidos no custo.
+- Testar um modelo contra o ZeroR **no recall da classe positiva** não informa nada: o ZeroR tem recall zero por definição. A comparação com a linha de base é feita na métrica principal (custo, F1 ou AUC).
 - As demais métricas são **descritivas**. Se alguma delas der p < 0,05, o agente só a chama de significativa se ela também passar no limiar corrigido: 0,05 dividido pelo número de métricas testadas (correção de Bonferroni; com 5 métricas, p < 0,01).
 - Exemplo real: NaiveBayes contra RandomForest na credit-g, com matriz de custo. Métrica principal: custo, p = 0,137, empate técnico. O recall da classe "bad" deu p = 0,028, que não passa em 0,05 / 5 = 0,01. Conclusão correta: **empate técnico**; prefere-se o NaiveBayes por ser mais simples (R5.45), e não por ter "recall significativamente maior".
 

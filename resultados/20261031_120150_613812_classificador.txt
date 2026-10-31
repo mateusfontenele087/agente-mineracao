@@ -1,0 +1,140 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.functions.SMO -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1
+
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: good, bad
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         0.6805 * (normalized) checking_status=<0
+ +       0.3347 * (normalized) checking_status=0<=X<200
+ +      -0.4616 * (normalized) checking_status=>=200
+ +      -0.5537 * (normalized) checking_status=no checking
+ +       1.6987 * (normalized) duration
+ +       0.5398 * (normalized) credit_history=no credits/all paid
+ +       0.6015 * (normalized) credit_history=all paid
+ +      -0.109  * (normalized) credit_history=existing paid
+ +      -0.3182 * (normalized) credit_history=delayed previously
+ +      -0.7141 * (normalized) credit_history=critical/other existing credit
+ +       0.5673 * (normalized) purpose=new car
+ +      -0.5615 * (normalized) purpose=used car
+ +      -0.1464 * (normalized) purpose=furniture/equipment
+ +      -0.0798 * (normalized) purpose=radio/tv
+ +       0.5456 * (normalized) purpose=domestic appliance
+ +      -0      * (normalized) purpose=repairs
+ +       0.4441 * (normalized) purpose=education
+ +      -0.3951 * (normalized) purpose=retraining
+ +      -0.0823 * (normalized) purpose=business
+ +      -0.2919 * (normalized) purpose=other
+ +       1.1473 * (normalized) credit_amount
+ +       0.4056 * (normalized) savings_status=<100
+ +       0.115  * (normalized) savings_status=100<=X<500
+ +       0.1378 * (normalized) savings_status=500<=X<1000
+ +      -0.3775 * (normalized) savings_status=>=1000
+ +      -0.2809 * (normalized) savings_status=no known savings
+ +       0.2887 * (normalized) employment=unemployed
+ +       0.1663 * (normalized) employment=<1
+ +       0.0021 * (normalized) employment=1<=X<4
+ +      -0.3348 * (normalized) employment=4<=X<7
+ +      -0.1222 * (normalized) employment=>=7
+ +       0.6503 * (normalized) installment_commitment
+ +       0.3335 * (normalized) personal_status=male div/sep
+ +       0.1177 * (normalized) personal_status=female div/dep/mar
+ +      -0.3697 * (normalized) personal_status=male single
+ +      -0.0815 * (normalized) personal_status=male mar/wid
+ +       0.0514 * (normalized) other_parties=none
+ +       0.5697 * (normalized) other_parties=co applicant
+ +      -0.6211 * (normalized) other_parties=guarantor
+ +      -0.0001 * (normalized) residence_since
+ +      -0.2247 * (normalized) property_magnitude=real estate
+ +      -0.0544 * (normalized) property_magnitude=life insurance
+ +      -0.0795 * (normalized) property_magnitude=car
+ +       0.3586 * (normalized) property_magnitude=no known property
+ +      -0.4191 * (normalized) age
+ +       0.0697 * (normalized) other_payment_plans=bank
+ +       0.159  * (normalized) other_payment_plans=stores
+ +      -0.2287 * (normalized) other_payment_plans=none
+ +       0.3271 * (normalized) housing=rent
+ +      -0.0702 * (normalized) housing=own
+ +      -0.257  * (normalized) housing=for free
+ +       0.4503 * (normalized) existing_credits
+ +      -0.2026 * (normalized) job=unemp/unskilled non res
+ +       0.1501 * (normalized) job=unskilled resident
+ +       0.1027 * (normalized) job=skilled
+ +      -0.0502 * (normalized) job=high qualif/self emp/mgmt
+ +       0.0198 * (normalized) num_dependents
+ +      -0.1394 * (normalized) own_telephone=yes
+ +      -0.9888 * (normalized) foreign_worker=no
+ -       1.5398
+
+Number of kernel evaluations: 436644 (90.558% cached)
+
+
+
+Time taken to build model: 0.4 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         784               78.4    %
+Incorrectly Classified Instances       216               21.6    %
+Kappa statistic                          0.4501
+Mean absolute error                      0.216 
+Root mean squared error                  0.4648
+Relative absolute error                 51.409  %
+Root relative squared error            101.4185 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,894    0,473    0,815      0,894    0,853      0,457    0,710     0,803     good
+                 0,527    0,106    0,681      0,527    0,594      0,457    0,710     0,501     bad
+Weighted Avg.    0,784    0,363    0,775      0,784    0,775      0,457    0,710     0,712     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 626  74 |   a = good
+ 142 158 |   b = bad
+
+Time taken to perform cross-validation: 0.78 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         751               75.1    %
+Incorrectly Classified Instances       249               24.9    %
+Kappa statistic                          0.3654
+Mean absolute error                      0.249 
+Root mean squared error                  0.499 
+Relative absolute error                 59.2607 %
+Root relative squared error            108.8905 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,871    0,530    0,793      0,871    0,830      0,371    0,671     0,781     good
+                 0,470    0,129    0,610      0,470    0,531      0,371    0,671     0,446     bad
+Weighted Avg.    0,751    0,410    0,738      0,751    0,741      0,371    0,671     0,681     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 610  90 |   a = good
+ 159 141 |   b = bad
+

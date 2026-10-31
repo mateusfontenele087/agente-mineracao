@@ -1,0 +1,34 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff
+Classificador A: weka.classifiers.lazy.IBk
+Classificador B: weka.classifiers.bayes.NaiveBayes
+Matriz de custo: não informada
+Classe positiva: bad
+Repetições: 10; partes por repetição: 10; total de pares: 100
+Sementes: 1..10; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.supervised.instance.StratifiedRemoveFolds -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -o C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.lazy.IBk -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\teste_r1_f1.arff -o -c last
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.bayes.NaiveBayes -t C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\treino_r1_f1.arff -T C:\Users\Mateus\AppData\Local\Temp\weka_significancia_8jpdqmd8\teste_r1_f1.arff -o -c last
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 2/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 3/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 4/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 5/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 6/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 7/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 8/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 9/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+Repetição 10/10: 100, 100, 100, 100, 100, 100, 100, 100, 100, 100; soma=1000
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.718800 | 0.036826 | 0.751600 | 0.034836 | -0.032800 | -1.794756 | 0.075744 | empate técnico |
+| recall_bad | 0.495333 | 0.077274 | 0.490333 | 0.083726 | 0.005000 | 0.132936 | 0.894514 | empate técnico |
+| precisao_bad | 0.536099 | 0.069119 | 0.610552 | 0.075933 | -0.074452 | -2.034076 | 0.044619 | diferença significativa (B melhor) |
+| f1_bad | 0.512714 | 0.065453 | 0.540174 | 0.069579 | -0.027460 | -0.831252 | 0.407832 | empate técnico |
