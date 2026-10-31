@@ -1,0 +1,178 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.trees.J48 -- -C 0.25 -M 2
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.trees.J48 -- -C 0.25 -M 2 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.trees.J48 -C 0.25 -M 2
+
+Classifier Model
+J48 pruned tree
+------------------
+
+checking_status = <0
+|   duration <= 11
+|   |   existing_credits <= 1: bad (21.82/5.91)
+|   |   existing_credits > 1: good (8.64)
+|   duration > 11: bad (339.55/48.64)
+checking_status = 0<=X<200
+|   other_parties = none
+|   |   savings_status = <100: bad (170.91/30.0)
+|   |   savings_status = 100<=X<500: bad (55.45/10.0)
+|   |   savings_status = 500<=X<1000
+|   |   |   installment_commitment <= 2: good (2.27)
+|   |   |   installment_commitment > 2: bad (8.18/1.36)
+|   |   savings_status = >=1000
+|   |   |   own_telephone = none: bad (9.09/2.27)
+|   |   |   own_telephone = yes: good (2.27)
+|   |   savings_status = no known savings
+|   |   |   existing_credits <= 1
+|   |   |   |   credit_history = no credits/all paid: good (0.45)
+|   |   |   |   credit_history = all paid: good (0.45)
+|   |   |   |   credit_history = existing paid
+|   |   |   |   |   property_magnitude = real estate: bad (6.36/1.82)
+|   |   |   |   |   property_magnitude = life insurance: bad (8.18/1.36)
+|   |   |   |   |   property_magnitude = car: good (3.64)
+|   |   |   |   |   property_magnitude = no known property: bad (5.91/1.36)
+|   |   |   |   credit_history = delayed previously: good (2.27)
+|   |   |   |   credit_history = critical/other existing credit: bad (0.0)
+|   |   |   existing_credits > 1: good (4.55)
+|   other_parties = co applicant: bad (15.0/1.36)
+|   other_parties = guarantor
+|   |   duration <= 16: good (7.27)
+|   |   duration > 16: bad (10.91/1.82)
+checking_status = >=200
+|   property_magnitude = real estate
+|   |   duration <= 7: good (2.27)
+|   |   duration > 7: bad (21.82/3.64)
+|   property_magnitude = life insurance: good (5.45)
+|   property_magnitude = car
+|   |   employment = unemployed: good (0.0)
+|   |   employment = <1: bad (5.0/0.45)
+|   |   employment = 1<=X<4
+|   |   |   installment_commitment <= 3: good (4.09)
+|   |   |   installment_commitment > 3: bad (2.73/0.45)
+|   |   employment = 4<=X<7: good (0.91)
+|   |   employment = >=7: good (2.27)
+|   property_magnitude = no known property
+|   |   credit_amount <= 1323: bad (7.27/0.45)
+|   |   credit_amount > 1323: good (2.27)
+checking_status = no checking
+|   other_payment_plans = bank: bad (48.18/14.09)
+|   other_payment_plans = stores
+|   |   savings_status = <100: bad (11.82/2.73)
+|   |   savings_status = 100<=X<500: good (0.45)
+|   |   savings_status = 500<=X<1000: good (0.45)
+|   |   savings_status = >=1000: good (0.45)
+|   |   savings_status = no known savings: good (2.27)
+|   other_payment_plans = none
+|   |   credit_history = no credits/all paid: good (1.82)
+|   |   credit_history = all paid: good (0.45)
+|   |   credit_history = existing paid
+|   |   |   existing_credits <= 1
+|   |   |   |   purpose = new car
+|   |   |   |   |   age <= 27: bad (8.64/1.82)
+|   |   |   |   |   age > 27: good (13.18)
+|   |   |   |   purpose = used car: good (10.45)
+|   |   |   |   purpose = furniture/equipment
+|   |   |   |   |   personal_status = male div/sep: good (0.45)
+|   |   |   |   |   personal_status = female div/dep/mar
+|   |   |   |   |   |   age <= 27: good (2.73)
+|   |   |   |   |   |   age > 27: bad (7.27/0.45)
+|   |   |   |   |   personal_status = male single: good (3.18)
+|   |   |   |   |   personal_status = male mar/wid: bad (2.73/0.45)
+|   |   |   |   |   personal_status = female single: bad (0.0)
+|   |   |   |   purpose = radio/tv
+|   |   |   |   |   age <= 23: bad (5.91/1.36)
+|   |   |   |   |   age > 23: good (18.18)
+|   |   |   |   purpose = domestic appliance: good (1.36)
+|   |   |   |   purpose = repairs: bad (2.73/0.45)
+|   |   |   |   purpose = education: bad (4.09/1.82)
+|   |   |   |   purpose = vacation: good (0.0)
+|   |   |   |   purpose = retraining: good (0.91)
+|   |   |   |   purpose = business: good (2.73)
+|   |   |   |   purpose = other: good (0.0)
+|   |   |   existing_credits > 1
+|   |   |   |   installment_commitment <= 2: bad (11.82/0.45)
+|   |   |   |   installment_commitment > 2
+|   |   |   |   |   credit_amount <= 9157: good (4.55)
+|   |   |   |   |   credit_amount > 9157: bad (2.27)
+|   |   credit_history = delayed previously
+|   |   |   installment_commitment <= 3
+|   |   |   |   residence_since <= 1: bad (2.27)
+|   |   |   |   residence_since > 1: good (7.27)
+|   |   |   installment_commitment > 3: bad (17.73/4.09)
+|   |   credit_history = critical/other existing credit: good (66.36/6.82)
+
+Number of Leaves  : 	65
+
+Size of the tree : 	94
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.11 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         692               69.2    %
+Incorrectly Classified Instances       308               30.8    %
+Kappa statistic                          0.4305
+Mean absolute error                      0.3133
+Root mean squared error                  0.4638
+Relative absolute error                 74.5737 %
+Root relative squared error            101.2033 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,564    0,010    0,992      0,564    0,719      0,519    0,820     0,918     good
+                 0,990    0,436    0,493      0,990    0,659      0,519    0,820     0,565     bad
+Weighted Avg.    0,692    0,138    0,843      0,692    0,701      0,519    0,820     0,812     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 395 305 |   a = good
+   3 297 |   b = bad
+
+Time taken to perform cross-validation: 0.1 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         606               60.6    %
+Incorrectly Classified Instances       394               39.4    %
+Kappa statistic                          0.2492
+Mean absolute error                      0.397 
+Root mean squared error                  0.5455
+Relative absolute error                 94.4783 %
+Root relative squared error            119.0321 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,531    0,220    0,849      0,531    0,654      0,288    0,655     0,800     good
+                 0,780    0,469    0,416      0,780    0,543      0,288    0,655     0,384     bad
+Weighted Avg.    0,606    0,295    0,719      0,606    0,621      0,288    0,655     0,675     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 372 328 |   a = good
+  66 234 |   b = bad
+

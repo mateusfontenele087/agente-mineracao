@@ -1,0 +1,78 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.rules.ZeroR --
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.rules.ZeroR -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.rules.ZeroR 
+
+Classifier Model
+ZeroR predicts class value: bad
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.09 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         300               30      %
+Incorrectly Classified Instances       700               70      %
+Kappa statistic                          0     
+Mean absolute error                      0.5726
+Root mean squared error                  0.5962
+Relative absolute error                136.2773 %
+Root relative squared error            130.1113 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,000    0,000    ?          0,000    ?          ?        0,500     0,700     good
+                 1,000    1,000    0,300      1,000    0,462      ?        0,500     0,300     bad
+Weighted Avg.    0,300    0,300    ?          0,300    ?          ?        0,500     0,580     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+   0 700 |   a = good
+   0 300 |   b = bad
+
+Time taken to perform cross-validation: 0.01 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         300               30      %
+Incorrectly Classified Instances       700               70      %
+Kappa statistic                          0     
+Mean absolute error                      0.5726
+Root mean squared error                  0.5962
+Relative absolute error                136.2677 %
+Root relative squared error            130.1057 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,000    0,000    ?          0,000    ?          ?        0,500     0,700     good
+                 1,000    1,000    0,300      1,000    0,462      ?        0,500     0,300     bad
+Weighted Avg.    0,300    0,300    ?          0,300    ?          ?        0,500     0,580     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+   0 700 |   a = good
+   0 300 |   b = bad
+

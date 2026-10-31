@@ -1,0 +1,29 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.core.Instances C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff
+
+Relation Name:  german_credit
+Num Instances:  1000
+Num Attributes: 21
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+ 1 checking_status            Nom 100%   0%   0%     0 /  0%     0 /  0%     4 
+ 2 duration                   Num   0% 100%   0%     0 /  0%     5 /  1%    33 
+ 3 credit_history             Nom 100%   0%   0%     0 /  0%     0 /  0%     5 
+ 4 purpose                    Nom 100%   0%   0%     0 /  0%     0 /  0%    10 
+ 5 credit_amount              Num   0% 100%   0%     0 /  0%   847 / 85%   921 
+ 6 savings_status             Nom 100%   0%   0%     0 /  0%     0 /  0%     5 
+ 7 employment                 Nom 100%   0%   0%     0 /  0%     0 /  0%     5 
+ 8 installment_commitment     Num   0% 100%   0%     0 /  0%     0 /  0%     4 
+ 9 personal_status            Nom 100%   0%   0%     0 /  0%     0 /  0%     4 
+10 other_parties              Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+11 residence_since            Num   0% 100%   0%     0 /  0%     0 /  0%     4 
+12 property_magnitude         Nom 100%   0%   0%     0 /  0%     0 /  0%     4 
+13 age                        Num   0% 100%   0%     0 /  0%     1 /  0%    53 
+14 other_payment_plans        Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+15 housing                    Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+16 existing_credits           Num   0% 100%   0%     0 /  0%     0 /  0%     4 
+17 job                        Nom 100%   0%   0%     0 /  0%     0 /  0%     4 
+18 num_dependents             Num   0% 100%   0%     0 /  0%     0 /  0%     2 
+19 own_telephone              Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+20 foreign_worker             Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+21 class                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

@@ -1,0 +1,221 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.bayes.NaiveBayes --
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.bayes.NaiveBayes -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.bayes.NaiveBayes 
+
+Classifier Model
+Naive Bayes Classifier
+
+                                                Class
+Attribute                                        good                bad
+                                               (0.32)             (0.68)
+=========================================================================
+checking_status
+  <0                                 64.18181818181806 307.81818181818164
+  0<=X<200                           75.54545454545439 239.63636363636385
+  >=200                             23.272727272727256  32.81818181818182
+  no checking                       159.18181818181876 105.54545454545443
+  [total]                           322.18181818181927  685.8181818181782
+
+duration
+  mean                                         19.1766            24.8129
+  std. dev.                                    10.9817            13.3608
+  weight sum                                  318.1818           681.8182
+  precision                                      2.125              2.125
+
+credit_history
+  no credits/all paid                7.818181818181815  57.81818181818183
+  all paid                          10.545454545454545  64.63636363636364
+  existing paid                     165.09090909090983  385.0909090909082
+  delayed previously                 28.27272727272724  64.63636363636364
+  critical/other existing credit     111.4545454545452  114.6363636363635
+  [total]                            323.1818181818192  686.8181818181782
+
+purpose
+  new car                            66.90909090909078 203.27272727272737
+  used car                           40.09090909090903  39.63636363636364
+  furniture/equipment                 56.9090909090908 132.81818181818167
+  radio/tv                          100.09090909090887  141.9090909090908
+  domestic appliance                 4.636363636363636 10.090909090909092
+  repairs                            7.363636363636361 19.181818181818183
+  education                          13.72727272727273  51.00000000000001
+  vacation                                         1.0                1.0
+  retraining                         4.636363636363636  3.272727272727273
+  business                            29.6363636363636  78.27272727272724
+  other                              4.181818181818182 12.363636363636365
+  [total]                             329.181818181819  692.8181818181781
+
+credit_amount
+  mean                                       2985.6721          3938.1609
+  std. dev.                                  2399.7801          3529.4788
+  weight sum                                  318.1818           681.8182
+  precision                                    19.7543            19.7543
+
+savings_status
+  <100                              176.45454545454652  494.1818181818163
+  100<=X<500                        32.363636363636324  78.27272727272724
+  500<=X<1000                       24.636363636363615 26.000000000000004
+  >=1000                            20.090909090909083 14.636363636363638
+  no known savings                    69.6363636363635   73.7272727272727
+  [total]                            323.1818181818192  686.8181818181782
+
+employment
+  unemployed                        18.727272727272723  53.27272727272728
+  <1                                 47.36363636363628 160.09090909090904
+  1<=X<4                            107.81818181818157 237.36363636363657
+  4<=X<7                             62.36363636363624  89.63636363636357
+  >=7                                86.90909090909072 146.45454545454535
+  [total]                            323.1818181818192  686.8181818181782
+
+installment_commitment
+  mean                                            2.92             3.0967
+  std. dev.                                     1.1273             1.0866
+  weight sum                                  318.1818           681.8182
+  precision                                          1                  1
+
+personal_status
+  male div/sep                       14.63636363636364  46.45454545454546
+  female div/dep/mar                 92.36363636363616 248.72727272727298
+  male single                         183.727272727274  332.8181818181814
+  male mar/wid                      31.454545454545414  57.81818181818183
+  female single                                    1.0                1.0
+  [total]                            323.1818181818192  686.8181818181782
+
+other_parties
+  none                               289.6363636363658  619.1818181818152
+  co applicant                      11.454545454545455 41.909090909090914
+  guarantor                         20.090909090909083  23.72727272727273
+  [total]                           321.18181818181927  684.8181818181782
+
+residence_since
+  mean                                          2.8429               2.85
+  std. dev.                                     1.1076             1.0928
+  weight sum                                  318.1818           681.8182
+  precision                                          1                  1
+
+property_magnitude
+  real estate                       101.90909090909068 137.36363636363623
+  life insurance                     74.18181818181803 162.36363636363632
+  car                                105.5454545454543   232.818181818182
+  no known property                  40.54545454545448  153.2727272727272
+  [total]                           322.18181818181927  685.8181818181782
+
+age
+  mean                                         36.1723            33.9267
+  std. dev.                                    11.4005             11.259
+  weight sum                                  318.1818           681.8182
+  precision                                     1.0769             1.0769
+
+other_payment_plans
+  bank                               38.27272727272722  130.5454545454544
+  stores                             13.72727272727273  44.18181818181819
+  none                              269.18181818182103  510.0909090909071
+  [total]                           321.18181818181927  684.8181818181782
+
+housing
+  rent                              50.545454545454454 160.09090909090904
+  own                               240.54545454545743  423.7272727272715
+  for free                          30.090909090909054  100.9999999999999
+  [total]                           321.18181818181927  684.8181818181782
+
+existing_credits
+  mean                                          1.4243             1.3667
+  std. dev.                                     0.5843             0.5588
+  weight sum                                  318.1818           681.8182
+  precision                                          1                  1
+
+job
+  unemp/unskilled non res            7.818181818181815  16.90909090909091
+  unskilled resident                 66.45454545454533  128.2727272727271
+  skilled                           202.81818181818363  423.7272727272715
+  high qualif/self emp/mgmt         45.090909090909015 116.90909090909076
+  [total]                           322.18181818181927  685.8181818181782
+
+num_dependents
+  mean                                          1.1557             1.1533
+  std. dev.                                     0.3626             0.3603
+  weight sum                                  318.1818           681.8182
+  precision                                          1                  1
+
+own_telephone
+  none                              186.90909090909227 425.99999999999875
+  yes                                133.2727272727271  257.8181818181821
+  [total]                            320.1818181818193  683.8181818181782
+
+foreign_worker
+  yes                               304.18181818181984  673.7272727272692
+  no                                16.000000000000004 10.090909090909092
+  [total]                            320.1818181818193  683.8181818181782
+
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.18 seconds
+
+Time taken to test model on training data: 0.02 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         702               70.2    %
+Incorrectly Classified Instances       298               29.8    %
+Kappa statistic                          0.4021
+Mean absolute error                      0.3559
+Root mean squared error                  0.4631
+Relative absolute error                 84.7066 %
+Root relative squared error            101.062  %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,647    0,170    0,899      0,647    0,752      0,437    0,810     0,906     good
+                 0,830    0,353    0,502      0,830    0,626      0,437    0,810     0,611     bad
+Weighted Avg.    0,702    0,225    0,780      0,702    0,714      0,437    0,810     0,818     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 453 247 |   a = good
+  51 249 |   b = bad
+
+Time taken to perform cross-validation: 0.06 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         690               69      %
+Incorrectly Classified Instances       310               31      %
+Kappa statistic                          0.38  
+Mean absolute error                      0.3684
+Root mean squared error                  0.4749
+Relative absolute error                 87.6787 %
+Root relative squared error            103.6404 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,636    0,183    0,890      0,636    0,742      0,415    0,787     0,890     good
+                 0,817    0,364    0,490      0,817    0,613      0,415    0,787     0,579     bad
+Weighted Avg.    0,690    0,238    0,770      0,690    0,703      0,415    0,787     0,797     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 445 255 |   a = good
+  55 245 |   b = bad
+

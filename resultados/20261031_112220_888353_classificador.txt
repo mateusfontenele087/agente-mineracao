@@ -1,0 +1,86 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.rules.JRip --
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.rules.JRip -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.rules.JRip -F 3 -N 2.0 -O 2 -S 1
+
+Classifier Model
+JRIP rules:
+===========
+
+(checking_status = no checking) and (other_payment_plans = none) => class=good (199.09090909091023/61.363636363636374)
+(property_magnitude = real estate) and (duration <= 11) => class=good (31.36363636363634/9.090909090909092)
+ => class=bad (769.5454545454552/158.18181818181873)
+
+Number of Rules : 3
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.28 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         621               62.1    %
+Incorrectly Classified Instances       379               37.9    %
+Kappa statistic                          0.3069
+Mean absolute error                      0.4609
+Root mean squared error                  0.5281
+Relative absolute error                109.69   %
+Root relative squared error            115.2316 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,503    0,103    0,919      0,503    0,650      0,377    0,700     0,811     good
+                 0,897    0,497    0,436      0,897    0,587      0,377    0,700     0,423     bad
+Weighted Avg.    0,621    0,221    0,774      0,621    0,631      0,377    0,700     0,694     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 352 348 |   a = good
+  31 269 |   b = bad
+
+Time taken to perform cross-validation: 0.25 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         565               56.5    %
+Incorrectly Classified Instances       435               43.5    %
+Kappa statistic                          0.2238
+Mean absolute error                      0.4747
+Root mean squared error                  0.5493
+Relative absolute error                112.9649 %
+Root relative squared error            119.8746 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,439    0,140    0,880      0,439    0,585      0,287    0,651     0,812     good
+                 0,860    0,561    0,396      0,860    0,543      0,287    0,651     0,389     bad
+Weighted Avg.    0,565    0,266    0,735      0,565    0,572      0,287    0,651     0,685     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 307 393 |   a = good
+  42 258 |   b = bad
+
