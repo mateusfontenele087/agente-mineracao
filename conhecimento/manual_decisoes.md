@@ -1,8 +1,12 @@
-# Manual de Decisões do Especialista — Parte 1: Classificação, Árvores e Avaliação
+# Manual de Decisões do Especialista
 
-> Base: capítulo 4 do livro de referência (1ª ed.), reescrito como regras de decisão.
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
-> Status: **rascunho v0.1** — para revisão regra a regra.
+> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos.
+> Status: **rascunho v0.2** — para revisão regra a regra.
+
+---
+
+# Parte 1 — Classificação, Árvores e Avaliação
 
 ---
 
@@ -138,7 +142,268 @@ Se algum passo não foi executado no Weka, o agente diz isso explicitamente e n�
 
 ---
 
+# Parte 2 — Técnicas Alternativas, Classes Desbalanceadas e Escolha do Algoritmo
+
+> Notas marcadas como **"além do livro"** são prática consolidada da área ou detalhes do Weka. O agente as aplica normalmente, mas sabe que vêm de fora da base principal.
+
+---
+
+## Bloco G — Mapa de decisão: qual algoritmo testar
+
+**R5.01 — Não existe algoritmo melhor em geral.**
+O especialista escolhe um **conjunto de candidatos** coerente com os dados e o objetivo, roda todos nas mesmas condições e decide pela evidência (Bloco P). Nunca escolhe um único algoritmo "por fama".
+
+**R5.02 — Tabela de características.**
+
+| Algoritmo (Weka) | Interpretável? | Fronteira de decisão | Ruído | Atributos irrelevantes | Atributos correlacionados | Custo |
+|---|---|---|---|---|---|---|
+| J48 | Sim (árvore) | Retas, paralelas aos eixos | Bom com poda | Podem entrar por acaso | Pouco afetado | Rápido |
+| JRip | Sim (regras) | Retas, paralelas aos eixos | Bom com poda | Podem entrar por acaso | Pouco afetado | Rápido |
+| NaiveBayes | Parcial (probabilidades por atributo) | Simples | **Robusto** (ruído isolado se dilui) | **Robusto** | **Prejudica** | Muito rápido |
+| IBk (k-NN) | Não (só "casos parecidos") | Qualquer forma | Sensível com k pequeno | **Prejudica** (distorcem a distância) | Pesam em dobro | Lento para classificar |
+| SMO (SVM) | Não | Margem máxima; não linear com kernel | Controlado pelo parâmetro C | Razoável | Razoável | Médio a lento |
+| MultilayerPerceptron | Não | Qualquer forma | **Sensível** | Pesos pequenos | Lida bem | **Lento para treinar** |
+| RandomForest / Bagging / AdaBoostM1 | Não | Qualquer forma (combinação) | RF e Bagging robustos; **Boosting sensível** | RF razoável | RF lida bem | Médio |
+
+**R5.03 — Candidatos por objetivo.**
+- **Entender** (usuário quer explicar o fenômeno): J48 e JRip como principais; NaiveBayes como apoio (mostra quais atributos mudam a probabilidade). Modelos caixa-preta só como **referência de teto**: "o melhor modelo possível acerta X; a árvore legível acerta Y; a diferença é o preço da interpretabilidade".
+- **Prever** (usuário quer acertar casos novos): J48, NaiveBayes, IBk, SMO e RandomForest. MultilayerPerceptron só se a base for grande e houver tempo de execução.
+- Em **qualquer** caso: ZeroR como linha de base (R4.20).
+
+---
+
+## Bloco H — Classificador por regras (JRip)
+
+**R5.04 — Regras e árvores têm poder parecido.**
+Um conjunto de regras divide o espaço de atributos em retângulos, como a árvore. A vantagem das regras é a **leitura**: cada regra se lê sozinha, sem percorrer a árvore. Usar quando o objetivo é entender e a árvore ficou grande ou com subárvores repetidas (R4.10).
+
+**R5.05 — Como o JRip constrói as regras.**
+Aprende as regras **da classe mais rara para a mais frequente**; a classe mais frequente vira a regra padrão ("senão, ..."). Cada regra cresce adicionando condições e depois é podada com dados separados, para evitar sobreajuste.
+Consequência: o JRip é uma boa escolha quando as **classes são desbalanceadas**, porque concentra o esforço em descrever a classe rara.
+
+**R5.06 — Ordem das regras importa.**
+As regras do JRip são lidas **em ordem**: a primeira que se aplica decide. Ao interpretar, o agente nunca lê uma regra isolada como se valesse sozinha; ela vale para os casos que **não** foram cobertos pelas regras anteriores.
+
+**R5.07 — Parâmetros do JRip.**
+
+| Parâmetro | Padrão | Significado | Quando mexer |
+|---|---|---|---|
+| `-F` | 3 | Partes da base; uma é usada para podar | Base pequena: manter |
+| `-N` | 2.0 | Peso mínimo de casos cobertos por regra | Muito ruído: aumentar |
+| `-O` | 2 | Rodadas de otimização do conjunto de regras | Raramente |
+| `-P` | desligado | Desliga a poda | Só para demonstrar sobreajuste |
+
+---
+
+## Bloco I — Vizinhos mais próximos (IBk)
+
+**R5.08 — Como funciona.**
+Não constrói modelo: guarda os exemplos e classifica um caso novo pela classe da maioria dos **k vizinhos mais parecidos**. Decide com informação **local**, enquanto árvore e regras buscam um modelo **global**.
+
+**R5.09 — A escolha de k é decisiva.**
+- k pequeno (1): sensível a ruído; um único vizinho errado decide.
+- k grande: inclui vizinhos distantes, que já não se parecem com o caso.
+- O especialista **não escolhe k pelo resultado do teste** (R4.18). No Weka, `-X` com `-K <máximo>` escolhe k por validação **dentro dos dados de treino**, o que é legítimo. Ex.: `weka.classifiers.lazy.IBk -K 15 -X`.
+- Opção de peso pela distância (`-I`, peso 1/distância): vizinhos mais próximos pesam mais e reduzem a dependência de k.
+
+**R5.10 — Escala dos atributos.**
+Sem normalização, o atributo de maior amplitude (ex.: renda em reais contra idade em anos) domina a distância. **Além do livro (Weka):** o IBk já normaliza os atributos numéricos pela amplitude, por padrão. O agente deve declarar isso e não normalizar de novo.
+
+**R5.11 — Atributos irrelevantes destroem o k-NN.**
+Todo atributo entra na distância, inclusive os inúteis. Com muitos atributos sem relação com o alvo, o k-NN piora muito. Nesse caso, selecionar atributos antes (Parte 3) ou preferir outro algoritmo.
+
+**R5.12 — Custo.**
+Treinar é instantâneo; classificar é caro, porque compara com todos os exemplos. Em bases grandes, a validação cruzada com IBk pode demorar. O agente avisa antes de rodar.
+
+---
+
+## Bloco J — Naive Bayes (NaiveBayes, BayesNet)
+
+**R5.13 — A suposição "ingênua".**
+Supõe que os atributos são **independentes entre si, dada a classe**. Quase nunca é verdade, e mesmo assim costuma funcionar bem.
+
+**R5.14 — Pontos fortes.**
+- **Robusto a ruído isolado:** o efeito de poucos registros errados se dilui nas probabilidades.
+- **Robusto a atributos irrelevantes:** um atributo sem relação com a classe tem distribuição parecida em todas as classes e não muda o resultado.
+- Lida com valores ausentes ignorando o atributo ausente naquele registro.
+- Muito rápido. Bom candidato inicial e boa referência.
+
+**R5.15 — Ponto fraco: atributos correlacionados.**
+Atributos que medem a mesma coisa (ex.: valor bruto e valor com imposto) são contados **duas vezes** como evidência, o que distorce o resultado. Se o resumo da base mostrar atributos redundantes, o agente avisa e considera remover um deles.
+
+**R5.16 — Atributos numéricos.**
+Por padrão, o NaiveBayes supõe distribuição **normal** para cada atributo numérico. Se a distribuição for muito assimétrica ou tiver vários picos, testar `-K` (estimativa por núcleo) ou `-D` (discretização supervisionada).
+
+**R5.17 — Probabilidades: ordenar, não ler ao pé da letra.**
+**Além do livro:** por causa da suposição de independência, as probabilidades do Naive Bayes tendem a ser extremas (perto de 0 ou 1). Servem para **ordenar** casos (por isso a AUC costuma ser boa), mas o agente não apresenta "92% de chance" como uma probabilidade confiável.
+
+**R5.18 — Rede bayesiana (BayesNet).**
+Representa dependências entre atributos num grafo. Útil quando há conhecimento do domínio sobre quais variáveis influenciam quais, e lida bem com dados incompletos. Construir a estrutura dá trabalho; o agente só a usa se o usuário tiver esse conhecimento ou se houver motivo claro.
+
+---
+
+## Bloco K — Redes neurais (MultilayerPerceptron)
+
+**R5.19 — Poder alto, risco alto.**
+Uma rede com pelo menos uma camada oculta pode aproximar praticamente qualquer função. Por isso mesmo, **sobreajusta com facilidade** se a topologia for grande demais para os dados.
+
+**R5.20 — Características a declarar.**
+- **Sensível a ruído.** Usar parte dos dados para validação (`-V`, ex.: 20%) para parar o treino antes de decorar o ruído.
+- O treinamento pode parar num **mínimo local**: rodar de novo com outra semente pode dar outro resultado. O termo de momento (`-M`) ajuda a escapar.
+- Lida bem com atributos redundantes (os pesos ficam pequenos).
+- **Treino lento**, classificação rápida.
+- **Não interpretável:** inadequada quando o objetivo é entender.
+- **Além do livro (Weka):** o MultilayerPerceptron normaliza os atributos por padrão.
+
+**R5.21 — Quando usar.**
+Só para **prever**, com base grande o suficiente, depois que os candidatos mais simples já rodaram. Se não superar com significância os candidatos simples, o simples vence (R4.15).
+
+---
+
+## Bloco L — Máquina de vetores de suporte (SMO)
+
+**R5.22 — Ideia central.**
+Procura a fronteira que separa as classes com a **maior margem** possível. A margem grande é uma forma de controlar a complexidade e evitar sobreajuste. Funciona bem com **muitos atributos** (ex.: textos).
+
+**R5.23 — Solução ótima global.**
+O treinamento é um problema de otimização convexa: encontra o **ótimo global**, sem o risco de mínimos locais da rede neural ou das escolhas gulosas da árvore.
+
+**R5.24 — Parâmetros que o especialista precisa decidir.**
+
+| Parâmetro | Padrão | Significado | Quando mexer |
+|---|---|---|---|
+| `-C` | 1.0 | Custo de cada erro de treino. **Maior → fronteira mais ajustada aos dados** (risco de sobreajuste) | Ajustar por validação interna, nunca pelo teste (R4.18) |
+| `-K` (núcleo) | Polinomial de grau 1 (linear) | Forma da fronteira | Se a fronteira linear não basta, testar núcleo RBF (`weka.classifiers.functions.supportVector.RBFKernel`) |
+
+**R5.25 — Pré-processamento.**
+Atributos categóricos viram variáveis binárias (uma por valor); atributos numéricos precisam estar na mesma escala. **Além do livro (Weka):** o SMO faz as duas coisas automaticamente (`-N 0` = normalizar, padrão). O agente declara isso.
+
+**R5.26 — Multiclasse e probabilidades.**
+O SVM é binário por natureza; com mais de duas classes o Weka combina classificadores par a par (Bloco O). **Além do livro (Weka):** sem a opção `-M`, o SMO não produz probabilidades graduadas, e a **AUC fica sem sentido**. Se a análise exigir AUC, usar `-M`.
+
+---
+
+## Bloco M — Comitês de modelos (ensembles)
+
+**R5.27 — Duas condições para o comitê valer a pena.**
+1. Os modelos-base precisam ser **melhores que o acaso**.
+2. Precisam errar de forma **diferente** (pouco correlacionados).
+Se os modelos-base forem piores que o acaso, o comitê fica **pior** que cada um deles.
+
+**R5.28 — Viés e variância: de onde vem o erro.**
+- **Variância:** o modelo muda muito quando os dados de treino mudam um pouco (modelos **instáveis**: árvores, regras, redes neurais).
+- **Viés:** o modelo é simples demais para a forma real dos dados.
+O tipo de comitê deve atacar a fonte do erro.
+
+**R5.29 — Bagging (`weka.classifiers.meta.Bagging`).**
+Treina vários modelos em amostras sorteadas com reposição e vota. **Reduz variância.**
+- Funciona com modelos-base **instáveis**.
+- Com modelos-base **estáveis** (Naive Bayes, k-NN com k grande), quase não ajuda e pode piorar, porque cada amostra tem só cerca de 63% de registros distintos.
+- Pouco sujeito a sobreajuste em dados com ruído.
+
+**R5.30 — Boosting (`weka.classifiers.meta.AdaBoostM1`).**
+Treina modelos em sequência, cada um focando nos casos que os anteriores erraram. Reduz viés e variância.
+- **Risco:** como insiste nos casos difíceis, **sobreajusta quando há ruído ou rótulos errados**. Antes de usar, o agente verifica sinais de ruído na base.
+- **Além do livro (Weka):** o modelo-base padrão é um "toco" de decisão (árvore de um nível).
+
+**R5.31 — Floresta aleatória (`weka.classifiers.trees.RandomForest`).**
+Muitas árvores sem poda, cada uma escolhendo a divisão entre poucos atributos sorteados. O número de atributos sorteados costuma ser log2(d) + 1, onde d é o total de atributos; o Weka usa esse valor por padrão.
+- Acurácia comparável ao boosting, **mais robusta a ruído e mais rápida**.
+- Com **poucos atributos**, há pouca aleatoriedade para gerar árvores diferentes e o ganho diminui.
+
+**R5.32 — O preço do comitê.**
+Em muitas bases, comitês superam uma árvore isolada. Mas perdem a interpretabilidade. Quando o objetivo é **entender**, o comitê serve apenas de referência de teto (R5.03).
+
+---
+
+## Bloco N — Classes desbalanceadas
+
+**R5.33 — Detectar antes de modelar.**
+No resumo da base, verificar a proporção das classes. Se a classe de interesse tiver muito menos registros que as outras, ativar este bloco inteiro e dizer isso ao usuário.
+
+**R5.34 — Acurácia engana.**
+Se 99% dos casos são de uma classe, um modelo que sempre prevê essa classe acerta 99% e não detecta nenhum caso raro. O ZeroR (R4.20) expõe isso: a acurácia do ZeroR **é** a proporção da classe majoritária.
+
+**R5.35 — Definir a classe positiva com o usuário.**
+A classe rara, ou a de maior interesse, é a **positiva**. O agente pergunta, se não estiver claro: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)?
+
+**R5.36 — Métricas certas, sempre da classe positiva.**
+
+| Métrica | Pergunta que responde |
+|---|---|
+| Recall (sensibilidade, TPR) | Dos casos positivos reais, quantos o modelo encontrou? |
+| Precisão | Dos casos que o modelo apontou como positivos, quantos eram mesmo? |
+| F1 | Equilíbrio entre precisão e recall (média harmônica, puxada pelo menor dos dois) |
+| Fβ | Como F1, mas com peso maior no recall (β > 1) ou na precisão (β < 1) |
+| Especificidade (TNR) | Dos casos negativos reais, quantos o modelo acertou? |
+| AUC (área sob a curva ROC) | Em média, o modelo ordena os positivos acima dos negativos? 0,5 = acaso; 1 = perfeito |
+
+O Weka mostra essas métricas por classe em "Detailed Accuracy By Class". **Além do livro:** a linha "Weighted Avg." é dominada pela classe majoritária; o agente relata **a linha da classe positiva**, não a média ponderada. O kappa também ajuda, porque desconta o acerto esperado por acaso.
+
+**R5.37 — Curva ROC e AUC.**
+- Cada ponto da curva é um limiar de decisão diferente; o modelo ideal fica no canto (TPR = 1, FPR = 0); o acaso fica na diagonal.
+- Se as curvas de dois modelos se cruzam, nenhum é melhor em todas as situações: a escolha depende de quanto falso positivo o usuário aceita.
+- A AUC exige que o modelo produza uma pontuação contínua (probabilidade); ver R5.26 para o SMO.
+
+**R5.38 — Aprendizado sensível ao custo.**
+Quando os erros têm custos diferentes, o especialista monta uma **matriz de custo** com o usuário e avalia os modelos pelo **custo total**, não pela acurácia. Um modelo com mais acertos pode ter custo maior, se errar justamente os casos caros.
+- Weka: `weka.classifiers.meta.CostSensitiveClassifier -cost-matrix "[0.0 1.0; 5.0 0.0]" -W <classificador-base>`. Linhas = classe real, colunas = classe prevista, na ordem em que as classes aparecem no `.arff`.
+- O custo total pode ser calculado em Python a partir da matriz de confusão do Weka (multiplicar cada célula pelo custo correspondente e somar). Isso não é inventar número: é conta sobre a saída real.
+
+**R5.39 — Amostragem: alternativa ao custo.**
+
+| Técnica | O que faz | Risco |
+|---|---|---|
+| Subamostragem | Descarta parte da classe majoritária | Perde exemplos úteis; repetir várias vezes, como num comitê, reduz o problema |
+| Sobreamostragem | Replica casos da classe rara | Não acrescenta informação nova; **com ruído, replica o ruído e sobreajusta** |
+| Híbrida / sintética | Combina as duas, ou cria casos novos entre vizinhos da classe rara | Ainda sujeita a sobreajuste |
+
+Weka: `weka.filters.supervised.instance.SpreadSubsample` (subamostragem), `weka.filters.supervised.instance.Resample -B 1.0` (reamostrar rumo ao equilíbrio), `weka.filters.supervised.instance.ClassBalancer` (repondera sem duplicar). A geração sintética (SMOTE) exige instalar um pacote adicional; se não estiver instalado, o agente diz isso.
+
+**R5.40 — Amostragem só dentro do treino.**
+**Além do livro, e crítico:** balancear a base inteira **antes** da validação cruzada contamina a avaliação (cópias do mesmo caso vão parar no treino e no teste). O balanceamento deve ocorrer **só nos dados de treino de cada parte**. No Weka, usar `weka.classifiers.meta.FilteredClassifier -F "<filtro>" -W <classificador>`, que aplica o filtro apenas no treino. A avaliação é sempre feita na distribuição real.
+
+---
+
+## Bloco O — Mais de duas classes
+
+**R5.41 — Quem já lida com várias classes.**
+J48, JRip, NaiveBayes, IBk, RandomForest e MultilayerPerceptron lidam com várias classes diretamente. SVM e boosting são binários na origem e precisam de decomposição.
+
+**R5.42 — Estratégias de decomposição.**
+- **Um contra todos:** um classificador binário por classe.
+- **Um contra um:** um classificador por par de classes, k(k−1)/2 no total; vence a classe com mais votos. É o que o SMO faz internamente.
+- **Códigos corretores de erro:** cada classe recebe um código binário; o sistema tolera alguns erros dos classificadores binários.
+Weka: `weka.classifiers.meta.MultiClassClassifier` oferece essas opções. O agente só mexe nisso se houver motivo.
+
+**R5.43 — Avaliação com várias classes.**
+A matriz de confusão fica k × k. O agente aponta **quais pares de classes se confundem** e relata as métricas por classe, com atenção especial às classes pequenas, que somem na média ponderada (R5.36).
+
+---
+
+## Bloco P — Protocolo para escolher entre algoritmos
+
+**R5.44 — Roteiro do especialista.**
+1. Enquadrar o problema e o objetivo (R4.01–R4.03); verificar desbalanceamento (R5.33).
+2. Montar a lista de candidatos (R5.03) e justificar cada escolha pelos dados (R5.02).
+3. Rodar ZeroR e todos os candidatos com **a mesma validação cruzada** (10 partes, semente 1).
+4. Montar uma tabela com acurácia, kappa e as métricas da classe positiva (R5.36).
+5. Testar a significância das diferenças com o teste t pareado corrigido (R4.26).
+6. Escolher (R5.45) e relatar (R5.47).
+
+**R5.45 — Critério de escolha.**
+- Se nenhum candidato supera o ZeroR com significância, **essa é a conclusão**: os atributos disponíveis não explicam a classe. Não forçar um vencedor.
+- Entre candidatos **estatisticamente empatados**, preferir o mais simples, o mais interpretável ou o mais barato (R4.15), conforme o objetivo.
+- Se o objetivo é entender e o modelo legível perde com significância para uma caixa-preta, relatar as duas coisas e deixar a decisão com o usuário.
+
+**R5.46 — Cuidado com o "melhor de muitos".**
+Ao testar muitos algoritmos e configurações e escolher o melhor resultado, aquele número tende a ser **otimista**: parte da vantagem é sorte. Quanto mais tentativas, maior o otimismo. O agente informa quantas configurações testou e não apresenta o vencedor como se tivesse sido o único testado. Ajuste de parâmetros segue a R4.18 (validação dentro do treino).
+
+**R5.47 — Formato da comparação na resposta.**
+Tabela única com uma linha por modelo (ZeroR incluído) e colunas: acurácia (com intervalo de confiança), kappa, recall, precisão e F1 da classe positiva, AUC e, se houver matriz de custo, custo total. Abaixo: resultado dos testes de significância, escolha justificada e o que **não** foi rodado.
+
+---
+
 ## Pendências para próximas partes
-- Parte 2 (cap. 5): regras (JRip), k-NN (IBk), Naive Bayes, redes neurais, SVM (SMO), ensembles, **classes desbalanceadas** (precisão, recall, F1, ROC/AUC, custo), multiclasse.
 - Parte 3 (caps. 2–3): qualidade dos dados, pré-processamento, exploração.
 - Partes 4–6 (caps. 6–10): associação (Apriori), agrupamento (SimpleKMeans etc.), anomalias.
