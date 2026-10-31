@@ -78,6 +78,40 @@ def _executar_weka(arquivo_arff, classificador, opcoes, identificador, data_hora
     return saida
 
 
+def associar(arquivo_arff, associador, opcoes=()):
+    """Executa um associador do Weka sem validação cruzada."""
+    caminho_dados = _resolver_arquivo_arff(arquivo_arff)
+    comando = [
+        JAVA,
+        "-cp",
+        WEKA_JAR,
+        associador,
+        "-t",
+        str(caminho_dados),
+    ]
+    comando.extend(opcoes)
+
+    processo = subprocess.run(
+        comando,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+    )
+    saida = processo.stdout
+    data_hora = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    caminho_saida = _salvar_saida(saida, comando, "associacao", data_hora)
+
+    if processo.returncode != 0:
+        print(saida, file=sys.stderr, end="" if saida.endswith("\n") else "\n")
+        raise RuntimeError(
+            "O Weka terminou com código {}. A saída foi salva em: {}".format(
+                processo.returncode, caminho_saida
+            )
+        )
+
+    return saida
+
+
 def classificar(arquivo_arff, classificador, opcoes=()):
     """Treina e avalia um classificador por validação cruzada de 10 partes."""
     data_hora = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
@@ -160,11 +194,27 @@ def main(argv=None):
     parser_comparar.add_argument("classificador")
     parser_comparar.add_argument("opcoes", nargs=argparse.REMAINDER)
 
+    parser_associar = subparsers.add_parser(
+        "associar", help="executa um algoritmo de associação do Weka"
+    )
+    parser_associar.add_argument("arquivo_arff")
+    parser_associar.add_argument("associador")
+    parser_associar.add_argument("opcoes", nargs=argparse.REMAINDER)
+
     argumentos = parser.parse_args(argv)
 
     try:
         if argumentos.comando == "resumo":
             print(resumir(argumentos.arquivo_arff), end="")
+        elif argumentos.comando == "associar":
+            print(
+                associar(
+                    argumentos.arquivo_arff,
+                    argumentos.associador,
+                    argumentos.opcoes,
+                ),
+                end="",
+            )
         else:
             saida_baseline, saida_classificador = comparar_com_baseline(
                 argumentos.arquivo_arff,

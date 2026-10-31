@@ -1,0 +1,45 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.associations.Apriori -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\supermarket.arff -N 20 -T 1 -C 1.1 -M 0.1
+
+
+Apriori
+=======
+
+Minimum support: 0.35 (1619 instances)
+Minimum metric <lift>: 1.1
+Number of cycles performed: 13
+
+Generated sets of large itemsets:
+
+Size of set of large itemsets L(1): 22
+
+Size of set of large itemsets L(2): 36
+
+Size of set of large itemsets L(3): 3
+
+Best rules found:
+
+ 1. fruit=t 2962 ==> bread and cake=t vegetables=t 1791    conf:(0.6) < lift:(1.22)> lev:(0.07) [319] conv:(1.27)
+ 2. bread and cake=t vegetables=t 2298 ==> fruit=t 1791    conf:(0.78) < lift:(1.22)> lev:(0.07) [319] conv:(1.63)
+ 3. vegetables=t 2961 ==> bread and cake=t fruit=t 1791    conf:(0.6) < lift:(1.2)> lev:(0.07) [303] conv:(1.26)
+ 4. bread and cake=t fruit=t 2325 ==> vegetables=t 1791    conf:(0.77) < lift:(1.2)> lev:(0.07) [303] conv:(1.56)
+ 5. baking needs=t 2795 ==> margarine=t 1645    conf:(0.59) < lift:(1.19)> lev:(0.06) [262] conv:(1.23)
+ 6. margarine=t 2288 ==> baking needs=t 1645    conf:(0.72) < lift:(1.19)> lev:(0.06) [262] conv:(1.41)
+ 7. frozen foods=t 2717 ==> biscuits=t 1810    conf:(0.67) < lift:(1.18)> lev:(0.06) [280] conv:(1.31)
+ 8. biscuits=t 2605 ==> frozen foods=t 1810    conf:(0.69) < lift:(1.18)> lev:(0.06) [280] conv:(1.35)
+ 9. vegetables=t 2961 ==> fruit=t 2207    conf:(0.75) < lift:(1.16)> lev:(0.07) [311] conv:(1.41)
+10. fruit=t 2962 ==> vegetables=t 2207    conf:(0.75) < lift:(1.16)> lev:(0.07) [311] conv:(1.41)
+11. milk-cream=t fruit=t 2038 ==> bread and cake=t 1684    conf:(0.83) < lift:(1.15)> lev:(0.05) [217] conv:(1.61)
+12. bread and cake=t 3330 ==> milk-cream=t fruit=t 1684    conf:(0.51) < lift:(1.15)> lev:(0.05) [217] conv:(1.13)
+13. milk-cream=t 2939 ==> bread and cake=t fruit=t 1684    conf:(0.57) < lift:(1.14)> lev:(0.04) [207] conv:(1.16)
+14. bread and cake=t fruit=t 2325 ==> milk-cream=t 1684    conf:(0.72) < lift:(1.14)> lev:(0.04) [207] conv:(1.32)
+15. bread and cake=t 3330 ==> milk-cream=t vegetables=t 1658    conf:(0.5) < lift:(1.14)> lev:(0.04) [200] conv:(1.12)
+16. milk-cream=t vegetables=t 2025 ==> bread and cake=t 1658    conf:(0.82) < lift:(1.14)> lev:(0.04) [200] conv:(1.54)
+17. bread and cake=t vegetables=t 2298 ==> milk-cream=t 1658    conf:(0.72) < lift:(1.14)> lev:(0.04) [198] conv:(1.31)
+18. milk-cream=t 2939 ==> bread and cake=t vegetables=t 1658    conf:(0.56) < lift:(1.14)> lev:(0.04) [198] conv:(1.15)
+19. fruit=t vegetables=t 2207 ==> bread and cake=t 1791    conf:(0.81) < lift:(1.13)> lev:(0.04) [202] conv:(1.48)
+20. bread and cake=t 3330 ==> fruit=t vegetables=t 1791    conf:(0.54) < lift:(1.13)> lev:(0.04) [202] conv:(1.13)
+
+=== Evaluation ===
+
+Elapsed time: 0.64s
+

@@ -1,8 +1,8 @@
 # Manual de Decisões do Especialista
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
-> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração.
-> Status: **rascunho v0.7** — para revisão regra a regra.
+> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação.
+> Status: **rascunho v0.8** — para revisão regra a regra.
 
 ---
 
@@ -637,5 +637,124 @@ O que o perfil sugere ("estes zeros parecem ausentes", "estes dois atributos par
 
 ---
 
+# Parte 4 — Análise de Associação
+
+> Regras R6.xx (conceitos básicos) e R7.xx (tipos de atributo e sequências). A associação **descreve o que aparece junto**; não prevê uma classe e não prova causa.
+
+---
+
+## Bloco X — Quando usar associação
+
+**R6.01 — Associação responde a outra pergunta.**
+- Classificação: "dado um caso novo, qual será a classe?" (Partes 1 e 2).
+- Associação: "que características ou itens aparecem juntos com frequência?"
+Se o usuário quer prever um alvo, o agente usa classificação. Se quer descobrir combinações frequentes, sem um alvo definido, usa associação.
+
+**R6.02 — Coocorrência não é causa.**
+Uma regra "A → B" diz que B costuma aparecer quando A aparece. Não diz que A provoca B. Causalidade exige conhecimento do domínio e, em geral, ordem no tempo. O agente nunca escreve "A causa B" nem "A leva a B" a partir de uma regra de associação.
+
+**R6.03 — Definir a transação.**
+Toda análise de associação começa com a pergunta: **o que é uma transação?** Uma compra, um paciente, um processo, um atendimento. Cada transação vira uma linha, e os itens são as características presentes nela. É a mesma decisão de unidade de análise da R2.25: se o mesmo processo aparecer em várias linhas, as contagens ficam infladas.
+
+---
+
+## Bloco Y — Preparar os dados para associação
+
+**R7.01 — Cada par "atributo = valor" vira um item.**
+"Setor = Finanças" e "Setor = Saúde" são itens diferentes. Problemas típicos:
+- **Valores raros** quase nunca atingem o suporte mínimo. Solução: agrupar valores parecidos em categorias maiores ou num "Outros".
+- **Valores muito frequentes** (presentes em mais de ~85% das transações) geram regras redundantes, que só repetem o óbvio. Solução: removê-los da análise ou analisá-los à parte.
+
+**R7.02 — Presença e ausência.**
+Na associação, o que importa costuma ser a **presença** do item. No Weka, para que a ausência não vire item, ela deve ser registrada como `?` (é o que a base `supermarket.arff` faz). Em atributos sim/não (como `vote.arff`), os dois valores viram itens, e regras feitas só de "não" quase sempre são pouco informativas. O agente decide com o usuário se a ausência interessa.
+
+**R7.03 — Atributos numéricos precisam virar faixas.**
+O Apriori só trabalha com categorias. Discretizar (`weka.filters.unsupervised.attribute.Discretize`, com `-B` faixas, ou `-F` para faixas de frequência igual) envolve um compromisso:
+- faixas **largas** demais misturam casos diferentes e a confiança cai;
+- faixas **estreitas** demais têm suporte baixo e as regras somem.
+O agente testa pelo menos duas divisões e informa se as regras principais se mantêm.
+
+**R7.04 — Remover relações óbvias por construção.**
+Atributos derivados de outros geram regras triviais. Exemplo: um atributo "total da compra = alto" aparece como consequência de qualquer combinação de muitos itens. Identificadores também saem (R4.04). O agente remove esses atributos ou avisa que as regras com eles são esperadas.
+
+---
+
+## Bloco Z — Limiares e algoritmo
+
+**R6.04 — Suporte e confiança.**
+- **Suporte:** fração das transações que contêm todos os itens da regra. Regras com suporte muito baixo podem ser acaso.
+- **Confiança:** entre as transações que têm o antecedente, a fração que também tem o consequente. Mede a confiabilidade da regra.
+
+**R6.05 — Como o Apriori do Weka escolhe o suporte.**
+**Além do livro (Weka):** o `weka.associations.Apriori` começa com suporte 100% (`-U 1.0`) e vai baixando de 5 em 5 pontos (`-D 0.05`) até encontrar o número de regras pedido (`-N`, padrão 10) ou chegar ao suporte mínimo (`-M`, padrão 0,1). Portanto, "10 regras" é um **critério de parada**, não um resultado. O agente define `-N` e `-M` de propósito e informa **o suporte efetivamente alcançado** (o Weka o mostra na saída).
+
+**R6.06 — Suporte distorcido.**
+Quando alguns itens são muito frequentes e a maioria é rara:
+- suporte mínimo alto perde padrões raros, mas importantes (o item caro, o processo excepcional);
+- suporte mínimo baixo multiplica as regras e gera **padrões de suporte cruzado**: um item muito frequente combinado com um muito raro. Esses padrões costumam ser espúrios, porque a relação entre os itens é fraca.
+Antes de minerar, o agente examina a frequência de cada item (perfil, R3.01) e, se houver distorção forte, analisa os grupos de itens separadamente ou remove os quase universais (R7.01).
+
+**R6.07 — Excesso de regras.**
+O número possível de regras cresce exponencialmente com o número de itens. O agente nunca despeja centenas de regras: ordena por uma medida de interesse (R6.11) e apresenta as principais, dizendo quantas foram geradas no total.
+
+**R6.08 — Regras redundantes.**
+Se "A → C" e "A, B → C" têm confiança parecida, a segunda não acrescenta nada: o item B é supérfluo. O agente relata a regra mais geral e descarta as que só acrescentam itens sem aumentar o interesse.
+
+**R6.09 — Apriori ou FP-Growth.**
+Os dois encontram os mesmos conjuntos frequentes; o FP-Growth costuma ser mais rápido em bases grandes. **Além do livro (Weka):** o `weka.associations.FPGrowth` exige atributos binários. A escolha afeta o tempo de execução, não a validade dos padrões.
+
+---
+
+## Bloco AA — Avaliar se uma regra interessa
+
+**R6.10 — Confiança sozinha engana.**
+Exemplo: 75% das pessoas que tomam chá também tomam café, o que parece uma regra forte. Mas 80% de **todas** as pessoas tomam café. Saber que alguém toma chá **diminui** a chance de tomar café. A confiança ignora a frequência do consequente.
+
+**R6.11 — Sempre relatar o lift.**
+Lift = confiança da regra ÷ frequência do consequente.
+- Lift = 1: os itens são independentes; a regra não diz nada.
+- Lift > 1: associação positiva.
+- Lift < 1: associação negativa (como no exemplo do chá).
+Weka: a opção `-T` escolhe a medida que ordena as regras (0 = confiança, 1 = lift, 2 = leverage, 3 = convicção), e a saída do Weka mostra todas para cada regra. O agente ordena por lift (com suporte e confiança mínimos) e relata, para cada regra, **suporte (contagem e %), confiança e lift**.
+
+**R6.12 — Nenhuma medida é perfeita.**
+Com itens raros, o lift pode ficar alto mesmo quando os itens quase nunca aparecem juntos. Por isso o agente olha as três medidas juntas e desconfia de lift alto com suporte muito baixo.
+
+**R6.13 — Óbvio não é interessante.**
+"Pão → manteiga" pode ter suporte, confiança e lift altos e não ensinar nada. O agente separa regras **esperadas** (que confirmam o que o domínio já sabe) de regras **surpreendentes**, e pergunta ao usuário quais fazem sentido. A conclusão de uma análise de associação depende do conhecimento de quem conhece o domínio.
+
+**R6.14 — Paradoxo de Simpson.**
+Uma associação que aparece nos dados juntos pode **sumir ou se inverter** dentro de cada grupo, quando existe uma variável escondida (ano, setor, tipo de processo; em saúde, idade e sexo). Antes de apresentar uma regra como achado, o agente verifica se ela se mantém nos principais grupos (estratificação).
+
+**R6.15 — Muitas regras, muito acaso.**
+**Além do livro:** quanto mais regras se examinam, mais aparecem regras fortes por puro acaso, como no caso das várias métricas (R5.51). Para os achados que serão usados, o agente faz uma **verificação de replicação**: divide as transações ao meio, minera numa metade e confere suporte, confiança e lift das regras na outra. A contagem na segunda metade pode ser feita em Python (R3.05). Regras que não se repetem são descartadas ou apresentadas como fracas.
+
+**R6.16 — Regras com classe não substituem classificador.**
+O Weka pode gerar regras cujo consequente é a classe (`Apriori -A`). Elas descrevem combinações frequentes, mas **não foram validadas para prever** casos novos. Para prever, usar classificadores (JRip, J48) com validação cruzada (Partes 1 e 2).
+
+---
+
+## Bloco AB — Quando a ordem importa: sequências
+
+**R7.05 — Coocorrência ignora a ordem.**
+A associação comum trata a transação como um saco de itens. Quando a **ordem** importa (etapas de um processo, setores por onde um documento passou, consultas de um paciente), o padrão certo é **sequencial**: "A, depois B, depois C".
+- Os dados precisam de três colunas: identificador do objeto, momento e evento.
+- Restrições de tempo mudam o resultado: intervalo máximo entre eventos, janela, duração total. O agente declara as que usou.
+- **Além do livro (Weka):** o suporte do Weka a padrões sequenciais é limitado (`weka.associations.GeneralizedSequentialPatterns`, se estiver disponível na versão instalada). Para analisar o fluxo de processos, existe uma área própria (mineração de processos), com ferramentas e conceitos que este manual não cobre. O agente diz isso em vez de forçar a associação comum.
+
+---
+
+## Bloco AC — Formato da resposta em associação
+
+**R6.17 — Estrutura.**
+1. **Preparação:** o que é a transação, como os atributos viraram itens, discretizações e remoções.
+2. **Parâmetros:** comando, `-N`, `-M`, medida de ordenação e o **suporte efetivamente alcançado**.
+3. **Regras:** tabela com antecedente → consequente, suporte (contagem e %), confiança e lift, ordenada por lift; total de regras geradas.
+4. **Interpretação:** associação, não causa; regras esperadas contra surpreendentes; regras redundantes descartadas.
+5. **Verificações:** estratificação (R6.14), replicação (R6.15) e o que não foi feito.
+
+---
+
 ## Pendências para próximas partes
-- Partes 4–6 (caps. 6–10): associação (Apriori), agrupamento (SimpleKMeans etc.), anomalias.
+- Parte 5 (caps. 8–9): agrupamento (SimpleKMeans, hierárquico, DBSCAN).
+- Parte 6 (cap. 10): detecção de anomalias.
