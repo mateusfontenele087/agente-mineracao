@@ -1,0 +1,152 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.functions.SMO --
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.functions.SMO -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+
+Classifier Model
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: good, bad
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         0.5348 * (normalized) checking_status=<0
+ +       0.2181 * (normalized) checking_status=0<=X<200
+ +       0.2837 * (normalized) checking_status=>=200
+ +      -1.0366 * (normalized) checking_status=no checking
+ +       0.7662 * (normalized) duration
+ +       0.1873 * (normalized) credit_history=no credits/all paid
+ +       0.2523 * (normalized) credit_history=all paid
+ +       0.0693 * (normalized) credit_history=existing paid
+ +      -0.0455 * (normalized) credit_history=delayed previously
+ +      -0.4635 * (normalized) credit_history=critical/other existing credit
+ +       0.3658 * (normalized) purpose=new car
+ +      -0.7705 * (normalized) purpose=used car
+ +       0.0561 * (normalized) purpose=furniture/equipment
+ +      -0.1583 * (normalized) purpose=radio/tv
+ +      -0.0446 * (normalized) purpose=domestic appliance
+ +       0.4066 * (normalized) purpose=repairs
+ +       0.6724 * (normalized) purpose=education
+ +      -0.4003 * (normalized) purpose=retraining
+ +       0.2348 * (normalized) purpose=business
+ +      -0.3619 * (normalized) purpose=other
+ +       1.6702 * (normalized) credit_amount
+ +       0.3863 * (normalized) savings_status=<100
+ +       0.0714 * (normalized) savings_status=100<=X<500
+ +       0.2868 * (normalized) savings_status=500<=X<1000
+ +      -0.6337 * (normalized) savings_status=>=1000
+ +      -0.1109 * (normalized) savings_status=no known savings
+ +       0.1951 * (normalized) employment=unemployed
+ +       0.1651 * (normalized) employment=<1
+ +       0.0749 * (normalized) employment=1<=X<4
+ +      -0.4404 * (normalized) employment=4<=X<7
+ +       0.0053 * (normalized) employment=>=7
+ +       0.4554 * (normalized) installment_commitment
+ +       0.2278 * (normalized) personal_status=male div/sep
+ +      -0.0615 * (normalized) personal_status=female div/dep/mar
+ +      -0.3413 * (normalized) personal_status=male single
+ +       0.175  * (normalized) personal_status=male mar/wid
+ +       0.1771 * (normalized) other_parties=none
+ +       0.3604 * (normalized) other_parties=co applicant
+ +      -0.5376 * (normalized) other_parties=guarantor
+ +      -0.0411 * (normalized) residence_since
+ +      -0.1627 * (normalized) property_magnitude=real estate
+ +       0.139  * (normalized) property_magnitude=life insurance
+ +      -0.055  * (normalized) property_magnitude=car
+ +       0.0787 * (normalized) property_magnitude=no known property
+ +      -0.7299 * (normalized) age
+ +       0.3491 * (normalized) other_payment_plans=bank
+ +       0.162  * (normalized) other_payment_plans=stores
+ +      -0.5111 * (normalized) other_payment_plans=none
+ +       0.0739 * (normalized) housing=rent
+ +      -0.1086 * (normalized) housing=own
+ +       0.0347 * (normalized) housing=for free
+ +       0.6222 * (normalized) existing_credits
+ +      -0.3986 * (normalized) job=unemp/unskilled non res
+ +       0.0658 * (normalized) job=unskilled resident
+ +       0.0021 * (normalized) job=skilled
+ +       0.3307 * (normalized) job=high qualif/self emp/mgmt
+ +       0.0653 * (normalized) num_dependents
+ +      -0.2216 * (normalized) own_telephone=yes
+ +      -1.1851 * (normalized) foreign_worker=no
+ +       0.2564
+
+Number of kernel evaluations: 379559 (90.661% cached)
+
+
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.26 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         658               65.8    %
+Incorrectly Classified Instances       342               34.2    %
+Kappa statistic                          0.3638
+Mean absolute error                      0.342 
+Root mean squared error                  0.5848
+Relative absolute error                 81.3976 %
+Root relative squared error            127.6154 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,546    0,080    0,941      0,546    0,691      0,435    0,733     0,831     good
+                 0,920    0,454    0,465      0,920    0,617      0,435    0,733     0,451     bad
+Weighted Avg.    0,658    0,192    0,798      0,658    0,669      0,435    0,733     0,717     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 382 318 |   a = good
+  24 276 |   b = bad
+
+Time taken to perform cross-validation: 0.6 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         619               61.9    %
+Incorrectly Classified Instances       381               38.1    %
+Kappa statistic                          0.2854
+Mean absolute error                      0.381 
+Root mean squared error                  0.6173
+Relative absolute error                 90.676  %
+Root relative squared error            134.6954 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,526    0,163    0,882      0,526    0,659      0,337    0,681     0,796     good
+                 0,837    0,474    0,431      0,837    0,569      0,337    0,681     0,409     bad
+Weighted Avg.    0,619    0,257    0,747      0,619    0,632      0,337    0,681     0,680     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 368 332 |   a = good
+  49 251 |   b = bad
+

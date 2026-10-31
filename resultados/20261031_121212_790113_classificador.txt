@@ -1,0 +1,82 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.classifiers.meta.CostSensitiveClassifier -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\credit-g.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.trees.RandomForest --
+
+
+Options: -cost-matrix "[0.0 1.0; 5.0 0.0]" -W weka.classifiers.trees.RandomForest -- 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.trees.RandomForest -P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1
+
+Classifier Model
+RandomForest
+
+Bagging with 100 iterations and base learner
+
+weka.classifiers.trees.RandomTree -K 0 -M 1.0 -V 0.001 -S 1 -do-not-check-capabilities
+
+Cost Matrix
+ 0 1
+ 5 0
+
+
+Time taken to build model: 0.21 seconds
+
+Time taken to test model on training data: 0.04 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         969               96.9    %
+Incorrectly Classified Instances        31                3.1    %
+Kappa statistic                          0.9283
+Mean absolute error                      0.1947
+Root mean squared error                  0.2465
+Relative absolute error                 46.3302 %
+Root relative squared error             53.7968 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,956    0,000    1,000      0,956    0,977      0,931    1,000     1,000     good
+                 1,000    0,044    0,906      1,000    0,951      0,931    1,000     1,000     bad
+Weighted Avg.    0,969    0,013    0,972      0,969    0,969      0,931    1,000     1,000     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 669  31 |   a = good
+   0 300 |   b = bad
+
+Time taken to perform cross-validation: 0.56 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         701               70.1    %
+Incorrectly Classified Instances       299               29.9    %
+Kappa statistic                          0.3878
+Mean absolute error                      0.3948
+Root mean squared error                  0.4421
+Relative absolute error                 93.9618 %
+Root relative squared error             96.4833 %
+Total Number of Instances             1000     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,664    0,213    0,879      0,664    0,757      0,414    0,795     0,894     good
+                 0,787    0,336    0,501      0,787    0,612      0,414    0,795     0,622     bad
+Weighted Avg.    0,701    0,250    0,766      0,701    0,713      0,414    0,795     0,812     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 465 235 |   a = good
+  64 236 |   b = bad
+
