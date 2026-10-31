@@ -1,8 +1,8 @@
 # Manual de Decisões do Especialista
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
-> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação.
-> Status: **rascunho v0.9** — para revisão regra a regra.
+> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação. Parte 5 (regras R8.xx e R9.xx): agrupamento.
+> Status: **rascunho v0.10** — para revisão regra a regra.
 
 ---
 
@@ -761,6 +761,133 @@ A associação comum trata a transação como um saco de itens. Quando a **ordem
 
 ---
 
+# Parte 5 — Agrupamento (Análise de Clusters)
+
+> Regras R8.xx e R9.xx. Agrupar é descobrir grupos de objetos parecidos **sem** uma classe definida. O maior risco do agrupamento é que **todo algoritmo encontra grupos, mesmo onde não existem**.
+
+---
+
+## Bloco AD — Quando agrupar e como preparar
+
+**R8.01 — Agrupamento responde a outra pergunta.**
+- Classificação: prever uma classe já conhecida.
+- Agrupamento: descobrir que tipos de objeto existem, sem rótulo prévio (ex.: "que perfis de processo existem?").
+- Se o usuário já tem a classe e quer prevê-la, o agente usa classificação. Agrupamento serve para **entender e resumir**, não para prever.
+
+**R8.02 — Todo algoritmo encontra grupos.**
+Até em pontos espalhados ao acaso, o K-means devolve exatamente os k grupos pedidos. Por isso a validação (Bloco AF) é **obrigatória**: sem ela, o agente não afirma que os grupos existem.
+
+**R8.03 — A classe não entra no agrupamento.**
+**Além do livro (Weka), e é uma armadilha:** pela linha de comando, se a base tem um atributo de classe e ele não é indicado, o Weka **agrupa usando a classe como se fosse um atributo comum**, e o resultado fica contaminado. O agente:
+- remove a classe (`weka.filters.unsupervised.attribute.Remove`) quando não quer usá-la; ou
+- indica a classe com `-c` para fazer a avaliação "classes para clusters" (R8.15). Nesse modo, o Weka ignora a classe ao agrupar e só a usa para comparar depois.
+
+**R8.04 — Preparar para distâncias.**
+O agrupamento depende de **distâncias** entre objetos. Antes de agrupar:
+- **Escala:** atributos com valores grandes dominam a distância (R2.29). **Além do livro (Weka):** a distância euclidiana do Weka normaliza os atributos numéricos para 0–1 por padrão; o agente declara isso.
+- **Atributos irrelevantes** e **identificadores** distorcem os grupos (R4.04, R2.19). Retirar antes.
+- **Muitos atributos** tornam as distâncias pouco informativas (R2.18).
+- **Valores extremos** puxam os centros do K-means (R8.06).
+- **Atributos nominais:** a distância é só "igual" (0) ou "diferente" (1), o que pesa diferente dos numéricos normalizados. O agente avisa quando houver mistura.
+
+---
+
+## Bloco AE — Escolher o algoritmo
+
+**R9.01 — Tabela de decisão.**
+
+| Algoritmo (Weka) | Formato dos grupos | Precisa informar k? | Ruído e extremos | Tamanho da base | Observação |
+|---|---|---|---|---|---|
+| `SimpleKMeans` | Globulares, de tamanho e densidade parecidos | Sim | **Sensível** | Grande | Rápido; depende da inicialização |
+| `HierarchicalClusterer` | Depende da ligação (R8.08) | Corte da árvore | Depende da ligação | **Até poucos milhares** | Gera hierarquia (taxonomia) |
+| DBSCAN | **Qualquer formato** | Não | **Robusto**; marca ruído | Média | Precisa de pacote no Weka (R8.09) |
+| `EM` (modelos de mistura) | Elípticos | Pode escolher sozinho | Moderado | Média | Dá a **probabilidade** de pertencer a cada grupo |
+
+Critérios do especialista: que tipo de grupo se espera (compactos? alongados?), se interessa uma hierarquia, se o ruído deve ficar de fora, e o tamanho da base. Na dúvida, o agente roda dois algoritmos de famílias diferentes e compara.
+
+**R8.05 — Grupos de tamanhos, densidades ou formatos diferentes.**
+O K-means procura grupos redondos e parecidos entre si. Se os grupos reais forem de tamanhos muito diferentes, de densidades diferentes ou alongados, ele os parte ou os mistura. Alternativas: pedir mais grupos (ele acha subgrupos puros) ou usar DBSCAN ou hierárquico.
+
+**R8.06 — K-means: cuidados obrigatórios.**
+- **Inicialização:** o resultado depende dos centros iniciais e pode parar num mínimo local. O agente roda com **várias sementes** (`-S 1`, `-S 2`, ...) e fica com a de menor SSE (soma dos quadrados dentro dos grupos), relatando a variação. **Além do livro (Weka):** a opção `-init 1` (k-means++) costuma reduzir o problema.
+- **Valores extremos** distorcem os centros e aumentam o SSE. Grupos muito pequenos costumam ser extremos agrupados. O agente os aponta antes de interpretar.
+- **SSE sempre diminui quando k aumenta.** Nunca escolher k pelo menor SSE (R8.11).
+- **Além do livro (Weka):** o `SimpleKMeans` substitui valores ausentes pela média ou moda (R2.13).
+
+**R8.07 — Bissecção.**
+O K-means por bissecção (dividir sempre o pior grupo em dois) sofre menos com a inicialização. Não está no Weka padrão; o agente só menciona como alternativa.
+
+**R8.08 — Hierárquico: a ligação define o resultado.**
+Weka: `weka.clusterers.HierarchicalClusterer -N <k> -L <ligação>`.
+| Ligação (`-L`) | Comportamento |
+|---|---|
+| `SINGLE` (mínima) | Encontra formatos alongados, mas é **sensível a ruído** e tende a encadear grupos |
+| `COMPLETE` (máxima) | Resiste a ruído, mas **parte grupos grandes** e favorece formatos redondos |
+| `AVERAGE` (média) | Meio-termo |
+| `WARD` | Minimiza o aumento do SSE; parecido com o K-means |
+- As fusões são **definitivas**: um erro no começo não se corrige depois.
+- Custo alto de memória e tempo: com mais de alguns milhares de objetos, o agente agrupa primeiro com K-means em muitos grupos pequenos e aplica o hierárquico sobre os centros.
+
+**R8.09 — DBSCAN.**
+- Agrupa regiões densas e marca como **ruído** os pontos isolados. O ruído é um resultado útil: são candidatos a anomalia (Parte 6).
+- Parâmetros: raio (Eps) e mínimo de vizinhos (MinPts). Para escolher, ordena-se a distância de cada ponto ao seu k-ésimo vizinho e procura-se o "joelho" da curva; MinPts = 4 é um ponto de partida comum em poucas dimensões.
+- Falha quando os grupos têm densidades muito diferentes e em muitas dimensões.
+- **Além do livro (Weka):** o DBSCAN não vem no Weka padrão; está no pacote `optics_dbScan`. Instalar um pacote altera a instalação do Weka, e por isso o agente **pede permissão** antes; sem o pacote, declara a limitação e usa outra família.
+
+**R8.10 — EM (modelos de mistura).**
+Cada grupo é uma distribuição de probabilidade; cada objeto recebe a probabilidade de pertencer a cada grupo, e não só um rótulo. Com `-N -1`, o Weka escolhe o número de grupos por validação cruzada da verossimilhança. Supõe distribuições normais, o que é ruim para atributos muito assimétricos (R5.16).
+
+---
+
+## Bloco AF — Validar: os grupos existem?
+
+**R8.11 — Escolher o número de grupos (k).**
+Rodar uma faixa plausível de k (ex.: de 2 a 10) e olhar duas curvas:
+- **SSE contra k:** procurar um "joelho", onde o ganho de acrescentar grupos cai bruscamente;
+- **silhueta média contra k:** procurar o pico (R8.12).
+Se não houver joelho nem pico claros, a estrutura de grupos é fraca, e o agente diz isso. A escolha final combina o critério numérico com a **interpretabilidade** dos grupos para o usuário.
+
+**R8.12 — Silhueta.**
+Para cada objeto: *a* = distância média aos membros do próprio grupo; *b* = menor distância média aos membros de outro grupo; silhueta = (*b* − *a*) / máximo(*a*, *b*).
+- Vai de −1 a 1. Valores **negativos** indicam objeto mais próximo de outro grupo que do seu.
+- A média por grupo mostra quais grupos são frágeis; a média geral resume o agrupamento.
+- **Além do livro (leitura usual):** acima de 0,5, estrutura razoável; acima de 0,7, forte; abaixo de 0,25, sem estrutura substancial. São referências, não leis.
+
+**R8.13 — Comparar com dados sem estrutura.**
+Para saber se o SSE obtido é bom, o agente o compara com o SSE de **dados embaralhados**: cada atributo é embaralhado separadamente, o que preserva a distribuição de cada atributo, mas destrói qualquer grupo. Repete-se o agrupamento, com o mesmo k, em várias versões embaralhadas (ex.: 20).
+- Se o SSE real não for claramente menor que o de **todas** as versões embaralhadas, não há evidência de grupos.
+- Essa é a "linha de base" do agrupamento, o equivalente ao ZeroR na classificação.
+
+**R8.14 — Estabilidade.**
+**Além do livro:** grupos reais aparecem de novo quando se muda a semente ou se usa uma subamostra dos dados. O agente roda com sementes diferentes (e, se possível, em 80% dos dados) e mede quanto as atribuições concordam. Grupos que mudam muito não são confiáveis.
+
+**R8.15 — Validação externa, quando houver classe.**
+Se existir uma classe conhecida, o modo "classes para clusters" do Weka (`-c <índice da classe>`) mostra quanto cada grupo corresponde a cada classe (pureza). É uma **verificação**, não o objetivo: os grupos não precisam reproduzir as classes, e às vezes o interessante é justamente onde não reproduzem.
+
+**R8.16 — Métricas de validação calculadas fora do Weka.**
+O Weka não calcula a silhueta, a estabilidade nem a comparação com dados embaralhados. Essas medidas podem ser calculadas em Python **a partir das atribuições produzidas pelo Weka** (filtro `weka.filters.unsupervised.attribute.AddCluster`), com a mesma normalização que o Weka usa, o código registrado e a saída salva em `resultados/`. Os grupos em si vêm **sempre** do Weka.
+
+---
+
+## Bloco AG — Interpretar e relatar
+
+**R8.17 — Descrever cada grupo.**
+Para cada grupo: tamanho, centro (média ou mediana de cada atributo) comparado com a média geral, e os atributos que mais o distinguem dos demais. Um grupo só recebe um **nome** ("processos lentos de licitação") quando o usuário confirmar que o nome faz sentido no domínio.
+
+**R8.18 — Cuidados de interpretação.**
+- Se um único atributo explica quase toda a separação, os grupos podem ser só faixas desse atributo: verificar a escala (R8.04) e dizer isso.
+- Grupo não é causa: pertencer a um grupo não explica por que o objeto é assim.
+- Grupos encontrados numa base valem para aquela base e período (R2.11).
+
+**R8.19 — Formato da resposta.**
+1. **Preparação:** atributos usados e retirados (classe, identificadores), normalização, tratamento de ausentes.
+2. **Algoritmo e parâmetros:** comando, k, sementes testadas e por que esse algoritmo.
+3. **Escolha de k:** SSE e silhueta média para cada k testado.
+4. **Validação:** comparação com dados embaralhados, estabilidade e, se houver classe, a pureza.
+5. **Descrição dos grupos** (R8.17) e cuidados (R8.18).
+6. **O que não foi feito** e as limitações.
+
+---
+
 ## Pendências para próximas partes
-- Parte 5 (caps. 8–9): agrupamento (SimpleKMeans, hierárquico, DBSCAN).
 - Parte 6 (cap. 10): detecção de anomalias.

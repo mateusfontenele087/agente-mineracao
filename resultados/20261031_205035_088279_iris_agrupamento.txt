@@ -1,0 +1,53 @@
+Agrupamento K-means com Weka
+Base original: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\iris.arff
+Base de trabalho: C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\base_sem_atributos.arff
+Atributos removidos: last
+Registros: 150
+Atributos usados: 4
+Parâmetros: k=3..3, sementes=5, embaralhamentos=1
+Inicialização SimpleKMeans: -init 1; sementes Weka de 1 a 5.
+Versões embaralhadas: sementes fixas de 1 a 1; cada atributo foi embaralhado separadamente em cada versão.
+k final: 3 (informado em --k-final)
+
+Exemplos dos comandos Weka executados:
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.unsupervised.attribute.Remove -R last -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\iris.arff -o C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\base_sem_atributos.arff
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.clusterers.SimpleKMeans -t C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\base_sem_atributos.arff -N 3 -S 1 -init 1
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.unsupervised.attribute.AddCluster -W "weka.clusterers.SimpleKMeans -N 3 -S 1 -init 1" -i C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\base_sem_atributos.arff -o C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\clusters_k3_s1.arff
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.clusterers.SimpleKMeans -t C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_1gobuyyd\embaralhado_1.arff -N 3 -S 1 -init 1
+
+Resultados por k (SSE e atribuições fornecidos pelo Weka):
+k | melhor semente | SSE mínimo | SSE máximo | silhueta média | estabilidade ARI
+3 | 1 | 6.998114005 | 10.90827499 | 0.5043188549 | 0.7452543931
+
+Silhueta média por grupo para k final:
+Grupo 1: 0.7168314847
+Grupo 2: 0.4023278835
+Grupo 3: 0.3953355171
+
+Linha de base: atributos embaralhados independentemente em cada versão
+SSE real (menor SSE entre sementes): 6.998114005
+SSE embaralhado mínimo: 21.71601127
+SSE embaralhado médio: 21.71601127
+SSE embaralhado máximo: 21.71601127
+Proporção de versões com SSE <= real: 0/1 (0)
+
+Perfil dos grupos finais (valores gerais ao lado dos valores do grupo):
+Grupo 1 (n=50):
+  sepallength | geral: média=5.84333, mediana=5.8 | grupo: média=5.006, mediana=5
+  sepalwidth | geral: média=3.054, mediana=3 | grupo: média=3.418, mediana=3.4
+  petallength | geral: média=3.75867, mediana=4.35 | grupo: média=1.464, mediana=1.5
+  petalwidth | geral: média=1.19867, mediana=1.3 | grupo: média=0.244, mediana=0.2
+Grupo 2 (n=39):
+  sepallength | geral: média=5.84333, mediana=5.8 | grupo: média=6.84615, mediana=6.7
+  sepalwidth | geral: média=3.054, mediana=3 | grupo: média=3.08205, mediana=3
+  petallength | geral: média=3.75867, mediana=4.35 | grupo: média=5.70256, mediana=5.6
+  petalwidth | geral: média=1.19867, mediana=1.3 | grupo: média=2.07949, mediana=2.1
+Grupo 3 (n=61):
+  sepallength | geral: média=5.84333, mediana=5.8 | grupo: média=5.88852, mediana=5.9
+  sepalwidth | geral: média=3.054, mediana=3 | grupo: média=2.7377, mediana=2.8
+  petallength | geral: média=3.75867, mediana=4.35 | grupo: média=4.39672, mediana=4.5
+  petalwidth | geral: média=1.19867, mediana=1.3 | grupo: média=1.41803, mediana=1.4
+
+Silhueta: calculada em Python a partir das atribuições do Weka, com atributos numéricos normalizados pelo intervalo observado e diferença nominal 0/1.
+As atribuições e o SSE do agrupamento foram produzidos pelo Weka.
+Arquivo ARFF com clusters: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\resultados\20261031_205035_088279_iris_k3_clusters.arff

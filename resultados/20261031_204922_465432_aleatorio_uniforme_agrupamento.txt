@@ -1,0 +1,54 @@
+Agrupamento K-means com Weka
+Base original: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\aleatorio_uniforme.arff
+Base de trabalho: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\aleatorio_uniforme.arff
+Atributos removidos: nenhum
+Registros: 200
+Atributos usados: 2
+Parâmetros: k=2..6, sementes=5, embaralhamentos=20
+Inicialização SimpleKMeans: -init 1; sementes Weka de 1 a 5.
+Versões embaralhadas: sementes fixas de 1 a 20; cada atributo foi embaralhado separadamente em cada versão.
+k final: 4 (escolha automática pela maior silhueta média)
+
+Exemplos dos comandos Weka executados:
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.clusterers.SimpleKMeans -t C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\aleatorio_uniforme.arff -N 4 -S 4 -init 1
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.unsupervised.attribute.AddCluster -W "weka.clusterers.SimpleKMeans -N 4 -S 4 -init 1" -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\aleatorio_uniforme.arff -o C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_ew1hq84w\clusters_k4_s4.arff
+java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.clusterers.SimpleKMeans -t C:\Users\Mateus\AppData\Local\Temp\agrupamento_weka_ew1hq84w\embaralhado_1.arff -N 4 -S 1 -init 1
+
+Resultados por k (SSE e atribuições fornecidos pelo Weka):
+k | melhor semente | SSE mínimo | SSE máximo | silhueta média | estabilidade ARI
+2 | 1 | 20.57584302 | 24.01504082 | 0.3924475409 | 0.4593352838
+3 | 3 | 13.2255175 | 14.78159821 | 0.4089055523 | 0.7025067268
+4 | 4 | 8.669093403 | 8.677056504 | 0.4155338398 | 0.9541102337
+5 | 2 | 7.084216746 | 7.73101382 | 0.4022322228 | 0.604213367
+6 | 3 | 5.883738951 | 6.156074023 | 0.393972087 | 0.5669030234
+
+Silhueta média por grupo para k final:
+Grupo 1: 0.3701944375
+Grupo 2: 0.3576111918
+Grupo 3: 0.4794048156
+Grupo 4: 0.4918715763
+
+Linha de base: atributos embaralhados independentemente em cada versão
+SSE real (menor SSE entre sementes): 8.669093403
+SSE embaralhado mínimo: 8.514748311
+SSE embaralhado médio: 8.671473197
+SSE embaralhado máximo: 8.788526077
+Proporção de versões com SSE <= real: 10/20 (0.5)
+
+Perfil dos grupos finais (valores gerais ao lado dos valores do grupo):
+Grupo 1 (n=64):
+  x | geral: média=0.50383, mediana=0.498837 | grupo: média=0.278978, mediana=0.264183
+  y | geral: média=0.474632, mediana=0.475391 | grupo: média=0.686298, mediana=0.641944
+Grupo 2 (n=52):
+  x | geral: média=0.50383, mediana=0.498837 | grupo: média=0.784267, mediana=0.824659
+  y | geral: média=0.474632, mediana=0.475391 | grupo: média=0.265284, mediana=0.293757
+Grupo 3 (n=40):
+  x | geral: média=0.50383, mediana=0.498837 | grupo: média=0.808799, mediana=0.806498
+  y | geral: média=0.474632, mediana=0.475391 | grupo: média=0.729624, mediana=0.735963
+Grupo 4 (n=44):
+  x | geral: média=0.50383, mediana=0.498837 | grupo: média=0.222218, mediana=0.238644
+  y | geral: média=0.474632, mediana=0.475391 | grupo: média=0.182355, mediana=0.203574
+
+Silhueta: calculada em Python a partir das atribuições do Weka, com atributos numéricos normalizados pelo intervalo observado e diferença nominal 0/1.
+As atribuições e o SSE do agrupamento foram produzidos pelo Weka.
+Arquivo ARFF com clusters: C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\resultados\20261031_204922_465432_aleatorio_uniforme_k4_clusters.arff
