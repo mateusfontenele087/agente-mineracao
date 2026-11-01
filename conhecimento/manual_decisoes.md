@@ -1,8 +1,8 @@
 # Manual de Decisões do Especialista
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
-> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação. Parte 5 (regras R8.xx e R9.xx): agrupamento.
-> Status: **rascunho v0.10** — para revisão regra a regra.
+> Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação. Parte 5 (regras R8.xx e R9.xx): agrupamento. Parte 6 (regras R10.xx): detecção de anomalias.
+> Status: **rascunho v0.11** — manual completo — para revisão regra a regra.
 
 ---
 
@@ -857,15 +857,17 @@ Para cada objeto: *a* = distância média aos membros do próprio grupo; *b* = m
 Para saber se o SSE obtido é bom, o agente o compara com o SSE de **dados embaralhados**: cada atributo é embaralhado separadamente, o que preserva a distribuição de cada atributo, mas destrói qualquer grupo. Repete-se o agrupamento, com o mesmo k, em várias versões embaralhadas (ex.: 20).
 - Se o SSE real não for claramente menor que o de **todas** as versões embaralhadas, não há evidência de grupos.
 - Essa é a "linha de base" do agrupamento, o equivalente ao ZeroR na classificação.
+- **Esta é a verificação decisiva.** No teste da ferramenta com 200 pontos totalmente aleatórios, a silhueta foi de cerca de 0,4 para todo k, e a estabilidade em k = 4 chegou a 0,95: o K-means dividiu o quadrado em quatro quadrantes, sempre do mesmo jeito. Silhueta e estabilidade "aprovariam" grupos que não existem. Só a comparação com os dados embaralhados mostrou a verdade: o SSE real ficou no meio da faixa dos embaralhados. Por isso, silhueta e estabilidade **nunca** bastam sozinhas.
 
 **R8.14 — Estabilidade.**
-**Além do livro:** grupos reais aparecem de novo quando se muda a semente ou se usa uma subamostra dos dados. O agente roda com sementes diferentes (e, se possível, em 80% dos dados) e mede quanto as atribuições concordam. Grupos que mudam muito não são confiáveis.
+**Além do livro:** grupos reais aparecem de novo quando se muda a semente ou se usa uma subamostra dos dados. O agente roda com sementes diferentes (e, se possível, em 80% dos dados) e mede quanto as atribuições concordam. Grupos que mudam muito não são confiáveis. Mas o contrário não vale: grupos estáveis **não** são, só por isso, reais (ver o exemplo da R8.13).
 
 **R8.15 — Validação externa, quando houver classe.**
 Se existir uma classe conhecida, o modo "classes para clusters" do Weka (`-c <índice da classe>`) mostra quanto cada grupo corresponde a cada classe (pureza). É uma **verificação**, não o objetivo: os grupos não precisam reproduzir as classes, e às vezes o interessante é justamente onde não reproduzem.
 
 **R8.16 — Métricas de validação calculadas fora do Weka.**
 O Weka não calcula a silhueta, a estabilidade nem a comparação com dados embaralhados. Essas medidas podem ser calculadas em Python **a partir das atribuições produzidas pelo Weka** (filtro `weka.filters.unsupervised.attribute.AddCluster`), com a mesma normalização que o Weka usa, o código registrado e a saída salva em `resultados/`. Os grupos em si vêm **sempre** do Weka.
+- **Custo:** a silhueta compara todos os pares de objetos. Com alguns milhares de registros, o cálculo fica lento; o agente avisa antes e, se necessário, calcula a silhueta numa amostra aleatória com semente fixa, declarando isso.
 
 ---
 
@@ -889,5 +891,105 @@ Para cada grupo: tamanho, centro (média ou mediana de cada atributo) comparado 
 
 ---
 
-## Pendências para próximas partes
-- Parte 6 (cap. 10): detecção de anomalias.
+# Parte 6 — Detecção de Anomalias
+
+> Regras R10.xx. Uma anomalia é um objeto tão diferente dos demais que levanta a suspeita de ter sido gerado por outro mecanismo. **Anomalia é candidata a revisão, nunca conclusão.**
+
+---
+
+## Bloco AH — O que é uma anomalia e por que ela aparece
+
+**R10.01 — Três causas possíveis, e o algoritmo não sabe qual.**
+Um objeto foge do padrão porque:
+1. **pertence a outro tipo** (uma fraude entre transações normais, um processo que seguiu um rito diferente);
+2. **é variação natural extrema** (uma pessoa muito alta é rara, mas não é de outra espécie);
+3. **é erro de medição ou registro** (data digitada errada, valor com zeros a mais).
+As técnicas só dizem **quanto** um objeto é diferente, nunca **por quê**. A causa só se descobre olhando o caso com quem conhece o domínio. O agente sempre apresenta as três possibilidades.
+
+**R10.02 — Anomalia não é acusação.**
+Num processo administrativo, "anômalo" pode ser um caso complexo, uma urgência legítima ou um erro de cadastro, e não necessariamente uma irregularidade. O agente:
+- chama os casos de **"candidatos a revisão"**, e não de "irregulares" ou "suspeitos";
+- não associa anomalias a **pessoas** identificáveis (servidores, cidadãos), respeitando a LGPD e a regra 6 do agente;
+- deixa a interpretação final para o usuário.
+
+**R10.03 — Com rótulo ou sem rótulo.**
+- **Com exemplos rotulados de anomalia e de normal:** é classificação com classe rara. Usar a Parte 2 (Bloco N): métricas da classe rara, custo, nunca acurácia.
+- **Só com exemplos normais rotulados:** modelar o normal e pontuar o que se afasta dele (semissupervisionado).
+- **Sem rótulos** (o caso mais comum): atribuir a cada objeto uma **pontuação** de anomalia. Funciona só se as anomalias forem diferentes entre si e diferentes do normal: muitas anomalias parecidas entre si formam um grupo e passam por normais.
+
+---
+
+## Bloco AI — Antes de detectar
+
+**R10.04 — Definir em que sentido o objeto é anômalo.**
+- **Em um atributo** (tempo de tramitação muito alto) ou **na combinação** de atributos. Um objeto pode ser anômalo sem nenhum valor extremo isolado: dois anos de idade e 130 kg são valores comuns separadamente, mas não juntos.
+- **Global ou local:** 1,95 m é extremo na população em geral, mas comum entre jogadores de basquete. Se a base mistura grupos diferentes (tipos de processo, setores), o agente compara cada objeto com o **seu** grupo, ou usa uma técnica local (R10.08).
+
+**R10.05 — A preparação é a mesma do agrupamento.**
+As técnicas por distância e densidade dependem de escala, atributos irrelevantes e número de atributos (R8.04, R2.18). Valores ausentes disfarçados (R2.07) aparecem como "anomalias" falsas: tratar antes, ou o agente vai apontar erros de cadastro que já se conheciam.
+
+**R10.06 — Pontuação, não rótulo.**
+O agente prefere técnicas que dão uma **pontuação** de anomalia e apresenta os casos ordenados ("os 20 mais anômalos"), em vez de dividir em "anômalo" e "normal" por um corte arbitrário. Se o usuário precisar de um corte, ele é escolhido junto com o usuário, de acordo com quantos casos ele consegue revisar.
+
+---
+
+## Bloco AJ — Escolher a técnica
+
+**R10.07 — Tabela de decisão.**
+
+| Técnica | Ideia | Bom quando | Cuidado | No Weka |
+|---|---|---|---|---|
+| **Estatística** (um atributo) | Valor improvável na distribuição | Um atributo de distribuição conhecida | Distribuições de cauda longa geram falsos alarmes | `InterquartileRange` (marca extremos pelo IQR) |
+| **Distância ao k-ésimo vizinho** | Objeto longe de quase todos | Densidade parecida em toda a base | Sensível a k; falha com densidades diferentes | Não há filtro pronto |
+| **Densidade relativa (LOF)** | Densidade menor que a dos próprios vizinhos | Regiões de densidades diferentes | Escolha de k; custo alto | Pacote `localOutlierFactor` (R10.10) |
+| **Por agrupamento** | Objeto que não pertence bem a nenhum grupo | Dados com grupos reais (validados na Parte 5) | Depende de k; grupos pequenos de anomalias escapam | `SimpleKMeans` + distância ao centro (R10.09) |
+| **DBSCAN** | Pontos marcados como ruído | Grupos de formatos variados | Mesmos limites do DBSCAN (R8.09) | Pacote `optics_dbScan` |
+
+**R10.08 — Estatística e densidade: cuidados.**
+- **Um atributo:** o agente usa o IQR (R3.03) em vez de média e desvio, porque os próprios extremos distorcem a média e o desvio. Antes, verifica se a distribuição tem cauda longa: valores altos podem ser normais nessa distribuição (tempo de tramitação costuma ser assim).
+- **Distância e densidade:** k pequeno demais faz duas anomalias próximas se "protegerem" mutuamente; k grande demais transforma um grupo pequeno inteiro em anomalia. O agente testa pelo menos dois valores de k e informa os casos que aparecem nos dois.
+- **Densidades diferentes:** a distância simples aponta como anômalos os pontos de grupos esparsos e deixa passar o ponto isolado junto de um grupo denso. Nesse caso, usar densidade **relativa** (LOF) ou distância **relativa** ao centro do grupo.
+
+**R10.09 — Anomalias por agrupamento.**
+1. Agrupar com K-means e **validar** o agrupamento (Parte 5).
+2. Para cada objeto, calcular a distância ao centro do seu grupo dividida pela **mediana** das distâncias dos membros desse grupo (distância relativa, que compensa grupos de densidades diferentes).
+3. Os maiores valores são os candidatos.
+- **Efeito das próprias anomalias:** elas puxam os centros. Opção simples: agrupar, retirar os candidatos mais extremos, agrupar de novo e recalcular.
+- **Número de grupos:** um objeto pode parecer anômalo com poucos grupos e normal com muitos. Testar mais de um k e preferir os casos que se mantêm.
+- Os grupos vêm do Weka (`AddCluster`); as distâncias podem ser calculadas em Python, com a mesma normalização (R8.16).
+
+**R10.10 — Limitações do Weka.**
+**Além do livro (Weka):** o Weka padrão só traz o filtro `InterquartileRange` para anomalias. LOF e DBSCAN exigem pacotes adicionais (`localOutlierFactor`, `optics_dbScan`). Instalar pacotes altera a instalação do Weka, e o agente **pede permissão** antes. Sem os pacotes, ele usa o IQR e a abordagem por agrupamento e **declara** o que não pôde rodar. Se precisar calcular uma pontuação fora do Weka, ele diz explicitamente qual cálculo foi feito em Python e por quê.
+
+---
+
+## Bloco AK — Avaliar e apresentar
+
+**R10.11 — Sem rótulos, a validação é outra.**
+Não há acurácia para medir. O agente sustenta os achados assim:
+- **Concordância entre técnicas:** casos apontados por duas abordagens diferentes (ex.: IQR e agrupamento) são mais confiáveis.
+- **Robustez aos parâmetros:** casos que se mantêm com valores diferentes de k.
+- **Revisão de amostra:** o usuário examina os principais casos e diz quantos eram de fato anômalos, erros ou normais. Essa revisão é a evidência mais forte que existe.
+- **Com rótulos disponíveis:** avaliar como classe rara (precisão e recall entre os N primeiros), nunca pela acurácia (R5.34).
+
+**R10.12 — Mascaramento e alagamento.**
+- **Mascaramento:** várias anomalias juntas distorcem o modelo e escondem umas às outras. Remover a mais extrema e recalcular pode revelar as demais.
+- **Alagamento (swamping):** o modelo distorcido marca objetos normais como anômalos.
+O agente menciona esses efeitos quando houver muitos candidatos próximos entre si.
+
+**R10.13 — Explicar cada candidato.**
+Para cada caso apresentado: a pontuação, a posição na lista e **o que o torna diferente** (quais atributos estão fora do comum em relação ao seu grupo ou ao todo). Uma lista de identificadores sem explicação não serve para revisão.
+
+**R10.14 — Formato da resposta.**
+1. **Pergunta e definição:** anômalo em relação a quê (todo ou grupo), em quais atributos, com ou sem rótulos.
+2. **Preparação:** escala, ausentes disfarçados tratados, atributos usados.
+3. **Técnicas e parâmetros:** comandos, k testados, o que rodou no Weka e o que foi calculado fora dele.
+4. **Candidatos:** tabela ordenada com pontuação e explicação (R10.13), indicando quais aparecem em mais de uma técnica ou parâmetro.
+5. **Leitura:** as três causas possíveis (R10.01), "candidato a revisão" e não acusação (R10.02), e mascaramento ou alagamento, se for o caso.
+6. **Próximo passo:** revisão dos casos pelo usuário e o que não foi feito.
+
+---
+
+## Pendências
+- Revisão regra a regra do manual completo.
+- Testes do agente em agrupamento e em detecção de anomalias.

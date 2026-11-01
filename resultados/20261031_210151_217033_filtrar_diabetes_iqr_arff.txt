@@ -1,0 +1,2 @@
+Comando executado: java -cp "C:\Program Files\Weka-3-8-7\weka.jar" weka.filters.unsupervised.attribute.InterquartileRange -i C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\dados\diabetes.arff -o C:\Users\Mateus\OneDrive\Documentos\agente-mineracao\resultados\20261031_210151_217033_diabetes_iqr.arff -R first-last
+

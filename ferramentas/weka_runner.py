@@ -112,6 +112,56 @@ def associar(arquivo_arff, associador, opcoes=()):
     return saida
 
 
+def filtrar(arquivo_arff, nome_saida, filtro, opcoes=()):
+    """Aplica um filtro do Weka e salva a base ARFF resultante."""
+    caminho_dados = _resolver_arquivo_arff(arquivo_arff)
+    data_hora = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+    pasta_resultados = PASTA_PROJETO / PASTA_RESULTADOS
+    pasta_resultados.mkdir(parents=True, exist_ok=True)
+    caminho_saida = pasta_resultados / "{}_{}".format(data_hora, Path(nome_saida).name)
+
+    comando = [
+        JAVA,
+        "-cp",
+        WEKA_JAR,
+        filtro,
+        "-i",
+        str(caminho_dados),
+        "-o",
+        str(caminho_saida),
+    ]
+    comando.extend(opcoes)
+
+    processo = subprocess.run(
+        comando,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True,
+    )
+    saida = processo.stdout
+    caminho_log = _salvar_saida(saida, comando, "filtrar_{}".format(nome_saida), data_hora)
+
+    falhou = processo.returncode != 0 or not caminho_saida.is_file()
+    if not falhou and caminho_saida.stat().st_size == 0:
+        falhou = True
+
+    if falhou:
+        if caminho_saida.exists():
+            caminho_saida.unlink()
+        if saida:
+            print(saida, file=sys.stderr, end="" if saida.endswith("\n") else "\n")
+        else:
+            print("O filtro do Weka não produziu saída.", file=sys.stderr)
+
+        if processo.returncode != 0:
+            mensagem = "O Weka terminou com código {}".format(processo.returncode)
+        else:
+            mensagem = "O filtro do Weka não gerou um arquivo ARFF válido"
+        raise RuntimeError("{} A saída foi salva em: {}".format(mensagem, caminho_log))
+
+    return caminho_saida
+
+
 def classificar(arquivo_arff, classificador, opcoes=()):
     """Treina e avalia um classificador por validação cruzada de 10 partes."""
     data_hora = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
@@ -201,6 +251,14 @@ def main(argv=None):
     parser_associar.add_argument("associador")
     parser_associar.add_argument("opcoes", nargs=argparse.REMAINDER)
 
+    parser_filtrar = subparsers.add_parser(
+        "filtrar", help="aplica um filtro do Weka a uma base ARFF"
+    )
+    parser_filtrar.add_argument("arquivo_arff")
+    parser_filtrar.add_argument("nome_saida")
+    parser_filtrar.add_argument("filtro")
+    parser_filtrar.add_argument("opcoes", nargs=argparse.REMAINDER)
+
     argumentos = parser.parse_args(argv)
 
     try:
@@ -214,6 +272,15 @@ def main(argv=None):
                     argumentos.opcoes,
                 ),
                 end="",
+            )
+        elif argumentos.comando == "filtrar":
+            print(
+                filtrar(
+                    argumentos.arquivo_arff,
+                    argumentos.nome_saida,
+                    argumentos.filtro,
+                    argumentos.opcoes,
+                )
             )
         else:
             saida_baseline, saida_classificador = comparar_com_baseline(
