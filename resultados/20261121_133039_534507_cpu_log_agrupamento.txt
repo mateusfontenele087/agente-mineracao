@@ -1,0 +1,59 @@
+Agrupamento K-means com Weka
+Base original: /home/user/agente-mineracao/dados/cpu_log.arff
+Base de trabalho: /home/user/agente-mineracao/dados/cpu_log.arff
+Atributos removidos: nenhum
+Registros: 209
+Atributos usados: 7
+Parâmetros: k=2..8, sementes=5, embaralhamentos=20
+Inicialização SimpleKMeans: -init 1; sementes Weka de 1 a 5.
+Versões embaralhadas: sementes fixas de 1 a 20; cada atributo foi embaralhado separadamente em cada versão.
+k final: 2 (escolha automática pela maior silhueta média)
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /home/user/agente-mineracao/dados/cpu_log.arff -N 2 -S 1 -init 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.unsupervised.attribute.AddCluster -W "weka.clusterers.SimpleKMeans -N 2 -S 1 -init 1" -i /home/user/agente-mineracao/dados/cpu_log.arff -o /tmp/agrupamento_weka_vl47nlma/clusters_k2_s1.arff
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /tmp/agrupamento_weka_vl47nlma/embaralhado_1.arff -N 2 -S 1 -init 1
+
+Resultados por k (SSE e atribuições fornecidos pelo Weka):
+k | melhor semente | SSE mínimo | SSE máximo | silhueta média | estabilidade ARI
+2 | 1 | 35.27240518 | 35.29245952 | 0.380167438 | 0.9715505249
+3 | 1 | 26.50584959 | 26.82964438 | 0.3070599376 | 0.8953110412
+4 | 3 | 21.95823735 | 24.42987036 | 0.302074523 | 0.7921785363
+5 | 3 | 19.89586008 | 23.46542728 | 0.2568665916 | 0.6228771779
+6 | 4 | 18.86023786 | 20.66091521 | 0.2059474225 | 0.6051908139
+7 | 3 | 17.34888782 | 19.45365264 | 0.2276924016 | 0.640178177
+8 | 3 | 16.15148009 | 17.80622032 | 0.2256025851 | 0.5556235512
+
+Silhueta média por grupo para k final:
+Grupo 1: 0.3898047641
+Grupo 2: 0.3731584735
+
+Linha de base: atributos embaralhados independentemente em cada versão
+SSE real (menor SSE entre sementes): 35.27240518
+SSE embaralhado mínimo: 51.25243404
+SSE embaralhado médio: 51.87316396
+SSE embaralhado máximo: 52.12427586
+Proporção de versões com SSE <= real: 0/20 (0)
+Evidência contra dados embaralhados: sim; SSE real abaixo de todas as versões
+
+Perfil dos grupos finais (valores gerais ao lado dos valores do grupo):
+Grupo 1 (n=88):
+  MYCT | geral: média=4.7604, mediana=4.70953 | grupo: média=3.91321, mediana=3.93183
+  MMIN | geral: média=7.36138, mediana=7.6014 | grupo: média=8.25722, mediana=8.2943
+  MMAX | geral: média=8.92251, mediana=8.98732 | grupo: média=9.72382, mediana=9.68041
+  CACH | geral: média=2.07545, mediana=2.19722 | grupo: média=3.61022, mediana=3.49651
+  CHMIN | geral: média=1.35523, mediana=1.09861 | grupo: média=1.90996, mediana=1.94591
+  CHMAX | geral: média=2.40778, mediana=2.19722 | grupo: média=3.01497, mediana=3.21888
+  class | geral: média=4.06438, mediana=3.93183 | grupo: média=4.96232, mediana=4.90156
+Grupo 2 (n=121):
+  MYCT | geral: média=4.7604, mediana=4.70953 | grupo: média=5.37654, mediana=5.3033
+  MMIN | geral: média=7.36138, mediana=7.6014 | grupo: média=6.70987, mediana=6.90876
+  MMAX | geral: média=8.92251, mediana=8.98732 | grupo: média=8.33974, mediana=8.2943
+  CACH | geral: média=2.07545, mediana=2.19722 | grupo: média=0.959256, mediana=0
+  CHMIN | geral: média=1.35523, mediana=1.09861 | grupo: média=0.951796, mediana=0.693147
+  CHMAX | geral: média=2.40778, mediana=2.19722 | grupo: média=1.96618, mediana=1.94591
+  class | geral: média=4.06438, mediana=3.93183 | grupo: média=3.41134, mediana=3.43399
+
+Silhueta: calculada em Python a partir das atribuições do Weka, com atributos numéricos normalizados pelo intervalo observado e diferença nominal 0/1.
+As atribuições e o SSE do agrupamento foram produzidos pelo Weka.
+Arquivo ARFF com clusters: /home/user/agente-mineracao/resultados/20261121_133039_534507_cpu_log_k2_clusters.arff

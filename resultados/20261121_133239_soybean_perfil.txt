@@ -1,0 +1,58 @@
+Registros: 683 | Atributos: 36
+
+== Distribuição da classe ==
+                              n     %
+class                                
+brown-spot                   92  13.5
+alternarialeaf-spot          91  13.3
+frog-eye-leaf-spot           91  13.3
+phytophthora-rot             88  12.9
+brown-stem-rot               44   6.4
+anthracnose                  44   6.4
+diaporthe-stem-canker        20   2.9
+charcoal-rot                 20   2.9
+rhizoctonia-root-rot         20   2.9
+powdery-mildew               20   2.9
+downy-mildew                 20   2.9
+bacterial-blight             20   2.9
+bacterial-pustule            20   2.9
+purple-seed-stain            20   2.9
+phyllosticta-leaf-spot       20   2.9
+2-4-d-injury                 16   2.3
+diaporthe-pod-&-stem-blight  15   2.2
+cyst-nematode                14   2.0
+herbicide-injury              8   1.2
+Razão maior/menor classe: 11.5
+
+== Registros com algum ausente, por classe ==
+                             com_ausente  total
+class                                          
+2-4-d-injury                          16     16
+cyst-nematode                         14     14
+diaporthe-pod-&-stem-blight           15     15
+herbicide-injury                       8      8
+phytophthora-rot                      68     88
+Total de registros com algum ausente: 121
+
+== Atributos quase constantes (valor mais frequente > 95% dos não ausentes) ==
+mycelium: 'absent' em 99.1%
+sclerotia: 'absent' em 96.9%
+
+== Valor mais raro por atributo (contagem < 10) ==
+mycelium: 'present' aparece 6 vezes
+
+== Duplicatas ==
+Registros envolvidos em duplicatas exatas (com classe): 93
+Cópias excedentes: 52
+Conjuntos de atributos idênticos com classes DIFERENTES: 1
+
+Duplicatas por classe:
+class
+phytophthora-rot               17
+brown-spot                     15
+frog-eye-leaf-spot             10
+cyst-nematode                   4
+alternarialeaf-spot             3
+brown-stem-rot                  2
+diaporthe-pod-&-stem-blight     1
+Name: count, dtype: int64

@@ -1,0 +1,138 @@
+k=2, semente 1/5
+k=2, semente 2/5
+k=2, semente 3/5
+k=2, semente 4/5
+k=2, semente 5/5
+k=3, semente 1/5
+k=3, semente 2/5
+k=3, semente 3/5
+k=3, semente 4/5
+k=3, semente 5/5
+k=4, semente 1/5
+k=4, semente 2/5
+k=4, semente 3/5
+k=4, semente 4/5
+k=4, semente 5/5
+k=5, semente 1/5
+k=5, semente 2/5
+k=5, semente 3/5
+k=5, semente 4/5
+k=5, semente 5/5
+k=6, semente 1/5
+k=6, semente 2/5
+k=6, semente 3/5
+k=6, semente 4/5
+k=6, semente 5/5
+k=7, semente 1/5
+k=7, semente 2/5
+k=7, semente 3/5
+k=7, semente 4/5
+k=7, semente 5/5
+k=8, semente 1/5
+k=8, semente 2/5
+k=8, semente 3/5
+k=8, semente 4/5
+k=8, semente 5/5
+Linha de base 1, semente 1/5
+Linha de base 1, semente 2/5
+Linha de base 1, semente 3/5
+Linha de base 1, semente 4/5
+Linha de base 1, semente 5/5
+Linha de base 2, semente 1/5
+Linha de base 2, semente 2/5
+Linha de base 2, semente 3/5
+Linha de base 2, semente 4/5
+Linha de base 2, semente 5/5
+Linha de base 3, semente 1/5
+Linha de base 3, semente 2/5
+Linha de base 3, semente 3/5
+Linha de base 3, semente 4/5
+Linha de base 3, semente 5/5
+Linha de base 4, semente 1/5
+Linha de base 4, semente 2/5
+Linha de base 4, semente 3/5
+Linha de base 4, semente 4/5
+Linha de base 4, semente 5/5
+Linha de base 5, semente 1/5
+Linha de base 5, semente 2/5
+Linha de base 5, semente 3/5
+Linha de base 5, semente 4/5
+Linha de base 5, semente 5/5
+Linha de base 6, semente 1/5
+Linha de base 6, semente 2/5
+Linha de base 6, semente 3/5
+Linha de base 6, semente 4/5
+Linha de base 6, semente 5/5
+Linha de base 7, semente 1/5
+Linha de base 7, semente 2/5
+Linha de base 7, semente 3/5
+Linha de base 7, semente 4/5
+Linha de base 7, semente 5/5
+Linha de base 8, semente 1/5
+Linha de base 8, semente 2/5
+Linha de base 8, semente 3/5
+Linha de base 8, semente 4/5
+Linha de base 8, semente 5/5
+Linha de base 9, semente 1/5
+Linha de base 9, semente 2/5
+Linha de base 9, semente 3/5
+Linha de base 9, semente 4/5
+Linha de base 9, semente 5/5
+Linha de base 10, semente 1/5
+Linha de base 10, semente 2/5
+Linha de base 10, semente 3/5
+Linha de base 10, semente 4/5
+Linha de base 10, semente 5/5
+Linha de base 11, semente 1/5
+Linha de base 11, semente 2/5
+Linha de base 11, semente 3/5
+Linha de base 11, semente 4/5
+Linha de base 11, semente 5/5
+Linha de base 12, semente 1/5
+Linha de base 12, semente 2/5
+Linha de base 12, semente 3/5
+Linha de base 12, semente 4/5
+Linha de base 12, semente 5/5
+Linha de base 13, semente 1/5
+Linha de base 13, semente 2/5
+Linha de base 13, semente 3/5
+Linha de base 13, semente 4/5
+Linha de base 13, semente 5/5
+Linha de base 14, semente 1/5
+Linha de base 14, semente 2/5
+Linha de base 14, semente 3/5
+Linha de base 14, semente 4/5
+Linha de base 14, semente 5/5
+Linha de base 15, semente 1/5
+Linha de base 15, semente 2/5
+Linha de base 15, semente 3/5
+Linha de base 15, semente 4/5
+Linha de base 15, semente 5/5
+Linha de base 16, semente 1/5
+Linha de base 16, semente 2/5
+Linha de base 16, semente 3/5
+Linha de base 16, semente 4/5
+Linha de base 16, semente 5/5
+Linha de base 17, semente 1/5
+Linha de base 17, semente 2/5
+Linha de base 17, semente 3/5
+Linha de base 17, semente 4/5
+Linha de base 17, semente 5/5
+Linha de base 18, semente 1/5
+Linha de base 18, semente 2/5
+Linha de base 18, semente 3/5
+Linha de base 18, semente 4/5
+Linha de base 18, semente 5/5
+Linha de base 19, semente 1/5
+Linha de base 19, semente 2/5
+Linha de base 19, semente 3/5
+Linha de base 19, semente 4/5
+Linha de base 19, semente 5/5
+Linha de base 20, semente 1/5
+Linha de base 20, semente 2/5
+Linha de base 20, semente 3/5
+Linha de base 20, semente 4/5
+Linha de base 20, semente 5/5
+Relatório: /home/user/agente-mineracao/resultados/20261121_133039_534507_cpu_log_agrupamento.txt
+ARFF com clusters: /home/user/agente-mineracao/resultados/20261121_133039_534507_cpu_log_k2_clusters.arff
+k final: 2 | SSE real: 35.27240518 | silhueta média: 0.380167438
