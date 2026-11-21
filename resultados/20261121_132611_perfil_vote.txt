@@ -1,0 +1,25 @@
+Script: analises/scripts/perfil_vote.py
+
+Registros: 435
+Classe: Counter({'democrat': 267, 'republican': 168})
+Registros repetidos (cópias além da primeira): 93
+Perfis de voto idênticos com partidos diferentes: 0
+Registros com pelo menos um '?': 203
+
+atributo                                  %sim dem  %sim rep  %? dem  %? rep
+handicapped-infants                           60.5      18.8     3.4     1.8
+water-project-cost-sharing                    50.2      50.7    10.5    11.9
+adoption-of-the-budget-resolution             88.8      13.4     2.6     2.4
+physician-fee-freeze                           5.4      98.8     3.0     1.8
+el-salvador-aid                               21.6      95.2     4.5     1.8
+religious-groups-in-schools                   47.7      89.8     3.4     1.2
+anti-satellite-test-ban                       77.2      24.1     3.0     3.6
+aid-to-nicaraguan-contras                     82.9      15.3     1.5     6.5
+mx-missile                                    75.8      11.5     7.1     1.8
+immigration                                   47.1      55.8     1.5     1.8
+synfuels-corporation-cutback                  50.6      13.2     4.5     5.4
+education-spending                            14.5      87.1     6.7     7.7
+superfund-right-to-sue                        29.0      86.1     5.6     6.0
+crime                                         35.0      98.1     3.7     4.2
+duty-free-exports                             63.7       9.0     6.0     7.1
+export-administration-act-south-africa        93.5      65.8    30.7    13.1

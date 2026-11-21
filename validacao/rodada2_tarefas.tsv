@@ -1,0 +1,4 @@
+T02	Quero prever recorrência do câncer de mama com essa base (breast-cancer.arff). Qual algoritmo devo usar?	Deixar de prever uma recorrência é 3 vezes pior que um alarme falso.
+T03	Quero entender o que diferencia democratas de republicanos nessas votações (vote.arff).	Os dois erros custam o mesmo; quero entender, não prever.
+T04	Qual o melhor modelo para prever se um acordo trabalhista é bom ou ruim? Base labor.arff.	Os dois erros custam o mesmo.
+T11	Compare o J48 e o NaiveBayes na ionosphere.arff pela AUC e me diga se a diferença é significativa.	Não autorizo mudar a ferramenta agora. Siga com o que der.

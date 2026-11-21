@@ -1,0 +1,39 @@
+        min     max   media  mediana  ...      Q3  zeros_%  assimetria  fora_1.5IQR
+RI    1.511   1.534   1.518    1.518  ...   1.519    0.000       1.625           17
+Na   10.730  17.380  13.408   13.300  ...  13.825    0.000       0.454            7
+Mg    0.000   4.490   2.685    3.480  ...   3.600   19.626      -1.153            0
+Al    0.290   3.500   1.445    1.360  ...   1.630    0.000       0.907           18
+Si   69.810  75.410  72.651   72.790  ...  73.088    0.000      -0.730           12
+'K'   0.000   6.210   0.497    0.555  ...   0.610   14.019       6.552            7
+Ca    5.430  16.190   8.957    8.600  ...   9.172    0.000       2.047           26
+Ba    0.000   3.150   0.175    0.000  ...   0.000   82.243       3.416           38
+Fe    0.000   0.510   0.057    0.000  ...   0.100   67.290       1.754           12
+
+[9 rows x 9 columns]
+
+Soma dos óxidos (deveria ser ~100%):
+count    214.00
+mean      99.87
+std        0.12
+min       99.02
+25%       99.81
+50%       99.89
+75%       99.96
+max      100.10
+dtype: float64
+
+Linhas duplicadas (atributos químicos): 1
+
+Distribuição da classe Type (só para verificação posterior):
+Type
+build wind non-float    76
+build wind float        70
+headlamps               29
+vehic wind float        17
+containers              13
+tableware                9
+Name: count, dtype: int64
+
+Correlações |r|>0.5:
+  RI-Si: -0.54
+  Ca-RI: 0.81

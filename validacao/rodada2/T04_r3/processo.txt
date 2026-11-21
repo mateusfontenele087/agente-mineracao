@@ -1,0 +1,25 @@
+parou_para_perguntar=sim
+ferramentas_alteradas:
+arquivos_novos:
+?? analises/2026-11-21_labor.md
+?? analises/scripts/
+?? resultados/20261121_143125_236731_resumo.txt
+?? resultados/20261121_143138_perfil_labor.txt
+?? resultados/20261121_143218_671786_baseline_ZeroR.txt
+?? resultados/20261121_143218_671786_classificador.txt
+?? resultados/20261121_143218_700021_baseline_ZeroR.txt
+?? resultados/20261121_143218_700021_classificador.txt
+?? resultados/20261121_143218_711562_baseline_ZeroR.txt
+?? resultados/20261121_143218_711562_classificador.txt
+?? resultados/20261121_143218_715020_baseline_ZeroR.txt
+?? resultados/20261121_143218_715020_classificador.txt
+?? resultados/20261121_143218_730961_baseline_ZeroR.txt
+?? resultados/20261121_143218_730961_classificador.txt
+?? resultados/20261121_143218_770001_baseline_ZeroR.txt
+?? resultados/20261121_143218_770001_classificador.txt
+?? resultados/20261121_143244_359391_baseline_ZeroR.txt
+?? resultados/20261121_143244_359391_classificador.txt
+?? resultados/20261121_143609_706788_significancia.txt
+?? resultados/20261121_143611_986785_significancia.txt
+?? resultados/20261121_143620_522964_significancia.txt
+?? resultados/20261121_143803_555167_significancia.txt

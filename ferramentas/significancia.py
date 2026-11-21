@@ -101,7 +101,7 @@ def _extrair_matriz_teste(saida):
     return classes, linhas
 
 
-def _calcular_metricas(classes, matriz, positiva, custo):
+def _calcular_metricas(classes, matriz, positiva, custo, f1_macro=False):
     total = sum(sum(linha) for linha in matriz)
     if total == 0:
         raise ValueError("Uma das partições de teste não contém instâncias.")
@@ -139,6 +139,23 @@ def _calcular_metricas(classes, matriz, positiva, custo):
                 "f1_{}".format(positiva): f1,
             }
         )
+
+    if f1_macro:
+        # F1 macro: média simples do F1 de cada classe (cada classe pesa igual).
+        # Entram as classes que aparecem na parte de teste OU que foram previstas;
+        # classe sem nenhum caso real nem previsto naquela parte fica de fora.
+        f1s = []
+        for i in range(len(matriz)):
+            vp = matriz[i][i]
+            reais = sum(matriz[i])
+            previstos = sum(linha[i] for linha in matriz)
+            if reais == 0 and previstos == 0:
+                continue
+            precisao = vp / previstos if previstos else 0.0
+            recall = vp / reais if reais else 0.0
+            soma = precisao + recall
+            f1s.append(2 * precisao * recall / soma if soma else 0.0)
+        metricas["f1_macro"] = sum(f1s) / len(f1s)
 
     if custo is not None:
         if len(custo) != len(matriz):
@@ -355,8 +372,15 @@ def comparar(
     custo_texto=None,
     positiva=None,
     repeticoes=10,
+    sem_envelope=False,
+    f1_macro=False,
 ):
-    """Executa folds repetidos no Weka e compara as métricas pareadas."""
+    """Executa folds repetidos no Weka e compara as métricas pareadas.
+
+    sem_envelope=True: a matriz de custo só é usada para CALCULAR o custo total;
+    os classificadores rodam exatamente como informados (útil quando um deles já
+    é um CostSensitiveClassifier com opções próprias, como -M).
+    """
     if repeticoes < 1:
         raise ValueError("--repeticoes deve ser pelo menos 1.")
     caminho_dados = _resolver_arquivo_arff(arquivo_arff)
@@ -406,11 +430,13 @@ def comparar(
                 _executar(comando_teste)
                 _executar(comando_treino)
 
+                # Com sem_envelope, não envolve no CostSensitiveClassifier
+                custo_envelope = None if sem_envelope else texto_custo
                 comando_a = _comando_classificador(
-                    classificador_a, opcoes_a, treino, teste, texto_custo
+                    classificador_a, opcoes_a, treino, teste, custo_envelope
                 )
                 comando_b = _comando_classificador(
-                    classificador_b, opcoes_b, treino, teste, texto_custo
+                    classificador_b, opcoes_b, treino, teste, custo_envelope
                 )
                 saida_a = _executar(comando_a)
                 saida_b = _executar(comando_b)
@@ -422,10 +448,10 @@ def comparar(
                         "{} vs {}.".format(classes_a, classes_b)
                     )
                 metricas_a, tamanho_a = _calcular_metricas(
-                    classes_a, matriz_a, positiva, custo
+                    classes_a, matriz_a, positiva, custo, f1_macro
                 )
                 metricas_b, tamanho_b = _calcular_metricas(
-                    classes_b, matriz_b, positiva, custo
+                    classes_b, matriz_b, positiva, custo, f1_macro
                 )
                 if tamanho_a != tamanho_b:
                     raise ValueError(
@@ -477,6 +503,16 @@ def main(argv=None):
     parser.add_argument("--custo")
     parser.add_argument("--positiva")
     parser.add_argument("--repeticoes", type=int, default=10)
+    parser.add_argument(
+        "--sem-envelope",
+        action="store_true",
+        help="usa --custo só para calcular o custo; não envolve os classificadores",
+    )
+    parser.add_argument(
+        "--f1-macro",
+        action="store_true",
+        help="calcula também o F1 macro (média do F1 por classe), útil em multiclasse",
+    )
     argumentos = parser.parse_args(argv)
 
     try:
@@ -489,6 +525,8 @@ def main(argv=None):
             argumentos.custo,
             argumentos.positiva,
             argumentos.repeticoes,
+            argumentos.sem_envelope,
+            argumentos.f1_macro,
         )
     except (FileNotFoundError, RuntimeError, ValueError) as erro:
         print(erro, file=sys.stderr)

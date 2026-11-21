@@ -1,0 +1,27 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: /home/user/agente-mineracao/dados/breast-cancer.arff
+Classificador A: weka.classifiers.trees.J48
+Classificador B: weka.classifiers.bayes.NaiveBayes
+Matriz de custo: [0.0 1.0; 3.0 0.0]
+Classe positiva: recurrence-events
+Repetições: 2; partes por repetição: 10; total de pares: 20
+Sementes: 1..2; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/breast-cancer.arff -o /tmp/weka_significancia_yzlhtnnb/teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/breast-cancer.arff -o /tmp/weka_significancia_yzlhtnnb/treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /tmp/weka_significancia_yzlhtnnb/treino_r1_f1.arff -T /tmp/weka_significancia_yzlhtnnb/teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.trees.J48 --
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /tmp/weka_significancia_yzlhtnnb/treino_r1_f1.arff -T /tmp/weka_significancia_yzlhtnnb/teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.bayes.NaiveBayes --
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/2: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 2/2: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.564963 | 0.107212 | 0.666256 | 0.090424 | -0.101293 | -2.949844 | 0.008225 | diferença significativa (B melhor) |
+| recall_recurrence-events | 0.592361 | 0.188089 | 0.654167 | 0.202571 | -0.061806 | -1.239945 | 0.230092 | empate técnico |
+| precisao_recurrence-events | 0.360270 | 0.104031 | 0.455155 | 0.111478 | -0.094884 | -2.872351 | 0.009753 | diferença significativa (B melhor) |
+| f1_recurrence-events | 0.445543 | 0.129149 | 0.531148 | 0.139340 | -0.085605 | -2.563301 | 0.019014 | diferença significativa (B melhor) |
+| custo_total | 19.450000 | 6.194012 | 15.450000 | 5.642648 | 4.000000 | 2.876780 | 0.009659 | diferença significativa (B melhor) |

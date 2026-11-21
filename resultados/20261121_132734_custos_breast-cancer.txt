@@ -1,0 +1,7 @@
+ZeroR (tudo 'não')               custo= 255  custo/caso=0.892  acc=0.703 IC95%=[0.647, 0.753]
+Tudo 'sim' (2ª linha de base)    custo= 201  custo/caso=0.703  acc=0.297 IC95%=[0.247, 0.353]
+NaiveBayes                       custo= 152  custo/caso=0.531  acc=0.664 IC95%=[0.608, 0.717]
+J48                              custo= 198  custo/caso=0.692  acc=0.559 IC95%=[0.501, 0.616]
+JRip                             custo= 187  custo/caso=0.654  acc=0.591 IC95%=[0.533, 0.646]
+RandomForest                     custo= 197  custo/caso=0.689  acc=0.619 IC95%=[0.561, 0.673]
+IBk (k por -X)                   custo= 178  custo/caso=0.622  acc=0.636 IC95%=[0.579, 0.690]

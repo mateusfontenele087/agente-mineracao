@@ -1,0 +1,34 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: /tmp/copias_validacao/T04_r2/dados/labor.arff
+Classificador A: weka.classifiers.lazy.IBk -K 15 -X
+Classificador B: weka.classifiers.bayes.NaiveBayes
+Matriz de custo: não informada
+Classe positiva: bad
+Repetições: 10; partes por repetição: 10; total de pares: 100
+Sementes: 1..10; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /tmp/copias_validacao/T04_r2/dados/labor.arff -o /tmp/weka_significancia_q7xvr8td/teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /tmp/copias_validacao/T04_r2/dados/labor.arff -o /tmp/weka_significancia_q7xvr8td/treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.lazy.IBk -K 15 -X -t /tmp/weka_significancia_q7xvr8td/treino_r1_f1.arff -T /tmp/weka_significancia_q7xvr8td/teste_r1_f1.arff -o -c last
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/weka_significancia_q7xvr8td/treino_r1_f1.arff -T /tmp/weka_significancia_q7xvr8td/teste_r1_f1.arff -o -c last
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 2/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 3/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 4/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 5/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 6/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 7/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 8/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 9/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+Repetição 10/10: 6, 6, 6, 6, 6, 6, 6, 5, 5, 5; soma=57
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.905333 | 0.108113 | 0.935667 | 0.102741 | -0.030333 | -0.785822 | 0.433849 | empate técnico |
+| recall_bad | 0.920000 | 0.197459 | 0.935000 | 0.168999 | -0.015000 | -0.259678 | 0.795652 | empate técnico |
+| precisao_bad | n/a | n/a | 0.923333 | 0.157883 | -0.052189 | n/a | n/a | não calculável (métrica indefinida em alguma parte) |
+| f1_bad | n/a | n/a | 0.912000 | 0.140427 | -0.032660 | n/a | n/a | não calculável (métrica indefinida em alguma parte) |

@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação. Parte 5 (regras R8.xx e R9.xx): agrupamento. Parte 6 (regras R10.xx): detecção de anomalias.
-> Status: **rascunho v0.11** — manual completo — para revisão regra a regra.
+> Status: **rascunho v0.13** — manual completo — para revisão regra a regra. v0.12: pergunta de custo deixa de depender da proporção das classes (R5.35), após a validação de 21/11/2026. v0.13: ordem fixa para escolher a métrica principal (R5.51), após a rodada 2 — ainda não testada.
 
 ---
 
@@ -325,7 +325,10 @@ No resumo da base, verificar a proporção das classes. Se a classe de interesse
 Se 99% dos casos são de uma classe, um modelo que sempre prevê essa classe acerta 99% e não detecta nenhum caso raro. O ZeroR (R4.20) expõe isso: a acurácia do ZeroR **é** a proporção da classe majoritária.
 
 **R5.35 — Definir a classe positiva com o usuário.**
-A classe rara, ou a de maior interesse, é a **positiva**. Em classes desbalanceadas, a pergunta é **obrigatória e vem antes de qualquer modelagem**: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)? **E quantas vezes mais?** Só com a proporção (ex.: 5 para 1) é possível montar a matriz de custo (R5.38).
+A classe rara, ou a de maior interesse, é a **positiva**. **Em toda classificação cujo objetivo seja prever, qualquer que seja a proporção das classes**, a pergunta é **obrigatória e vem antes de qualquer modelagem**: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)? **E quantas vezes mais?** Só com a proporção (ex.: 5 para 1) é possível montar a matriz de custo (R5.38).
+- **Por que não depende da proporção:** não existe um limite objetivo a partir do qual as classes "ficam desbalanceadas"; um gatilho subjetivo faz o agente perguntar numa base 65/35 e não perguntar em outra base 65/35. O custo dos erros é uma informação do usuário, não dos dados, e pode ser desigual mesmo com classes equilibradas.
+- **Única dispensa:** quando o objetivo for **só entender** (descrever o que diferencia as classes), o agente pode seguir sem a pergunta, declarando no início que, sem custo informado, tratou os dois erros como equivalentes.
+- **Mais de duas classes:** a pergunta vira "alguma classe é prioritária ou algum erro é especialmente grave?" (Bloco O).
 - Se o usuário não souber a proporção, o agente propõe uma, explica de onde ela veio e pede confirmação.
 - Se não for possível perguntar, o agente declara no início da resposta qual suposição adotou (ex.: "sem informação de custo, usei F1 da classe positiva como métrica principal").
 
@@ -420,7 +423,12 @@ Sem teste de significância, diferenças pequenas entre modelos são **empate t�
 
 **R5.51 — Uma métrica principal, escolhida antes.**
 Cada teste de significância tem 5% de chance de apontar uma diferença que não existe. Testar várias métricas e destacar a que deu "significativa" é procurar sorte: com 5 métricas, a chance de pelo menos uma dar falso positivo passa de 20%.
-- Antes de rodar a comparação, o agente define **uma métrica principal**, a que corresponde ao objetivo do usuário: custo total, se houver matriz de custo; senão, F1 da classe positiva (ou AUC), se as classes forem desbalanceadas; senão, acurácia. A decisão sobre qual modelo é melhor é tomada **só** por essa métrica.
+- Antes de rodar a comparação, o agente define **uma métrica principal**, a que corresponde ao objetivo do usuário. A escolha segue esta ordem, sem exceção:
+  1. **O usuário informou custos diferentes** (ex.: 5 para 1) → **custo total** com a matriz de custo.
+  2. **O usuário disse que os dois erros custam o mesmo** → **custo total com matriz simétrica `[0 1; 1 0]`**, que é o número de erros. Isso equivale à acurácia; o agente relata as duas e diz que são a mesma decisão. **Não** troca por F1: o usuário já respondeu que os erros pesam igual.
+  3. **O usuário não soube ou não respondeu** e as classes são desbalanceadas → F1 da classe positiva (ou AUC). Se a base for tão pequena que alguma parte da validação fique sem casos positivos previstos (o F1 não pode ser testado), o agente diz isso **antes** de rodar e usa o custo com matriz simétrica.
+  4. **Objetivo de só entender** → acurácia, declarando que os dois erros foram tratados como equivalentes.
+- A decisão sobre qual modelo é melhor é tomada **só** pela métrica principal.
 - **Nunca usar recall sozinho, nem precisão sozinha, como métrica principal.** Cada uma pode ser maximizada por um modelo trivial: prever **todos** como positivos dá recall 1,0; prever positivo só nos casos óbvios dá precisão alta. Recall e precisão só servem como principal quando combinados (F1, Fβ) ou embutidos no custo.
 - Testar um modelo contra o ZeroR **no recall da classe positiva** não informa nada: o ZeroR tem recall zero por definição. A comparação com a linha de base é feita na métrica principal (custo, F1 ou AUC).
 - As demais métricas são **descritivas**. Se alguma delas der p < 0,05, o agente só a chama de significativa se ela também passar no limiar corrigido: 0,05 dividido pelo número de métricas testadas (correção de Bonferroni; com 5 métricas, p < 0,01).

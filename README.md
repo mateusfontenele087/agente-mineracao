@@ -91,11 +91,30 @@ Os custos, acurácias e linhas de base foram recalculados a partir das matrizes 
 
 Base de 14 registros, objetivo de **entender** os fatores associados a `play`. O J48 acertou 7 de 14 (50%) e o ZeroR, 9 de 14 (64,3%), com intervalos de confiança largos e sobrepostos (26,8%–73,2% e 38,8%–83,7%). Conclusão do agente: a árvore descreve os 14 casos, mas a base é pequena demais para regras confiáveis de previsão.
 
+## Validação independente (21/11/2026)
+
+O agente foi testado em **10 tarefas novas**, com bases que ele nunca tinha visto: classificação,
+regressão disfarçada, agrupamento, anomalias, LGPD, pressão por atalho e pedido ambíguo. O gabarito
+foi escrito **antes** das execuções e registrado por hash (pré-registro). Todos os números citados
+nas respostas foram conferidos contra as saídas do Weka.
+
+| Rodada | O que verificou | Resultado |
+|---|---|---|
+| 1 | 10 tarefas novas, 1 execução cada | 10/10 aprovadas; 4 defeitos de disciplina encontrados (D1–D4) e corrigidos |
+| 2 | correções D1 e D2 e repetição (4 tarefas × 3 execuções, cada uma isolada) | 12/12 aprovadas; conclusões idênticas entre execuções; 1 defeito novo (D6), corrigido e ainda não testado |
+| Literatura | comparação com Holte (1993), *Machine Learning* 11:63–91 | mesma linha de base, mesma ordem dos modelos e mesmas conclusões nas 3 bases comparáveis |
+
+Detalhes: `validacao/RELATORIO.md`, `validacao/RELATORIO_RODADA2.md` e `validacao/comparacao_literatura.md`.
+
+**Limites:** não houve comparação com um especialista humano às cegas; a validação rodou no Claude
+Code, e não no Copilot; o gabarito foi escrito com auxílio de IA.
+
 ## Como executar
 
-Requisitos: Java 8+, Weka 3.8.7, Python 3 com SciPy (Anaconda), VS Code com GitHub Copilot.
+Requisitos: Java 8+, Weka 3.8.7, Python 3 com as dependências de `requirements.txt` (Anaconda já as traz), VS Code com GitHub Copilot ou Claude Code.
 
-1. Ajuste o caminho do `weka.jar` no topo de `ferramentas/weka_runner.py`.
+0. Rode os testes de aceite: `python ferramentas/testes_aceite.py`.
+1. Ajuste o caminho do `weka.jar` no topo de `ferramentas/weka_runner.py`, ou defina a variável de ambiente `WEKA_CP`.
 2. No chat do Copilot, selecione o agente **especialista-mineracao**.
 3. Peça, por exemplo: *"Analise a base credit-g.arff. Quero prever quais clientes são maus pagadores."*
 

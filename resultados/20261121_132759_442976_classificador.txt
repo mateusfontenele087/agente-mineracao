@@ -1,0 +1,204 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /home/user/agente-mineracao/dados/hypothyroid_bin.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.bayes.NaiveBayes
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:28:10 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:28:11 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.bayes.NaiveBayes 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.bayes.NaiveBayes 
+
+Classifier Model
+Naive Bayes Classifier
+
+                                         Class
+Attribute                             negative        hypothyroid
+                                        (0.54)             (0.46)
+==================================================================
+age
+  mean                                  51.6215            51.5238
+  std. dev.                             18.9603            19.1086
+  weight sum                          2053.3231          1717.4965
+  precision                               1.022              1.022
+
+sex
+  F                          1337.8142700673052 1269.9406978563559
+  M                            636.650758879684  384.6332342356439
+  [total]                     1974.465028946992 1654.5739320919924
+
+on thyroxine
+  f                          1786.9602566108908  1665.378031606935
+  t                          269.54326396495304    54.118447817243
+  [total]                    2056.5035205758436  1719.496479424177
+
+query on thyroxine
+  f                          2027.7638867157305  1700.790330151763
+  t                          28.739633860115816 18.706149272414333
+  [total]                    2056.5035205758436  1719.496479424177
+
+on antithyroid medication
+  f                          2030.7149115944662 1712.5944296667058
+  t                           25.78860898138009  6.902049757471445
+  [total]                    2056.5035205758436  1719.496479424177
+
+sick
+  f                          1975.2356438742336 1653.5739320919924
+  t                           81.26787670161146  65.92254733218589
+  [total]                    2056.5035205758436  1719.496479424177
+
+pregnant
+  f                          2024.2226568612475  1718.496479424177
+  t                           32.28086371459869                1.0
+  [total]                    2056.5035205758436  1719.496479424177
+
+thyroid surgery
+  f                          2025.4030668127418 1706.6923799092344
+  t                          31.100453763104397  12.80409951494289
+  [total]                    2056.5035205758436  1719.496479424177
+
+I131 treatment
+  f                          2023.6324518855004 1688.9862306368204
+  t                           32.87106869034583 30.510248787357224
+  [total]                    2056.5035205758436  1719.496479424177
+
+query hypothyroid
+  f                          1940.4135503051514 1488.3165388827952
+  t                          116.08997027069282 231.17994054138634
+  [total]                    2056.5035205758436  1719.496479424177
+
+query hyperthyroid
+  f                          1924.4780159599782 1629.9657330621071
+  t                          132.02550461586574  89.53074636207167
+  [total]                    2056.5035205758436  1719.496479424177
+
+lithium
+  f                          2045.4700359881451 1712.5944296667058
+  t                          11.033484587701459  6.902049757471445
+  [total]                    2056.5035205758436  1719.496479424177
+
+goitre
+  f                          2035.4365514004435  1718.496479424177
+  t                          21.066969175402928                1.0
+  [total]                    2056.5035205758436  1719.496479424177
+
+tumor
+  f                           2003.565482710097 1671.2800813644064
+  t                           52.93803786574865  48.21639805977156
+  [total]                    2056.5035205758436  1719.496479424177
+
+psych
+  f                          1951.6274448443473 1671.2800813644064
+  t                          104.87607573149712  48.21639805977156
+  [total]                    2056.5035205758436  1719.496479424177
+
+TSH
+  mean                                   1.8496            39.1131
+  std. dev.                              4.7925            74.2794
+  weight sum                          1836.7179          1717.4965
+  precision                              1.8531             1.8531
+
+T3
+  mean                                   2.0632             1.4805
+  std. dev.                              0.8149             0.7596
+  weight sum                          1627.7853          1446.0022
+  precision                              0.1551             0.1551
+
+TT4
+  mean                                 111.4334            72.9296
+  std. dev.                             33.9583            34.8436
+  weight sum                          1921.1172          1687.9862
+  precision                              1.7833             1.7833
+
+T4U
+  mean                                   0.9933             1.0148
+  std. dev.                              0.1962             0.1847
+  weight sum                          1840.8493          1569.9452
+  precision                              0.0143             0.0143
+
+FTI
+  mean                                 113.6485            73.2317
+  std. dev.                             31.0681            33.4062
+  weight sum                          1842.0297          1569.9452
+  precision                              1.6867             1.6867
+
+referral source
+  SVHC                        222.3268659051806  65.92254733218589
+  other                      1197.9356908152292   1022.05460804256
+  SVI                         554.0220622750821  573.4988264747301
+  STMW                       62.971522453450056  42.31434830230011
+  SVHD                        22.24737912689722 18.706149272414333
+  [total]                    2059.5035205758422  1722.496479424177
+
+
+
+Cost Matrix
+  0  1
+ 10  0
+
+
+Time taken to build model: 2.28 seconds
+
+Time taken to test model on training data: 0.44 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        3425               90.8006 %
+Incorrectly Classified Instances       347                9.1994 %
+Kappa statistic                          0.438 
+Mean absolute error                      0.1091
+Root mean squared error                  0.2418
+Relative absolute error                 76.5334 %
+Root relative squared error             90.6325 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.937    0.433    0.963      0.937    0.949      0.443    0.891     0.989     negative
+                 0.567    0.063    0.427      0.567    0.487      0.443    0.891     0.600     hypothyroid
+Weighted Avg.    0.908    0.404    0.921      0.908    0.914      0.443    0.891     0.959     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3260  221 |    a = negative
+  126  165 |    b = hypothyroid
+
+Time taken to perform cross-validation: 4.61 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances        3430               90.9332 %
+Incorrectly Classified Instances       342                9.0668 %
+Kappa statistic                          0.4423
+Mean absolute error                      0.1095
+Root mean squared error                  0.2428
+Relative absolute error                 76.8171 %
+Root relative squared error             90.9977 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.938    0.433    0.963      0.938    0.950      0.447    0.887     0.988     negative
+                 0.567    0.062    0.433      0.567    0.491      0.447    0.887     0.597     hypothyroid
+Weighted Avg.    0.909    0.404    0.922      0.909    0.915      0.447    0.887     0.958     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3265  216 |    a = negative
+  126  165 |    b = hypothyroid
+

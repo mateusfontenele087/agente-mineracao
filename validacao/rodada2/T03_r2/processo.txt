@@ -1,0 +1,18 @@
+parou_para_perguntar=nao
+ferramentas_alteradas:
+arquivos_novos:
+?? analises/2026-11-21_vote.md
+?? analises/scripts/
+?? resultados/20261121_142318_998746_resumo.txt
+?? resultados/20261121_142332_perfil_vote.txt
+?? resultados/20261121_142346_480743_baseline_ZeroR.txt
+?? resultados/20261121_142346_480743_classificador.txt
+?? resultados/20261121_142347_404402_baseline_ZeroR.txt
+?? resultados/20261121_142347_404402_classificador.txt
+?? resultados/20261121_142348_423939_baseline_ZeroR.txt
+?? resultados/20261121_142348_423939_classificador.txt
+?? resultados/20261121_142349_439675_baseline_ZeroR.txt
+?? resultados/20261121_142349_439675_classificador.txt
+?? resultados/20261121_142616_462154_significancia.txt
+?? resultados/20261121_143024_341853_significancia.txt
+?? resultados/20261121_ic_vote.txt

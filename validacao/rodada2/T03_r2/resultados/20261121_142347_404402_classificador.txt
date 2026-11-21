@@ -1,0 +1,81 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.rules.JRip -t /tmp/copias_validacao/T03_r2/dados/vote.arff -x 10 -s 1
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 2:23:48 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 2:23:48 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+=== Classifier model (full training set) ===
+
+JRIP rules:
+===========
+
+(physician-fee-freeze = y) and (synfuels-corporation-cutback = n) => Class=republican (138.0/3.0)
+(physician-fee-freeze = y) and (export-administration-act-south-africa = y) => Class=republican (19.0/3.0)
+(physician-fee-freeze = y) and (adoption-of-the-budget-resolution = n) => Class=republican (16.0/4.0)
+ => Class=democrat (262.0/5.0)
+
+Number of Rules : 4
+
+
+Time taken to build model: 0.21 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         420               96.5517 %
+Incorrectly Classified Instances        15                3.4483 %
+Kappa statistic                          0.9277
+Mean absolute error                      0.0615
+Root mean squared error                  0.1753
+Relative absolute error                 12.9584 %
+Root relative squared error             36.0022 %
+Total Number of Instances              435     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.963    0.030    0.981      0.963    0.972      0.928    0.976     0.975     democrat
+                 0.970    0.037    0.942      0.970    0.956      0.928    0.976     0.956     republican
+Weighted Avg.    0.966    0.033    0.966      0.966    0.966      0.928    0.976     0.968     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 257  10 |   a = democrat
+   5 163 |   b = republican
+
+Time taken to perform cross-validation: 0.11 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         415               95.4023 %
+Incorrectly Classified Instances        20                4.5977 %
+Kappa statistic                          0.9037
+Mean absolute error                      0.0838
+Root mean squared error                  0.2093
+Relative absolute error                 17.6705 %
+Root relative squared error             42.9945 %
+Total Number of Instances              435     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.951    0.042    0.973      0.951    0.962      0.904    0.942     0.946     democrat
+                 0.958    0.049    0.925      0.958    0.942      0.904    0.942     0.887     republican
+Weighted Avg.    0.954    0.044    0.955      0.954    0.954      0.904    0.942     0.924     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 254  13 |   a = democrat
+   7 161 |   b = republican
+

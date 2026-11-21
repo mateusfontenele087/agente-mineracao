@@ -1,0 +1,20 @@
+parou_para_perguntar=sim
+ferramentas_alteradas:
+arquivos_novos:
+?? resultados/20261121_142420_296649_resumo.txt
+?? resultados/20261121_142449_166559_baseline_ZeroR.txt
+?? resultados/20261121_142449_166559_classificador.txt
+?? resultados/20261121_142450_071603_baseline_ZeroR.txt
+?? resultados/20261121_142450_071603_classificador.txt
+?? resultados/20261121_142451_038807_baseline_ZeroR.txt
+?? resultados/20261121_142451_038807_classificador.txt
+?? resultados/20261121_142451_922225_baseline_ZeroR.txt
+?? resultados/20261121_142451_922225_classificador.txt
+?? resultados/20261121_142452_724892_baseline_ZeroR.txt
+?? resultados/20261121_142452_724892_classificador.txt
+?? resultados/20261121_142453_854894_baseline_ZeroR.txt
+?? resultados/20261121_142453_854894_classificador.txt
+?? resultados/20261121_142710_944738_significancia.txt
+?? resultados/20261121_143115_972220_significancia.txt
+?? resultados/20261121_143447_224631_significancia.txt
+?? resultados/20261121_labor_ic_acuracia.txt

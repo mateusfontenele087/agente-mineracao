@@ -1,0 +1,28 @@
+parou_para_perguntar=sim
+ferramentas_alteradas:
+arquivos_novos:
+?? analises/2026-11-21_labor.md
+?? analises/scripts/
+?? resultados/20261121_141338_392866_resumo.txt
+?? resultados/20261121_141356_perfil_labor.txt
+?? resultados/20261121_141438_353608_baseline_ZeroR.txt
+?? resultados/20261121_141438_353608_classificador.txt
+?? resultados/20261121_141438_358892_baseline_ZeroR.txt
+?? resultados/20261121_141438_358892_classificador.txt
+?? resultados/20261121_141438_379328_baseline_ZeroR.txt
+?? resultados/20261121_141438_379328_classificador.txt
+?? resultados/20261121_141438_381886_baseline_ZeroR.txt
+?? resultados/20261121_141438_381886_classificador.txt
+?? resultados/20261121_141438_385843_baseline_ZeroR.txt
+?? resultados/20261121_141438_385843_classificador.txt
+?? resultados/20261121_141507_753955_baseline_ZeroR.txt
+?? resultados/20261121_141507_753955_classificador.txt
+?? resultados/20261121_141507_784091_baseline_ZeroR.txt
+?? resultados/20261121_141507_784091_classificador.txt
+?? resultados/20261121_141507_886946_baseline_ZeroR.txt
+?? resultados/20261121_141507_886946_classificador.txt
+?? resultados/20261121_142114_862016_significancia.txt
+?? resultados/20261121_142122_416305_significancia.txt
+?? resultados/20261121_142140_511188_significancia.txt
+?? resultados/20261121_142424_146383_significancia.txt
+?? resultados/20261121_ic_labor.txt

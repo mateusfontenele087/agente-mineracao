@@ -1,0 +1,32 @@
+Registros: 57
+
+Distribuição da classe:
+class
+good    37
+bad     20
+
+Atributos numéricos:
+                            min   max  media  mediana   IQR  zeros  ausentes
+duration                    1.0   3.0   2.16      2.0   1.0      0         1
+wage-increase-first-year    2.0   7.0   3.80      4.0   2.0      0         1
+wage-increase-second-year   2.0   7.0   3.97      4.0   1.5      0        11
+wage-increase-third-year    2.0   5.1   3.91      4.6   2.6      0        42
+working-hours              27.0  40.0  38.04     38.0   3.0      0         6
+standby-pay                 2.0  14.0   7.44      8.0  10.0      0        48
+shift-differential          0.0  25.0   4.87      4.0   2.0      1        26
+statutory-holidays          9.0  15.0  11.09     11.0   2.0      0         4
+
+cost-of-living-adjustment: {'none': 22, nan: 20, 'tcf': 8, 'tc': 7}
+pension: {nan: 30, 'empl_contr': 12, 'none': 11, 'ret_allw': 4}
+education-allowance: {nan: 35, 'no': 12, 'yes': 10}
+vacation: {'below_average': 18, 'average': 17, 'generous': 16, nan: 6}
+longterm-disability-assistance: {nan: 29, 'yes': 20, 'no': 8}
+contribution-to-dental-plan: {nan: 20, 'half': 15, 'full': 13, 'none': 9}
+bereavement-assistance: {'yes': 27, nan: 27, 'no': 3}
+contribution-to-health-plan: {nan: 20, 'full': 20, 'half': 9, 'none': 8}
+
+Registros duplicados: 0
+Média de atributos ausentes por registro, por classe:
+class
+bad     4.45
+good    6.41

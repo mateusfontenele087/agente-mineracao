@@ -1,0 +1,66 @@
+Registros: 3772  Atributos: 30
+
+Distribuição da classe:
+  negative                      3481  92.29%
+  compensated_hypothyroid        194   5.14%
+  primary_hypothyroid             95   2.52%
+  secondary_hypothyroid            2   0.05%
+
+Numéricos: min Q1 mediana Q3 max média dp IQR zeros ausentes extremos(Tukey)
+  age      1.000   36.000   54.000   67.000  455.000   51.736   20.082   31.000 zeros=0 aus=1 ext=1
+  TSH      0.005    0.500    1.400    2.700  530.000    5.087   24.518    2.200 zeros=0 aus=369 ext=366
+  T3       0.050    1.600    2.000    2.400   10.600    2.013    0.827    0.800 zeros=0 aus=769 ext=189
+  TT4      2.000   88.000  103.000  124.000  430.000  108.319   35.599   36.000 zeros=0 aus=231 ext=193
+  T4U      0.250    0.880    0.980    1.080    2.320    0.995    0.195    0.200 zeros=0 aus=387 ext=168
+  FTI      2.000   93.000  107.000  124.000  395.000  110.470   33.085   31.000 zeros=0 aus=385 ext=212
+  TBG   todos ausentes (3772)
+
+Nominais: valor mais frequente (%)  e contagem por valor
+  sex                          F: 65.7%  {'F': 2480, 'M': 1142, '?': 150}
+  on thyroxine                 f: 87.7%  {'f': 3308, 't': 464}
+  query on thyroxine           f: 98.7%  {'f': 3722, 't': 50}
+  on antithyroid medication    f: 98.9%  {'f': 3729, 't': 43}
+  sick                         f: 96.1%  {'f': 3625, 't': 147}
+  pregnant                     f: 98.6%  {'f': 3719, 't': 53}
+  thyroid surgery              f: 98.6%  {'f': 3719, 't': 53}
+  I131 treatment               f: 98.4%  {'f': 3713, 't': 59}
+  query hypothyroid            f: 93.8%  {'f': 3538, 't': 234}
+  query hyperthyroid           f: 93.7%  {'f': 3535, 't': 237}
+  lithium                      f: 99.5%  {'f': 3754, 't': 18}
+  goitre                       f: 99.1%  {'f': 3738, 't': 34}
+  tumor                        f: 97.5%  {'f': 3676, 't': 96}
+  hypopituitary                f:100.0%  {'f': 3771, 't': 1}
+  psych                        f: 95.1%  {'f': 3588, 't': 184}
+  TSH measured                 t: 90.2%  {'t': 3403, 'f': 369}
+  T3 measured                  t: 79.6%  {'t': 3003, 'f': 769}
+  TT4 measured                 t: 93.9%  {'t': 3541, 'f': 231}
+  T4U measured                 t: 89.7%  {'t': 3385, 'f': 387}
+  FTI measured                 t: 89.8%  {'t': 3387, 'f': 385}
+  TBG measured                 f:100.0%  {'f': 3772}
+  referral source              other: 58.4%  {'SVHC': 386, 'other': 2201, 'SVI': 1034, 'STMW': 112, 'SVHD': 39}
+
+Coerência 'measured' x ausente:
+  TSH: inconsistências = 0
+  T3: inconsistências = 0
+  TT4: inconsistências = 0
+  T4U: inconsistências = 0
+  FTI: inconsistências = 0
+  TBG: inconsistências = 0
+
+Idades > 110: ['455']
+pregnant=t com sex=M: 0
+
+Linhas duplicadas idênticas (excedentes): 61
+  por classe: {'negative': 61}
+
+Classe por 'on thyroxine':
+  negative                     {'f': 3026, 't': 455}
+  compensated_hypothyroid      {'f': 194}
+  primary_hypothyroid          {'f': 86, 't': 9}
+  secondary_hypothyroid        {'f': 2}
+
+TSH ausente por classe:
+  negative                     369 de 3481
+  compensated_hypothyroid      0 de 194
+  primary_hypothyroid          0 de 95
+  secondary_hypothyroid        0 de 2

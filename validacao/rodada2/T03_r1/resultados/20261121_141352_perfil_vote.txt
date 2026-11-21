@@ -1,0 +1,22 @@
+Registros: 435
+Classe: {'republican': 168, 'democrat': 267}
+Linhas duplicadas exatas (excedentes): 93
+Registros com 8+ ausentes: 4
+
+votacao                                   %y dem  %y rep    dif  ?dem  ?rep
+handicapped-infants                         60.5    18.8   41.7     9     3
+water-project-cost-sharing                  50.2    50.7   -0.5    28    20
+adoption-of-the-budget-resolution           88.8    13.4   75.4     7     4
+physician-fee-freeze                         5.4    98.8  -93.4     8     3
+el-salvador-aid                             21.6    95.2  -73.6    12     3
+religious-groups-in-schools                 47.7    89.8  -42.1     9     2
+anti-satellite-test-ban                     77.2    24.1   53.1     8     6
+aid-to-nicaraguan-contras                   82.9    15.3   67.6     4    11
+mx-missile                                  75.8    11.5   64.3    19     3
+immigration                                 47.1    55.8   -8.6     4     3
+synfuels-corporation-cutback                50.6    13.2   37.4    12     9
+education-spending                          14.5    87.1  -72.6    18    13
+superfund-right-to-sue                      29.0    86.1  -57.1    15    10
+crime                                       35.0    98.1  -63.1    10     7
+duty-free-exports                           63.7     9.0   54.8    16    12
+export-administration-act-south-africa      93.5    65.8   27.8    82    22

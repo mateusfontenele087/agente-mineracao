@@ -1,0 +1,69 @@
+Agrupamento K-means com Weka
+Base original: /home/user/agente-mineracao/dados/glass.arff
+Base de trabalho: /tmp/agrupamento_weka_aarzyeuy/base_sem_atributos.arff
+Atributos removidos: last
+Registros: 214
+Atributos usados: 9
+Parâmetros: k=3..3, sementes=5, embaralhamentos=20
+Inicialização SimpleKMeans: -init 1; sementes Weka de 1 a 5.
+Versões embaralhadas: sementes fixas de 1 a 20; cada atributo foi embaralhado separadamente em cada versão.
+k final: 3 (informado em --k-final)
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.unsupervised.attribute.Remove -R last -i /home/user/agente-mineracao/dados/glass.arff -o /tmp/agrupamento_weka_aarzyeuy/base_sem_atributos.arff
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /tmp/agrupamento_weka_aarzyeuy/base_sem_atributos.arff -N 3 -S 1 -init 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.unsupervised.attribute.AddCluster -W "weka.clusterers.SimpleKMeans -N 3 -S 1 -init 1" -i /tmp/agrupamento_weka_aarzyeuy/base_sem_atributos.arff -o /tmp/agrupamento_weka_aarzyeuy/clusters_k3_s1.arff
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /tmp/agrupamento_weka_aarzyeuy/embaralhado_1.arff -N 3 -S 1 -init 1
+
+Resultados por k (SSE e atribuições fornecidos pelo Weka):
+k | melhor semente | SSE mínimo | SSE máximo | silhueta média | estabilidade ARI
+3 | 1 | 29.14727871 | 31.5280095 | 0.3400375905 | 0.7144985837
+
+Silhueta média por grupo para k final:
+Grupo 1: 0.3920783323
+Grupo 2: 0.2166259073
+Grupo 3: 0.3285895844
+
+Linha de base: atributos embaralhados independentemente em cada versão
+SSE real (menor SSE entre sementes): 29.14727871
+SSE embaralhado mínimo: 31.40977111
+SSE embaralhado médio: 32.27889315
+SSE embaralhado máximo: 33.18071462
+Proporção de versões com SSE <= real: 0/20 (0)
+Evidência contra dados embaralhados: sim; SSE real abaixo de todas as versões
+
+Perfil dos grupos finais (valores gerais ao lado dos valores do grupo):
+Grupo 1 (n=125):
+  RI | geral: média=1.51837, mediana=1.51768 | grupo: média=1.51816, mediana=1.51764
+  Na | geral: média=13.4079, mediana=13.3 | grupo: média=13.3162, mediana=13.29
+  Mg | geral: média=2.68453, mediana=3.48 | grupo: média=3.42752, mediana=3.54
+  Al | geral: média=1.44491, mediana=1.36 | grupo: média=1.33448, mediana=1.33
+  Si | geral: média=72.6509, mediana=72.79 | grupo: média=72.5909, mediana=72.75
+  K | geral: média=0.497056, mediana=0.555 | grupo: média=0.49408, mediana=0.57
+  Ca | geral: média=8.95696, mediana=8.6 | grupo: média=8.62512, mediana=8.53
+  Ba | geral: média=0.175047, mediana=0 | grupo: média=0.03008, mediana=0
+  Fe | geral: média=0.0570093, mediana=0 | grupo: média=0.0124, mediana=0
+Grupo 2 (n=49):
+  RI | geral: média=1.51837, mediana=1.51768 | grupo: média=1.51905, mediana=1.51719
+  Na | geral: média=13.4079, mediana=13.3 | grupo: média=13.9006, mediana=14.15
+  Mg | geral: média=2.68453, mediana=3.48 | grupo: média=0.199184, mediana=0
+  Al | geral: média=1.44491, mediana=1.36 | grupo: média=1.86408, mediana=1.88
+  Si | geral: média=72.6509, mediana=72.79 | grupo: média=72.7716, mediana=73.08
+  K | geral: média=0.497056, mediana=0.555 | grupo: média=0.492449, mediana=0.04
+  Ca | geral: média=8.95696, mediana=8.6 | grupo: média=9.96633, mediana=9.07
+  Ba | geral: média=0.175047, mediana=0 | grupo: média=0.667143, mediana=0.53
+  Fe | geral: média=0.0570093, mediana=0 | grupo: média=0.0385714, mediana=0
+Grupo 3 (n=40):
+  RI | geral: média=1.51837, mediana=1.51768 | grupo: média=1.51817, mediana=1.51795
+  Na | geral: média=13.4079, mediana=13.3 | grupo: média=13.0907, mediana=12.995
+  Mg | geral: média=2.68453, mediana=3.48 | grupo: média=3.40725, mediana=3.545
+  Al | geral: média=1.44491, mediana=1.36 | grupo: média=1.2765, mediana=1.265
+  Si | geral: média=72.6509, mediana=72.79 | grupo: média=72.6908, mediana=72.735
+  K | geral: média=0.497056, mediana=0.555 | grupo: média=0.512, mediana=0.57
+  Ca | geral: média=8.95696, mediana=8.6 | grupo: média=8.7575, mediana=8.62
+  Ba | geral: média=0.175047, mediana=0 | grupo: média=0.02525, mediana=0
+  Fe | geral: média=0.0570093, mediana=0 | grupo: média=0.219, mediana=0.205
+
+Silhueta: calculada em Python a partir das atribuições do Weka, com atributos numéricos normalizados pelo intervalo observado e diferença nominal 0/1.
+As atribuições e o SSE do agrupamento foram produzidos pelo Weka.
+Arquivo ARFF com clusters: /home/user/agente-mineracao/resultados/20261121_133059_265516_glass_k3_clusters.arff

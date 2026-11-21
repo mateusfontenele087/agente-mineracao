@@ -1,0 +1,131 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.functions.SMO -t /home/user/agente-mineracao/dados/labor.arff -x 10 -s 1 -M
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:26:50 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:26:50 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -M 
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: bad, good
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         0.0754 * (normalized) duration
+ +       0.7894 * (normalized) wage-increase-first-year
+ +       0.8109 * (normalized) wage-increase-second-year
+ +       0.339  * (normalized) wage-increase-third-year
+ +      -0.0216 * (normalized) cost-of-living-adjustment=none
+ +       0.2843 * (normalized) cost-of-living-adjustment=tcf
+ +      -0.2628 * (normalized) cost-of-living-adjustment=tc
+ +      -0.5644 * (normalized) working-hours
+ +      -0.8    * (normalized) pension=none
+ +       0.2033 * (normalized) pension=ret_allw
+ +       0.5968 * (normalized) pension=empl_contr
+ +       0.3396 * (normalized) standby-pay
+ +      -0.0055 * (normalized) shift-differential
+ +      -0.5502 * (normalized) education-allowance=no
+ +       0.6464 * (normalized) statutory-holidays
+ +      -0.2443 * (normalized) vacation=below_average
+ +      -0.0503 * (normalized) vacation=average
+ +       0.2946 * (normalized) vacation=generous
+ +      -1.2183 * (normalized) longterm-disability-assistance=no
+ +      -0.2628 * (normalized) contribution-to-dental-plan=none
+ +      -0.0485 * (normalized) contribution-to-dental-plan=half
+ +       0.3113 * (normalized) contribution-to-dental-plan=full
+ +      -0.6222 * (normalized) contribution-to-health-plan=none
+ +       0.2688 * (normalized) contribution-to-health-plan=half
+ +       0.3534 * (normalized) contribution-to-health-plan=full
+ -       0.2873
+
+Number of kernel evaluations: 1055 (93.756% cached)
+
+Calibration model fit to the output:
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+               Class
+Variable         bad
+====================
+pred         -5.8655
+Intercept      2.802
+
+
+Odds Ratios...
+               Class
+Variable         bad
+====================
+pred          0.0028
+
+
+
+
+Time taken to build model: 0.29 seconds
+
+Time taken to test model on training data: 0 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances          56               98.2456 %
+Incorrectly Classified Instances         1                1.7544 %
+Kappa statistic                          0.961 
+Mean absolute error                      0.0431
+Root mean squared error                  0.1418
+Relative absolute error                  9.4335 %
+Root relative squared error             29.7187 %
+Total Number of Instances               57     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.950    0.000    1.000      0.950    0.974      0.962    0.978     0.978     bad
+                 1.000    0.050    0.974      1.000    0.987      0.962    0.978     0.985     good
+Weighted Avg.    0.982    0.032    0.983      0.982    0.982      0.962    0.978     0.983     
+
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 19  1 |  a = bad
+  0 37 |  b = good
+
+Time taken to perform cross-validation: 0.28 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances          50               87.7193 %
+Incorrectly Classified Instances         7               12.2807 %
+Kappa statistic                          0.7335
+Mean absolute error                      0.1504
+Root mean squared error                  0.359 
+Relative absolute error                 32.8683 %
+Root relative squared error             75.1799 %
+Total Number of Instances               57     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.850    0.108    0.810      0.850    0.829      0.734    0.811     0.667     bad
+                 0.892    0.150    0.917      0.892    0.904      0.734    0.808     0.832     good
+Weighted Avg.    0.877    0.135    0.879      0.877    0.878      0.734    0.809     0.774     
+
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 17  3 |  a = bad
+  4 33 |  b = good
+

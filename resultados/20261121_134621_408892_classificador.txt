@@ -1,0 +1,118 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /home/user/agente-mineracao/dados/hypothyroid_bin_sem_dup.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.trees.J48
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:46:22 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:46:22 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.trees.J48 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.trees.J48 -C 0.25 -M 2
+
+Classifier Model
+J48 pruned tree
+------------------
+
+TSH <= 6
+|   TT4 <= 49
+|   |   referral source = SVHC: negative (1.76)
+|   |   referral source = other: hypothyroid (14.22/2.49)
+|   |   referral source = SVI: negative (9.99)
+|   |   referral source = STMW: negative (0.0)
+|   |   referral source = SVHD: negative (0.01)
+|   TT4 > 49: negative (1856.34)
+TSH > 6
+|   on thyroxine = f
+|   |   goitre = f
+|   |   |   thyroid surgery = f
+|   |   |   |   TT4 <= 144
+|   |   |   |   |   query on thyroxine = f: hypothyroid (1663.41/69.32)
+|   |   |   |   |   query on thyroxine = t
+|   |   |   |   |   |   age <= 29: hypothyroid (17.88/0.29)
+|   |   |   |   |   |   age > 29: negative (4.04)
+|   |   |   |   TT4 > 144
+|   |   |   |   |   TT4 <= 150: hypothyroid (18.88/0.97)
+|   |   |   |   |   TT4 > 150: negative (11.49/0.2)
+|   |   |   thyroid surgery = t
+|   |   |   |   TT4 <= 69: hypothyroid (13.48/1.76)
+|   |   |   |   TT4 > 69: negative (4.1)
+|   |   goitre = t: negative (2.31)
+|   on thyroxine = t
+|   |   FTI <= 62: hypothyroid (56.83/4.07)
+|   |   FTI > 62: negative (36.26)
+
+Number of Leaves  : 	16
+
+Size of the tree : 	28
+
+
+Cost Matrix
+  0  1
+ 10  0
+
+
+Time taken to build model: 0.27 seconds
+
+Time taken to test model on training data: 0.03 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        3699               99.6766 %
+Incorrectly Classified Instances        12                0.3234 %
+Kappa statistic                          0.978 
+Mean absolute error                      0.038 
+Root mean squared error                  0.1313
+Relative absolute error                 26.2663 %
+Root relative squared error             48.8304 %
+Total Number of Instances             3711     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.996    0.000    1.000      0.996    0.998      0.978    0.999     1.000     negative
+                 1.000    0.004    0.960      1.000    0.980      0.978    0.999     0.985     hypothyroid
+Weighted Avg.    0.997    0.000    0.997      0.997    0.997      0.978    0.999     0.999     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3408   12 |    a = negative
+    0  291 |    b = hypothyroid
+
+Time taken to perform cross-validation: 0.2 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances        3692               99.488  %
+Incorrectly Classified Instances        19                0.512  %
+Kappa statistic                          0.9651
+Mean absolute error                      0.0402
+Root mean squared error                  0.1388
+Relative absolute error                 27.7979 %
+Root relative squared error             51.6491 %
+Total Number of Instances             3711     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.996    0.017    0.999      0.996    0.997      0.965    0.991     0.999     negative
+                 0.983    0.004    0.953      0.983    0.968      0.965    0.991     0.956     hypothyroid
+Weighted Avg.    0.995    0.016    0.995      0.995    0.995      0.965    0.991     0.995     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3406   14 |    a = negative
+    5  286 |    b = hypothyroid
+

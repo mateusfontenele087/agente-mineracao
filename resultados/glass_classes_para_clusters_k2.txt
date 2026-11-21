@@ -1,0 +1,57 @@
+
+
+=== Clustering stats for training data ===
+
+
+kMeans
+======
+
+Number of iterations: 6
+Within cluster sum of squared errors: 34.13433421599164
+
+Initial starting points (k-means++):
+
+Cluster 0: 1.51743,12.2,3.25,1.16,73.55,0.62,8.9,0,0.24
+Cluster 1: 1.51841,12.93,3.74,1.11,72.28,0.64,8.96,0,0.22
+
+Missing values globally replaced with mean/mode
+
+Final cluster centroids:
+                         Cluster#
+Attribute    Full Data          0          1
+               (214.0)     (52.0)    (162.0)
+============================================
+RI              1.5184     1.5191     1.5181
+Na             13.4079    13.8027    13.2811
+Mg              2.6845     0.2871     3.4541
+Al              1.4449      1.864     1.3104
+Si             72.6509    72.7715    72.6122
+K               0.4971     0.5013     0.4957
+Ca               8.957     9.9954     8.6236
+Ba               0.175     0.6333      0.028
+Fe               0.057     0.0462     0.0605
+
+
+Clustered Instances
+
+0       52 ( 24%)
+1      162 ( 76%)
+
+
+Class attribute: Type
+Classes to Clusters:
+
+  0  1  <-- assigned to cluster
+  0 70 | build wind float
+ 11 65 | build wind non-float
+  0 17 | vehic wind float
+  0  0 | vehic wind non-float
+ 12  1 | containers
+  4  5 | tableware
+ 25  4 | headlamps
+
+Cluster 0 <-- headlamps
+Cluster 1 <-- build wind float
+
+Incorrectly clustered instances :	119.0	 55.6075 %
+

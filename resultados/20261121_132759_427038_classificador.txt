@@ -1,0 +1,86 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /home/user/agente-mineracao/dados/hypothyroid_bin.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.lazy.IBk -- -K 15 -X
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:28:09 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:28:10 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -cost-matrix "[0.0 1.0; 10.0 0.0]" -W weka.classifiers.lazy.IBk -- -K 15 -X 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.lazy.IBk -K 15 -W 0 -X -A "weka.core.neighboursearch.LinearNNSearch -A \"weka.core.EuclideanDistance -R first-last\""
+
+Classifier Model
+IB1 instance-based classifier
+using 1 nearest neighbour(s) for classification
+
+
+Cost Matrix
+  0  1
+ 10  0
+
+
+Time taken to build model: 1.99 seconds
+
+Time taken to test model on training data: 2.7 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        3599               95.4136 %
+Incorrectly Classified Instances       173                4.5864 %
+Kappa statistic                          0.6983
+Mean absolute error                      0.0463
+Root mean squared error                  0.2141
+Relative absolute error                 32.4441 %
+Root relative squared error             80.2464 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.969    0.223    0.981      0.969    0.975      0.700    0.873     0.979     negative
+                 0.777    0.031    0.677      0.777    0.723      0.700    0.873     0.543     hypothyroid
+Weighted Avg.    0.954    0.209    0.958      0.954    0.956      0.700    0.873     0.946     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3373  108 |    a = negative
+   65  226 |    b = hypothyroid
+
+Time taken to perform cross-validation: 28.12 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances        3361               89.1039 %
+Incorrectly Classified Instances       411               10.8961 %
+Kappa statistic                          0.2408
+Mean absolute error                      0.1094
+Root mean squared error                  0.33  
+Relative absolute error                 76.6925 %
+Root relative squared error            123.6773 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.940    0.698    0.942      0.940    0.941      0.241    0.617     0.940     negative
+                 0.302    0.060    0.297      0.302    0.300      0.241    0.617     0.148     hypothyroid
+Weighted Avg.    0.891    0.648    0.892      0.891    0.891      0.241    0.617     0.879     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3273  208 |    a = negative
+  203   88 |    b = hypothyroid
+

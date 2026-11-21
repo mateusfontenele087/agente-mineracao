@@ -1,0 +1,43 @@
+Registros: 57
+Distribuição da classe: {'good': 37, 'bad': 20}
+Registros repetidos (cópias além da primeira): 0
+
+ATRIBUTOS NUMÉRICOS
+atributo                       n  aus    min     Q1    med  media     Q3    max    IQR zeros
+duration                      56    1   1.00   2.00   2.00   2.16   3.00   3.00   1.00     0
+wage-increase-first-year      56    1   2.00   2.50   4.00   3.80   4.50   7.00   2.00     0
+wage-increase-second-year     46   11   2.00   3.00   4.00   3.97   4.50   7.00   1.50     0
+wage-increase-third-year      15   42   2.00   2.40   4.60   3.91   5.00   5.10   2.60     0
+working-hours                 51    6  27.00  37.00  38.00  38.04  40.00  40.00   3.00     0
+standby-pay                    9   48   2.00   2.00   8.00   7.44  12.00  14.00  10.00     0
+shift-differential            31   26   0.00   3.00   4.00   4.87   5.00  25.00   2.00     1
+statutory-holidays            53    4   9.00  10.00  11.00  11.09  12.00  15.00   2.00     0
+
+ATRIBUTOS NOMINAIS (contagem por valor)
+cost-of-living-adjustment        {'?': 20, 'tc': 7, 'none': 22, 'tcf': 8}
+pension                          {'?': 30, 'ret_allw': 4, 'empl_contr': 12, 'none': 11}
+education-allowance              {'?': 35, 'yes': 10, 'no': 12}
+vacation                         {'average': 17, 'below_average': 18, 'generous': 16, '?': 6}
+longterm-disability-assistance   {'?': 29, 'yes': 20, 'no': 8}
+contribution-to-dental-plan      {'?': 20, 'full': 13, 'half': 15, 'none': 9}
+bereavement-assistance           {'yes': 27, '?': 27, 'no': 3}
+contribution-to-health-plan      {'?': 20, 'full': 20, 'half': 9, 'none': 8}
+
+PERCENTUAL DE AUSENTES POR CLASSE
+atributo                          %? bad  %? good
+duration                             0.0      2.7
+wage-increase-first-year             0.0      2.7
+wage-increase-second-year           25.0     16.2
+wage-increase-third-year            80.0     70.3
+cost-of-living-adjustment           25.0     40.5
+working-hours                        5.0     13.5
+pension                             10.0     75.7
+standby-pay                         80.0     86.5
+shift-differential                  55.0     40.5
+education-allowance                 40.0     73.0
+statutory-holidays                   0.0     10.8
+vacation                             0.0     16.2
+longterm-disability-assistance      35.0     59.5
+contribution-to-dental-plan         30.0     37.8
+bereavement-assistance              40.0     51.4
+contribution-to-health-plan         20.0     43.2

@@ -1,0 +1,144 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.lazy.IBk -t /home/user/agente-mineracao/dados/soybean.arff -x 10 -s 1 -K 15 -X
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:33:58 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:33:59 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -K 15 -X 
+
+=== Classifier model (full training set) ===
+
+IB1 instance-based classifier
+using 2 nearest neighbour(s) for classification
+
+
+Time taken to build model: 1.87 seconds
+
+Time taken to test model on training data: 0.4 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         647               94.7291 %
+Incorrectly Classified Instances        36                5.2709 %
+Kappa statistic                          0.9422
+Mean absolute error                      0.0079
+Root mean squared error                  0.0577
+Relative absolute error                  8.2709 %
+Root relative squared error             26.3385 %
+Total Number of Instances              683     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.002    0.952      1.000    0.976      0.975    1.000     1.000     diaporthe-stem-canker
+                 1.000    0.002    0.952      1.000    0.976      0.975    1.000     1.000     charcoal-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     rhizoctonia-root-rot
+                 1.000    0.003    0.978      1.000    0.989      0.987    1.000     1.000     phytophthora-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     brown-stem-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     powdery-mildew
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     downy-mildew
+                 0.946    0.014    0.916      0.946    0.930      0.920    0.998     0.987     brown-spot
+                 1.000    0.003    0.909      1.000    0.952      0.952    1.000     0.995     bacterial-blight
+                 0.900    0.000    1.000      0.900    0.947      0.947    1.000     0.995     bacterial-pustule
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     purple-seed-stain
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     anthracnose
+                 0.800    0.002    0.941      0.800    0.865      0.864    0.998     0.943     phyllosticta-leaf-spot
+                 0.978    0.034    0.817      0.978    0.890      0.876    0.996     0.974     alternarialeaf-spot
+                 0.791    0.002    0.986      0.791    0.878      0.868    0.997     0.977     frog-eye-leaf-spot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     diaporthe-pod-&-stem-blight
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     cyst-nematode
+                 0.750    0.000    1.000      0.750    0.857      0.863    1.000     1.000     2-4-d-injury
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     herbicide-injury
+Weighted Avg.    0.947    0.007    0.952      0.947    0.947      0.942    0.999     0.990     
+
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s   <-- classified as
+ 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = diaporthe-stem-canker
+  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  b = charcoal-rot
+  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  c = rhizoctonia-root-rot
+  0  0  0 88  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  d = phytophthora-rot
+  0  0  0  0 44  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  e = brown-stem-rot
+  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0 |  f = powdery-mildew
+  0  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0 |  g = downy-mildew
+  0  0  0  0  0  0  0 87  0  0  0  0  1  3  1  0  0  0  0 |  h = brown-spot
+  0  0  0  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0  0 |  i = bacterial-blight
+  0  0  0  0  0  0  0  0  2 18  0  0  0  0  0  0  0  0  0 |  j = bacterial-pustule
+  0  0  0  0  0  0  0  0  0  0 20  0  0  0  0  0  0  0  0 |  k = purple-seed-stain
+  0  0  0  0  0  0  0  0  0  0  0 44  0  0  0  0  0  0  0 |  l = anthracnose
+  0  0  0  0  0  0  0  4  0  0  0  0 16  0  0  0  0  0  0 |  m = phyllosticta-leaf-spot
+  0  0  0  0  0  0  0  2  0  0  0  0  0 89  0  0  0  0  0 |  n = alternarialeaf-spot
+  0  0  0  0  0  0  0  2  0  0  0  0  0 17 72  0  0  0  0 |  o = frog-eye-leaf-spot
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 15  0  0  0 |  p = diaporthe-pod-&-stem-blight
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 14  0  0 |  q = cyst-nematode
+  1  1  0  2  0  0  0  0  0  0  0  0  0  0  0  0  0 12  0 |  r = 2-4-d-injury
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  8 |  s = herbicide-injury
+
+Time taken to perform cross-validation: 4.85 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         622               91.0688 %
+Incorrectly Classified Instances        61                8.9312 %
+Kappa statistic                          0.902 
+Mean absolute error                      0.013 
+Root mean squared error                  0.0845
+Relative absolute error                 13.4719 %
+Root relative squared error             38.5728 %
+Total Number of Instances              683     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 1.000    0.003    0.909      1.000    0.952      0.952    1.000     1.000     diaporthe-stem-canker
+                 1.000    0.002    0.952      1.000    0.976      0.975    1.000     1.000     charcoal-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     rhizoctonia-root-rot
+                 1.000    0.003    0.978      1.000    0.989      0.987    1.000     1.000     phytophthora-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     brown-stem-rot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     powdery-mildew
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     downy-mildew
+                 0.891    0.029    0.828      0.891    0.859      0.836    0.970     0.927     brown-spot
+                 0.950    0.006    0.826      0.950    0.884      0.882    0.997     0.945     bacterial-blight
+                 0.800    0.002    0.941      0.800    0.865      0.864    0.974     0.935     bacterial-pustule
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     purple-seed-stain
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     anthracnose
+                 0.650    0.006    0.765      0.650    0.703      0.697    0.990     0.790     phyllosticta-leaf-spot
+                 0.901    0.041    0.774      0.901    0.832      0.808    0.981     0.832     alternarialeaf-spot
+                 0.736    0.008    0.931      0.736    0.822      0.805    0.959     0.890     frog-eye-leaf-spot
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     diaporthe-pod-&-stem-blight
+                 1.000    0.000    1.000      1.000    1.000      1.000    1.000     1.000     cyst-nematode
+                 0.625    0.000    1.000      0.625    0.769      0.787    0.997     0.951     2-4-d-injury
+                 1.000    0.001    0.889      1.000    0.941      0.942    1.000     0.986     herbicide-injury
+Weighted Avg.    0.911    0.011    0.916      0.911    0.909      0.901    0.987     0.942     
+
+
+=== Confusion Matrix ===
+
+  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s   <-- classified as
+ 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  a = diaporthe-stem-canker
+  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  b = charcoal-rot
+  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  c = rhizoctonia-root-rot
+  0  0  0 88  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  d = phytophthora-rot
+  0  0  0  0 44  0  0  0  0  0  0  0  0  0  0  0  0  0  0 |  e = brown-stem-rot
+  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0  0 |  f = powdery-mildew
+  0  0  0  0  0  0 20  0  0  0  0  0  0  0  0  0  0  0  0 |  g = downy-mildew
+  0  0  0  0  0  0  0 82  1  0  0  0  4  4  1  0  0  0  0 |  h = brown-spot
+  0  0  0  0  0  0  0  0 19  1  0  0  0  0  0  0  0  0  0 |  i = bacterial-blight
+  0  0  0  0  0  0  0  1  3 16  0  0  0  0  0  0  0  0  0 |  j = bacterial-pustule
+  0  0  0  0  0  0  0  0  0  0 20  0  0  0  0  0  0  0  0 |  k = purple-seed-stain
+  0  0  0  0  0  0  0  0  0  0  0 44  0  0  0  0  0  0  0 |  l = anthracnose
+  0  0  0  0  0  0  0  6  0  0  0  0 13  1  0  0  0  0  0 |  m = phyllosticta-leaf-spot
+  0  0  0  0  0  0  0  5  0  0  0  0  0 82  4  0  0  0  0 |  n = alternarialeaf-spot
+  0  0  0  0  0  0  0  5  0  0  0  0  0 19 67  0  0  0  0 |  o = frog-eye-leaf-spot
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 15  0  0  0 |  p = diaporthe-pod-&-stem-blight
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 14  0  0 |  q = cyst-nematode
+  2  1  0  2  0  0  0  0  0  0  0  0  0  0  0  0  0 10  1 |  r = 2-4-d-injury
+  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  8 |  s = herbicide-injury
+

@@ -1,0 +1,79 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.rules.OneR -t /tmp/copias_validacao/T03_r3/dados/vote.arff -x 10 -s 1 -B 6
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 2:27:09 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 2:27:09 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -B 6 
+
+=== Classifier model (full training set) ===
+
+physician-fee-freeze:
+	n	-> democrat
+	y	-> republican
+	?	-> democrat
+(416/435 instances correct)
+
+
+Time taken to build model: 0.15 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         416               95.6322 %
+Incorrectly Classified Instances        19                4.3678 %
+Kappa statistic                          0.9088
+Mean absolute error                      0.0437
+Root mean squared error                  0.209 
+Relative absolute error                  9.2105 %
+Root relative squared error             42.9251 %
+Total Number of Instances              435     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.948    0.030    0.981      0.948    0.964      0.910    0.959     0.961     democrat
+                 0.970    0.052    0.921      0.970    0.945      0.910    0.959     0.905     republican
+Weighted Avg.    0.956    0.039    0.958      0.956    0.957      0.910    0.959     0.940     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 253  14 |   a = democrat
+   5 163 |   b = republican
+
+Time taken to perform cross-validation: 0.01 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         416               95.6322 %
+Incorrectly Classified Instances        19                4.3678 %
+Kappa statistic                          0.9088
+Mean absolute error                      0.0437
+Root mean squared error                  0.209 
+Relative absolute error                  9.21   %
+Root relative squared error             42.9237 %
+Total Number of Instances              435     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.948    0.030    0.981      0.948    0.964      0.910    0.959     0.961     democrat
+                 0.970    0.052    0.921      0.970    0.945      0.910    0.959     0.905     republican
+Weighted Avg.    0.956    0.039    0.958      0.956    0.957      0.910    0.959     0.940     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 253  14 |   a = democrat
+   5 163 |   b = republican
+

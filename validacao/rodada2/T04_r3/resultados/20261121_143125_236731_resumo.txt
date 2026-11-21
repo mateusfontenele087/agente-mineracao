@@ -1,0 +1,27 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.core.Instances /tmp/copias_validacao/T04_r3/dados/labor.arff
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Relation Name:  labor-neg-data
+Num Instances:  57
+Num Attributes: 17
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+ 1 duration                   Num   0%  98%   0%     1 /  2%     0 /  0%     3 
+ 2 wage-increase-first-year   Num   0%  49%  49%     1 /  2%     7 / 12%    17 
+ 3 wage-increase-second-year  Num   0%  47%  33%    11 / 19%     8 / 14%    15 
+ 4 wage-increase-third-year   Num   0%  14%  12%    42 / 74%     6 / 11%     9 
+ 5 cost-of-living-adjustment  Nom  65%   0%   0%    20 / 35%     0 /  0%     3 
+ 6 working-hours              Num   0%  89%   0%     6 / 11%     3 /  5%     8 
+ 7 pension                    Nom  47%   0%   0%    30 / 53%     0 /  0%     3 
+ 8 standby-pay                Num   0%  16%   0%    48 / 84%     6 / 11%     7 
+ 9 shift-differential         Num   0%  54%   0%    26 / 46%     5 /  9%    10 
+10 education-allowance        Nom  39%   0%   0%    35 / 61%     0 /  0%     2 
+11 statutory-holidays         Num   0%  93%   0%     4 /  7%     0 /  0%     6 
+12 vacation                   Nom  89%   0%   0%     6 / 11%     0 /  0%     3 
+13 longterm-disability-assis  Nom  49%   0%   0%    29 / 51%     0 /  0%     2 
+14 contribution-to-dental-pl  Nom  65%   0%   0%    20 / 35%     0 /  0%     3 
+15 bereavement-assistance     Nom  53%   0%   0%    27 / 47%     0 /  0%     2 
+16 contribution-to-health-pl  Nom  65%   0%   0%    20 / 35%     0 /  0%     3 
+17 class                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

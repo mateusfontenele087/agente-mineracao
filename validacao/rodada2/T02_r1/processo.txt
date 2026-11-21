@@ -1,0 +1,21 @@
+parou_para_perguntar=sim
+ferramentas_alteradas:
+arquivos_novos:
+?? analises/scripts/
+?? resultados/20261121_141341_778298_resumo.txt
+?? resultados/20261121_141441_152823_baseline_ZeroR.txt
+?? resultados/20261121_141441_152823_classificador.txt
+?? resultados/20261121_141441_977932_baseline_ZeroR.txt
+?? resultados/20261121_141441_977932_classificador.txt
+?? resultados/20261121_141442_830523_baseline_ZeroR.txt
+?? resultados/20261121_141442_830523_classificador.txt
+?? resultados/20261121_141443_675835_baseline_ZeroR.txt
+?? resultados/20261121_141443_675835_classificador.txt
+?? resultados/20261121_141444_731769_baseline_ZeroR.txt
+?? resultados/20261121_141444_731769_classificador.txt
+?? resultados/20261121_141445_918472_baseline_ZeroR.txt
+?? resultados/20261121_141445_918472_classificador.txt
+?? resultados/20261121_141940_107421_significancia.txt
+?? resultados/20261121_142338_182403_significancia.txt
+?? resultados/20261121_custos_breast_cancer.txt
+?? resultados/20261121_perfil_breast_cancer.txt
