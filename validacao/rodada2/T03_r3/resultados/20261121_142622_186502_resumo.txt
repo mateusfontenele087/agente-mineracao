@@ -1,0 +1,27 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.core.Instances /tmp/copias_validacao/T03_r3/dados/vote.arff
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Relation Name:  vote
+Num Instances:  435
+Num Attributes: 17
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+ 1 handicapped-infants        Nom  97%   0%   0%    12 /  3%     0 /  0%     2 
+ 2 water-project-cost-sharin  Nom  89%   0%   0%    48 / 11%     0 /  0%     2 
+ 3 adoption-of-the-budget-re  Nom  97%   0%   0%    11 /  3%     0 /  0%     2 
+ 4 physician-fee-freeze       Nom  97%   0%   0%    11 /  3%     0 /  0%     2 
+ 5 el-salvador-aid            Nom  97%   0%   0%    15 /  3%     0 /  0%     2 
+ 6 religious-groups-in-schoo  Nom  97%   0%   0%    11 /  3%     0 /  0%     2 
+ 7 anti-satellite-test-ban    Nom  97%   0%   0%    14 /  3%     0 /  0%     2 
+ 8 aid-to-nicaraguan-contras  Nom  97%   0%   0%    15 /  3%     0 /  0%     2 
+ 9 mx-missile                 Nom  95%   0%   0%    22 /  5%     0 /  0%     2 
+10 immigration                Nom  98%   0%   0%     7 /  2%     0 /  0%     2 
+11 synfuels-corporation-cutb  Nom  95%   0%   0%    21 /  5%     0 /  0%     2 
+12 education-spending         Nom  93%   0%   0%    31 /  7%     0 /  0%     2 
+13 superfund-right-to-sue     Nom  94%   0%   0%    25 /  6%     0 /  0%     2 
+14 crime                      Nom  96%   0%   0%    17 /  4%     0 /  0%     2 
+15 duty-free-exports          Nom  94%   0%   0%    28 /  6%     0 /  0%     2 
+16 export-administration-act  Nom  76%   0%   0%   104 / 24%     0 /  0%     2 
+17 Class                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+

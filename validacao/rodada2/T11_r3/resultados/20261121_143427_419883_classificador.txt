@@ -1,0 +1,282 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/copias_validacao/T11_r3/dados/ionosphere.arff -x 10 -s 1
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 2:34:28 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 2:34:28 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                 Class
+Attribute            b       g
+                (0.36)  (0.64)
+===============================
+a01
+  mean           0.6984       1
+  std. dev.      0.4589  0.1667
+  weight sum        126     225
+  precision           1       1
+
+a02
+  mean                0       0
+  std. dev.      0.0017  0.0017
+  weight sum        126     225
+  precision        0.01    0.01
+
+a03
+  mean           0.2966  0.8346
+  std. dev.      0.6564  0.2005
+  weight sum        126     225
+  precision      0.0092  0.0092
+
+a04
+  mean          -0.0298  0.0857
+  std. dev.       0.657   0.238
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a05
+  mean           0.2419  0.8006
+  std. dev.      0.6829  0.2109
+  weight sum        126     225
+  precision      0.0099  0.0099
+
+a06
+  mean           0.0242   0.167
+  std. dev.      0.6403  0.3056
+  weight sum        126     225
+  precision      0.0078  0.0078
+
+a07
+  mean           0.2541  0.7161
+  std. dev.      0.6245  0.2873
+  weight sum        126     225
+  precision      0.0087  0.0087
+
+a08
+  mean           -0.025  0.2003
+  std. dev.      0.6692  0.3933
+  weight sum        126     225
+  precision      0.0077  0.0077
+
+a09
+  mean            0.313  0.6242
+  std. dev.       0.601  0.4055
+  weight sum        126     225
+  precision      0.0082  0.0082
+
+a10
+  mean           0.1035   0.225
+  std. dev.      0.6071  0.3904
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a11
+  mean           0.3489  0.5463
+  std. dev.      0.6276  0.5076
+  weight sum        126     225
+  precision      0.0082  0.0082
+
+a12
+  mean           0.0495  0.2141
+  std. dev.      0.6237  0.3914
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a13
+  mean            0.249  0.4851
+  std. dev.      0.6509  0.5854
+  weight sum        126     225
+  precision      0.0084  0.0084
+
+a14
+  mean          -0.0364  0.1662
+  std. dev.      0.6365  0.3711
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a15
+  mean            0.163  0.4447
+  std. dev.      0.6377  0.6357
+  weight sum        126     225
+  precision      0.0086  0.0086
+
+a16
+  mean            -0.02  0.1223
+  std. dev.      0.5887  0.3524
+  weight sum        126     225
+  precision      0.0074  0.0074
+
+a17
+  mean           0.3111  0.4224
+  std. dev.      0.6152   0.616
+  weight sum        126     225
+  precision      0.0079  0.0079
+
+a18
+  mean          -0.0831  0.0407
+  std. dev.      0.6364  0.3912
+  weight sum        126     225
+  precision      0.0072  0.0072
+
+a19
+  mean           0.2617  0.4145
+  std. dev.      0.6605  0.5994
+  weight sum        126     225
+  precision      0.0079  0.0079
+
+a20
+  mean          -0.0486 -0.0104
+  std. dev.      0.6703  0.4063
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a21
+  mean           0.1572  0.4365
+  std. dev.      0.6406  0.5647
+  weight sum        126     225
+  precision      0.0081  0.0081
+
+a22
+  mean           0.0887 -0.0367
+  std. dev.      0.6368  0.4302
+  weight sum        126     225
+  precision      0.0076  0.0076
+
+a23
+  mean           0.1985  0.4552
+  std. dev.      0.6814  0.5344
+  weight sum        126     225
+  precision      0.0081  0.0081
+
+a24
+  mean          -0.0622 -0.0549
+  std. dev.      0.6822  0.4171
+  weight sum        126     225
+  precision      0.0076  0.0076
+
+a25
+  mean           0.2517   0.478
+  std. dev.      0.6749  0.4989
+  weight sum        126     225
+  precision      0.0078  0.0078
+
+a26
+  mean          -0.0725 -0.0707
+  std. dev.      0.6409  0.4152
+  weight sum        126     225
+  precision      0.0074  0.0074
+
+a27
+  mean           0.6161  0.4983
+  std. dev.      0.5793  0.4685
+  weight sum        126     225
+  precision      0.0078  0.0078
+
+a28
+  mean          -0.1012 -0.0519
+  std. dev.      0.7508  0.3925
+  weight sum        126     225
+  precision      0.0071  0.0071
+
+a29
+  mean           0.1868  0.4862
+  std. dev.      0.6986  0.4613
+  weight sum        126     225
+  precision      0.0082  0.0082
+
+a30
+  mean           -0.025 -0.0296
+  std. dev.      0.6323  0.4191
+  weight sum        126     225
+  precision      0.0075  0.0075
+
+a31
+  mean           0.1277  0.4783
+  std. dev.      0.6846  0.4487
+  weight sum        126     225
+  precision      0.0083  0.0083
+
+a32
+  mean           0.0208 -0.0175
+  std. dev.      0.6607  0.4065
+  weight sum        126     225
+  precision      0.0076  0.0076
+
+a33
+  mean           0.1671  0.4514
+  std. dev.      0.5742  0.4599
+  weight sum        126     225
+  precision      0.0082  0.0082
+
+a34
+  mean           0.0545  -0.008
+  std. dev.      0.5633  0.4027
+  weight sum        126     225
+  precision      0.0076  0.0076
+
+
+
+Time taken to build model: 0.19 seconds
+
+Time taken to test model on training data: 0.1 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         291               82.906  %
+Incorrectly Classified Instances        60               17.094  %
+Kappa statistic                          0.6447
+Mean absolute error                      0.1667
+Root mean squared error                  0.385 
+Relative absolute error                 36.2147 %
+Root relative squared error             80.2677 %
+Total Number of Instances              351     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.865    0.191    0.717      0.865    0.784      0.652    0.940     0.927     b
+                 0.809    0.135    0.915      0.809    0.858      0.652    0.940     0.961     g
+Weighted Avg.    0.829    0.155    0.844      0.829    0.832      0.652    0.940     0.949     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 109  17 |   a = b
+  43 182 |   b = g
+
+Time taken to perform cross-validation: 0.09 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         290               82.6211 %
+Incorrectly Classified Instances        61               17.3789 %
+Kappa statistic                          0.6394
+Mean absolute error                      0.1736
+Root mean squared error                  0.3935
+Relative absolute error                 37.7001 %
+Root relative squared error             82.0203 %
+Total Number of Instances              351     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.865    0.196    0.712      0.865    0.781      0.648    0.935     0.917     b
+                 0.804    0.135    0.914      0.804    0.856      0.648    0.935     0.958     g
+Weighted Avg.    0.826    0.157    0.842      0.826    0.829      0.648    0.935     0.943     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 109  17 |   a = b
+  44 181 |   b = g
+

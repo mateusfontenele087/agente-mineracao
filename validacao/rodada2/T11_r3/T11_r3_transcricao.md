@@ -1,0 +1,82 @@
+# Transcrição T11_r3
+
+### Usuário
+
+Compare o J48 e o NaiveBayes na ionosphere.arff pela AUC e me diga se a diferença é significativa.
+
+
+### Agente
+
+Vou começar lendo o manual de decisões e conferindo as ferramentas disponíveis.
+
+- `Bash`: `ls; ls ferramentas dados resultados 2>/dev/null | head -50; wc -l conhecimento/manual_decisoes.md`
+- `Read`: `/tmp/copias_validacao/T11_r3/conhecimento/manual_decisoes.md`
+- `Read`: `/tmp/copias_validacao/T11_r3/ferramentas/significancia.py`
+
+### Agente
+
+O manual que interessa aqui (classificação e avaliação) está nas linhas lidas; vou conferir se o restante menciona AUC e checar o resumo da base e a ferramenta principal.
+
+- `Grep`: `{"pattern": "AUC|auc", "path": "/tmp/copias_validacao/T11_r3", "glob": "{conhecimento/manual_decisoes.md,ferramentas/*.py}", "output_mode": "content"}`
+- `Bash`: `python3 ferramentas/weka_runner.py resumo ionosphere.arff 2>&1 | tail -60`
+- `Bash`: `python3 ferramentas/weka_runner.py comparar ionosphere.arff weka.classifiers.trees.J48 -C 0.25 -M 2 2>&1 | grep -v "Picked up" | tail -80`
+- `Bash`: `python3 ferramentas/weka_runner.py comparar ionosphere.arff weka.classifiers.bayes.NaiveBayes 2>&1 | grep -v "Picked up" | tail -60`
+
+### Agente
+
+Preciso também do ZeroR e do comando exato registrado.
+
+- `Bash`: `ls -t resultados | head -6; for f in $(ls -t resultados/*ZeroR.txt | head -1); do echo "== $f"; grep -iE "comando|java " $f | head -3; sed -n '/Stratified cross-validation/,$p' $f; done; grep -iE "comando|java " $(ls -t resultados/*classificador.txt | head -2) | head -4`
+
+### Agente
+
+Os dois modelos rodaram no Weka, mas **ainda não consigo dizer se a diferença de AUC é significativa**. A ferramenta de significância do projeto (`ferramentas/significancia.py`) não calcula AUC: ela só testa acurácia, precisão, recall, F1, F1 macro e custo. A regra do projeto me impede de alterar uma ferramenta validada no meio de uma análise sem sua autorização, então parei antes do teste.
+
+## O que foi feito
+- **Base:** ionosphere.arff, com 351 registros, 34 atributos numéricos e uma classe binária: `g` com 225 casos (64,1%) e `b` com 126 (35,9%). Não há valores ausentes.
+- **Avaliação:** validação cruzada estratificada de 10 partes, semente 1, comparando cada modelo com o ZeroR. Os valores abaixo vêm só do bloco de validação cruzada.
+- **Comandos executados:**
+  - `weka.classifiers.trees.J48 -t dados/ionosphere.arff -x 10 -s 1 -C 0.25 -M 2`
+  - `weka.classifiers.bayes.NaiveBayes -t dados/ionosphere.arff -x 10 -s 1`
+  - `weka.classifiers.rules.ZeroR -t dados/ionosphere.arff -x 10 -s 1`
+- **Métrica principal:** AUC, como você pediu. A AUC mede se o modelo põe os casos `b` acima dos `g` na ordenação, sem depender do ponto de corte. Por isso a matriz de custo não muda essa comparação. Em problema binário, a AUC é a mesma para as duas classes, e eu usei `b` como classe positiva.
+
+## Resultado do Weka (validação cruzada)
+
+| Modelo | AUC | Acurácia (IC 95%) | Kappa | Recall `b` | Precisão `b` | F1 `b` |
+|---|---|---|---|---|---|---|
+| ZeroR | 0,485 | 64,1% | 0 | 0,000 | — | — |
+| J48 | 0,892 | 91,5% (88,6–94,3%) | 0,810 | 0,825 | 0,929 | 0,874 |
+| NaiveBayes | **0,935** | 82,6% (78,7–86,6%) | 0,639 | 0,865 | 0,712 | 0,781 |
+
+Calculei os intervalos de confiança em Python, a partir das acurácias do Weka.
+
+**Matrizes de confusão** (linhas = classe real, colunas = classe prevista):
+- **J48:** `b`: 104 certos e 22 errados. `g`: 217 certos e 8 errados.
+- **NaiveBayes:** `b`: 109 certos e 17 errados. `g`: 181 certos e 44 errados.
+
+## Comparação com o ZeroR
+Os dois modelos ficam muito acima da linha de base, que tem AUC de 0,485, ou seja, acaso. A distância parece grande, mas também não rodei teste de significância contra o ZeroR, pelo mesmo motivo.
+
+## Leitura
+- **Na AUC, o NaiveBayes fica à frente: 0,935 contra 0,892.** Ele ordena melhor os casos por risco de serem `b`.
+- **Na acurácia, a ordem se inverte: J48 com 91,5% contra 82,6%.** O NaiveBayes ordena bem, mas o corte padrão de 0,5 o faz dar muitos alarmes falsos: 44 casos `g` classificados como `b`. Isso é comum nele. Por supor que os atributos são independentes, ele produz probabilidades extremas, que servem para ordenar casos, mas não para ler como chance real.
+- **Esses números vêm de uma única validação cruzada.** Uma diferença de 0,043 na AUC pode ser real ou fruto da partição. **Por enquanto é empate técnico:** sem o teste, não posso chamar nenhum dos dois de melhor.
+
+## O que falta e o que proponho
+**O que falta:** o `significancia.py` precisa ler a coluna "ROC Area" da classe positiva no bloco de teste de cada parte e incluir a AUC no teste t pareado corrigido. Hoje ele só lê a matriz de confusão, e a AUC não sai da matriz, porque depende das probabilidades.
+
+**Proposta, se você autorizar:**
+1. Acrescentar uma opção `--auc` ao `significancia.py`. Ela lê a AUC da classe informada em `--positiva` em cada uma das 100 partes (10 repetições × 10 partes). O que já existe na ferramenta continua igual.
+2. Acrescentar um teste de aceite em `ferramentas/testes_aceite.py`, conferindo a AUC de uma parte com a saída direta do Weka, e rodar todos os testes.
+3. Rodar o teste NaiveBayes × J48 na AUC e, se você quiser, o NaiveBayes contra o ZeroR.
+
+Uma alternativa seria o Experimenter do Weka, que já faz o teste t corrigido na AUC. Mas ele não está entre as ferramentas validadas, então eu também precisaria de autorização para usá-lo. Recomendo a opção 1, porque mantém tudo no mesmo fluxo já conferido.
+
+## Alertas
+- **NaiveBayes com atributos numéricos:** usei a suposição padrão de distribuição normal. Muitos atributos desta base têm valores concentrados em −1, 0 e 1, o que é longe de uma normal. Não testei as variantes `-K` e `-D`, que costumam melhorar o NaiveBayes nesse caso.
+- **Atributo constante:** o `a02` tem um único valor em toda a base, então não ajuda a separar as classes. Não o removi; ele não afeta o J48, que simplesmente não o usa.
+- **Não executado:** nenhum teste de significância, nas variantes do NaiveBayes nem em nenhum ajuste de parâmetros.
+
+Autoriza a alteração do `significancia.py` (opção `--auc`, mais o teste de aceite)?
+
