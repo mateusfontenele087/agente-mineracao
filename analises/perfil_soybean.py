@@ -1,14 +1,21 @@
 # Perfil descritivo da base soybean.arff (só descreve os dados; nenhum modelo aqui).
-from scipy.io import arff
 import pandas as pd
 from datetime import datetime
 import io, contextlib
 
-dados, meta = arff.loadarff("dados/soybean.arff")
-df = pd.DataFrame(dados)
-# O scipy lê nominais como bytes; convertemos para texto e '?' vira ausente (None)
-for c in df.columns:
-    df[c] = df[c].apply(lambda v: None if v in (b'?', '?') else v.decode() if isinstance(v, bytes) else v)
+# Leitura simples do .arff: nomes em "@attribute", valores após "@data"
+nomes, linhas, na_secao_dados = [], [], False
+for linha in open("dados/soybean.arff"):
+    linha = linha.strip()
+    if not linha or linha.startswith("%"):
+        continue
+    if linha.lower().startswith("@attribute"):
+        nomes.append(linha.split()[1])
+    elif linha.lower().startswith("@data"):
+        na_secao_dados = True
+    elif na_secao_dados:
+        linhas.append([v.strip().strip("'") for v in linha.split(",")])
+df = pd.DataFrame(linhas, columns=nomes).replace("?", None)  # '?' = ausente
 
 saida = io.StringIO()
 with contextlib.redirect_stdout(saida):
@@ -37,14 +44,14 @@ with contextlib.redirect_stdout(saida):
             print(f"{c}: '{vc.idxmin()}' aparece {vc.min()} vezes")
 
     print("\n== Duplicatas ==")
-    dup_total = df.astype(str).duplicated(keep=False)
+    dup_total = df.fillna("?").astype(str).duplicated(keep=False)
     print("Registros envolvidos em duplicatas exatas (com classe):", dup_total.sum())
-    print("Cópias excedentes:", df.astype(str).duplicated().sum())
-    x = df.drop(columns="class").astype(str)
+    print("Cópias excedentes:", df.fillna("?").astype(str).duplicated().sum())
+    x = df.drop(columns="class").fillna("?").astype(str)
     grupos = df.assign(chave=x.apply("|".join, axis=1)).groupby("chave")["class"].nunique()
     print("Conjuntos de atributos idênticos com classes DIFERENTES:", (grupos > 1).sum())
     print("\nDuplicatas por classe:")
-    print(df[df.astype(str).duplicated()]["class"].value_counts())
+    print(df[df.fillna("?").astype(str).duplicated()]["class"].value_counts())
 
 texto = saida.getvalue()
 print(texto)
