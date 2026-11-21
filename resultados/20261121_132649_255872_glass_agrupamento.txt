@@ -1,0 +1,66 @@
+Agrupamento K-means com Weka
+Base original: /home/user/agente-mineracao/dados/glass.arff
+Base de trabalho: /tmp/agrupamento_weka_m1e7fw4y/base_sem_atributos.arff
+Atributos removidos: last
+Registros: 214
+Atributos usados: 9
+Parâmetros: k=2..10, sementes=5, embaralhamentos=20
+Inicialização SimpleKMeans: -init 1; sementes Weka de 1 a 5.
+Versões embaralhadas: sementes fixas de 1 a 20; cada atributo foi embaralhado separadamente em cada versão.
+k final: 2 (escolha automática pela maior silhueta média)
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.unsupervised.attribute.Remove -R last -i /home/user/agente-mineracao/dados/glass.arff -o /tmp/agrupamento_weka_m1e7fw4y/base_sem_atributos.arff
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /tmp/agrupamento_weka_m1e7fw4y/base_sem_atributos.arff -N 2 -S 1 -init 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.unsupervised.attribute.AddCluster -W "weka.clusterers.SimpleKMeans -N 2 -S 1 -init 1" -i /tmp/agrupamento_weka_m1e7fw4y/base_sem_atributos.arff -o /tmp/agrupamento_weka_m1e7fw4y/clusters_k2_s1.arff
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.clusterers.SimpleKMeans -t /tmp/agrupamento_weka_m1e7fw4y/embaralhado_1.arff -N 2 -S 1 -init 1
+
+Resultados por k (SSE e atribuições fornecidos pelo Weka):
+k | melhor semente | SSE mínimo | SSE máximo | silhueta média | estabilidade ARI
+2 | 1 | 34.13433422 | 49.94832561 | 0.5201305327 | 0.4528202575
+3 | 1 | 29.14727871 | 31.5280095 | 0.3400375905 | 0.7144985837
+4 | 2 | 23.71005231 | 28.48882937 | 0.3605969042 | 0.6761033786
+5 | 1 | 21.56819734 | 24.99239456 | 0.3607851119 | 0.8021697808
+6 | 4 | 19.096995 | 23.26523228 | 0.3692931647 | 0.8075727903
+7 | 3 | 17.53075897 | 18.4221564 | 0.3658466131 | 0.835590307
+8 | 2 | 16.39444222 | 17.58076895 | 0.3743051946 | 0.785649607
+9 | 1 | 15.68214546 | 20.55479528 | 0.3287834128 | 0.6942872301
+10 | 3 | 14.21964782 | 16.99737785 | 0.2351446963 | 0.6061389944
+
+Silhueta média por grupo para k final:
+Grupo 1: 0.6201733041
+Grupo 2: 0.2084588216
+
+Linha de base: atributos embaralhados independentemente em cada versão
+SSE real (menor SSE entre sementes): 34.13433422
+SSE embaralhado mínimo: 36.94668607
+SSE embaralhado médio: 37.28700812
+SSE embaralhado máximo: 37.45384133
+Proporção de versões com SSE <= real: 0/20 (0)
+Evidência contra dados embaralhados: sim; SSE real abaixo de todas as versões
+
+Perfil dos grupos finais (valores gerais ao lado dos valores do grupo):
+Grupo 1 (n=162):
+  RI | geral: média=1.51837, mediana=1.51768 | grupo: média=1.51812, mediana=1.51768
+  Na | geral: média=13.4079, mediana=13.3 | grupo: média=13.2811, mediana=13.22
+  Mg | geral: média=2.68453, mediana=3.48 | grupo: média=3.45407, mediana=3.54
+  Al | geral: média=1.44491, mediana=1.36 | grupo: média=1.31037, mediana=1.31
+  Si | geral: média=72.6509, mediana=72.79 | grupo: média=72.6122, mediana=72.75
+  K | geral: média=0.497056, mediana=0.555 | grupo: média=0.495679, mediana=0.57
+  Ca | geral: média=8.95696, mediana=8.6 | grupo: média=8.62364, mediana=8.535
+  Ba | geral: média=0.175047, mediana=0 | grupo: média=0.027963, mediana=0
+  Fe | geral: média=0.0570093, mediana=0 | grupo: média=0.0604938, mediana=0
+Grupo 2 (n=52):
+  RI | geral: média=1.51837, mediana=1.51768 | grupo: média=1.51913, mediana=1.51729
+  Na | geral: média=13.4079, mediana=13.3 | grupo: média=13.8027, mediana=14.14
+  Mg | geral: média=2.68453, mediana=3.48 | grupo: média=0.287115, mediana=0
+  Al | geral: média=1.44491, mediana=1.36 | grupo: média=1.86404, mediana=1.875
+  Si | geral: média=72.6509, mediana=72.79 | grupo: média=72.7715, mediana=73.07
+  K | geral: média=0.497056, mediana=0.555 | grupo: média=0.501346, mediana=0.055
+  Ca | geral: média=8.95696, mediana=8.6 | grupo: média=9.99538, mediana=9.13
+  Ba | geral: média=0.175047, mediana=0 | grupo: média=0.633269, mediana=0.32
+  Fe | geral: média=0.0570093, mediana=0 | grupo: média=0.0461538, mediana=0
+
+Silhueta: calculada em Python a partir das atribuições do Weka, com atributos numéricos normalizados pelo intervalo observado e diferença nominal 0/1.
+As atribuições e o SSE do agrupamento foram produzidos pelo Weka.
+Arquivo ARFF com clusters: /home/user/agente-mineracao/resultados/20261121_132649_255872_glass_k2_clusters.arff
