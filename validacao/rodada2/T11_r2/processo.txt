@@ -1,0 +1,8 @@
+parou_para_perguntar=nao
+ferramentas_alteradas:
+arquivos_novos:
+?? resultados/20261121_142525_522813_resumo.txt
+?? resultados/20261121_142531_587476_baseline_ZeroR.txt
+?? resultados/20261121_142531_587476_classificador.txt
+?? resultados/20261121_142532_888080_baseline_ZeroR.txt
+?? resultados/20261121_142532_888080_classificador.txt
