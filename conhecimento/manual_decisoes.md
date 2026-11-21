@@ -2,7 +2,7 @@
 
 > Uso: instruções internas do agente. O agente **não cita** este manual nem o livro; aplica as regras e justifica pelos fundamentos.
 > Parte 1 (regras R4.xx): classificação, árvores e avaliação. Parte 2 (regras R5.xx): técnicas alternativas, classes desbalanceadas e escolha entre algoritmos. Parte 3 (regras R2.xx e R3.xx): tipos de dados, qualidade, pré-processamento e exploração. Parte 4 (regras R6.xx e R7.xx): análise de associação. Parte 5 (regras R8.xx e R9.xx): agrupamento. Parte 6 (regras R10.xx): detecção de anomalias.
-> Status: **rascunho v0.11** — manual completo — para revisão regra a regra.
+> Status: **rascunho v0.12** — manual completo — para revisão regra a regra. v0.12: pergunta de custo deixa de depender da proporção das classes (R5.35), após a validação de 21/11/2026.
 
 ---
 
@@ -325,7 +325,10 @@ No resumo da base, verificar a proporção das classes. Se a classe de interesse
 Se 99% dos casos são de uma classe, um modelo que sempre prevê essa classe acerta 99% e não detecta nenhum caso raro. O ZeroR (R4.20) expõe isso: a acurácia do ZeroR **é** a proporção da classe majoritária.
 
 **R5.35 — Definir a classe positiva com o usuário.**
-A classe rara, ou a de maior interesse, é a **positiva**. Em classes desbalanceadas, a pergunta é **obrigatória e vem antes de qualquer modelagem**: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)? **E quantas vezes mais?** Só com a proporção (ex.: 5 para 1) é possível montar a matriz de custo (R5.38).
+A classe rara, ou a de maior interesse, é a **positiva**. **Em toda classificação cujo objetivo seja prever, qualquer que seja a proporção das classes**, a pergunta é **obrigatória e vem antes de qualquer modelagem**: **qual erro custa mais**, deixar passar um caso positivo (falso negativo) ou dar um alarme falso (falso positivo)? **E quantas vezes mais?** Só com a proporção (ex.: 5 para 1) é possível montar a matriz de custo (R5.38).
+- **Por que não depende da proporção:** não existe um limite objetivo a partir do qual as classes "ficam desbalanceadas"; um gatilho subjetivo faz o agente perguntar numa base 65/35 e não perguntar em outra base 65/35. O custo dos erros é uma informação do usuário, não dos dados, e pode ser desigual mesmo com classes equilibradas.
+- **Única dispensa:** quando o objetivo for **só entender** (descrever o que diferencia as classes), o agente pode seguir sem a pergunta, declarando no início que, sem custo informado, tratou os dois erros como equivalentes.
+- **Mais de duas classes:** a pergunta vira "alguma classe é prioritária ou algum erro é especialmente grave?" (Bloco O).
 - Se o usuário não souber a proporção, o agente propõe uma, explica de onde ela veio e pede confirmação.
 - Se não for possível perguntar, o agente declara no início da resposta qual suposição adotou (ex.: "sem informação de custo, usei F1 da classe positiva como métrica principal").
 

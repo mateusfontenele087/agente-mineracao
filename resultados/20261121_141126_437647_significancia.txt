@@ -1,0 +1,24 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: /home/user/agente-mineracao/dados/soybean.arff
+Classificador A: weka.classifiers.bayes.NaiveBayes
+Classificador B: weka.classifiers.bayes.NaiveBayes
+Matriz de custo: não informada
+Classe positiva: não informada
+Repetições: 2; partes por repetição: 10; total de pares: 20
+Sementes: 1..2; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/soybean.arff -o /tmp/weka_significancia_oevof2_v/teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/soybean.arff -o /tmp/weka_significancia_oevof2_v/treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/weka_significancia_oevof2_v/treino_r1_f1.arff -T /tmp/weka_significancia_oevof2_v/teste_r1_f1.arff -o -c last
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/weka_significancia_oevof2_v/treino_r1_f1.arff -T /tmp/weka_significancia_oevof2_v/teste_r1_f1.arff -o -c last
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/2: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 2/2: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.928240 | 0.029361 | 0.928240 | 0.029361 | 0.000000 | não calculável: variância zero | n/a | empate técnico |
+| f1_macro | 0.949623 | 0.025280 | 0.949623 | 0.025280 | 0.000000 | não calculável: variância zero | n/a | empate técnico |

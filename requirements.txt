@@ -1,0 +1,5 @@
+# Dependências Python do projeto (o Weka 3.8.7 e o Java são instalados à parte).
+# Instalar com: pip install -r requirements.txt
+scipy>=1.10        # teste t (significancia.py)
+scikit-learn>=1.2  # estabilidade dos grupos, ARI (agrupamento.py)
+pandas>=2.0        # scripts auxiliares de perfil das bases
