@@ -1,0 +1,23 @@
+Registros: 435
+Classe: {'republican': 168, 'democrat': 267}
+Linhas repetidas (cópias além da primeira): 93
+Perfis de voto idênticos com partidos diferentes: 0
+Distribuição de '?' por registro: {0: 232, 1: 124, 2: 43, 3: 16, 4: 6, 5: 5, 6: 4, 7: 1, 9: 1, 14: 1, 15: 1, 16: 1}
+
+Atributo | dem: %y (n) | rep: %y (n) | dif | %? dem | %? rep
+handicapped-infants                      |  60.5 (258) |  18.8 (165) |  +41.7 |  3.4 |  1.8
+water-project-cost-sharing               |  50.2 (239) |  50.7 (148) |   -0.5 | 10.5 | 11.9
+adoption-of-the-budget-resolution        |  88.8 (260) |  13.4 (164) |  +75.4 |  2.6 |  2.4
+physician-fee-freeze                     |   5.4 (259) |  98.8 (165) |  -93.4 |  3.0 |  1.8
+el-salvador-aid                          |  21.6 (255) |  95.2 (165) |  -73.6 |  4.5 |  1.8
+religious-groups-in-schools              |  47.7 (258) |  89.8 (166) |  -42.1 |  3.4 |  1.2
+anti-satellite-test-ban                  |  77.2 (259) |  24.1 (162) |  +53.1 |  3.0 |  3.6
+aid-to-nicaraguan-contras                |  82.9 (263) |  15.3 (157) |  +67.6 |  1.5 |  6.5
+mx-missile                               |  75.8 (248) |  11.5 (165) |  +64.3 |  7.1 |  1.8
+immigration                              |  47.1 (263) |  55.8 (165) |   -8.6 |  1.5 |  1.8
+synfuels-corporation-cutback             |  50.6 (255) |  13.2 (159) |  +37.4 |  4.5 |  5.4
+education-spending                       |  14.5 (249) |  87.1 (155) |  -72.6 |  6.7 |  7.7
+superfund-right-to-sue                   |  29.0 (252) |  86.1 (158) |  -57.1 |  5.6 |  6.0
+crime                                    |  35.0 (257) |  98.1 (161) |  -63.1 |  3.7 |  4.2
+duty-free-exports                        |  63.7 (251) |   9.0 (156) |  +54.8 |  6.0 |  7.1
+export-administration-act-south-africa   |  93.5 (185) |  65.8 (146) |  +27.8 | 30.7 | 13.1
