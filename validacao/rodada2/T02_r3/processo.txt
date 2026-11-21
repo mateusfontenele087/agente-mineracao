@@ -1,1 +1,22 @@
 parou_para_perguntar=sim
+ferramentas_alteradas:
+arquivos_novos:
+?? analises/2026-11-21_breast-cancer.md
+?? analises/scripts/
+?? resultados/20261121_142606_606223_resumo.txt
+?? resultados/20261121_142620_perfil_breast-cancer.txt
+?? resultados/20261121_142659_897831_baseline_ZeroR.txt
+?? resultados/20261121_142659_897831_classificador.txt
+?? resultados/20261121_142659_899540_baseline_ZeroR.txt
+?? resultados/20261121_142659_899540_classificador.txt
+?? resultados/20261121_142659_925259_baseline_ZeroR.txt
+?? resultados/20261121_142659_925259_classificador.txt
+?? resultados/20261121_142659_939852_baseline_ZeroR.txt
+?? resultados/20261121_142659_939852_classificador.txt
+?? resultados/20261121_142659_962386_baseline_ZeroR.txt
+?? resultados/20261121_142659_962386_classificador.txt
+?? resultados/20261121_142659_962756_baseline_ZeroR.txt
+?? resultados/20261121_142659_962756_classificador.txt
+?? resultados/20261121_143300_095706_significancia.txt
+?? resultados/20261121_143319_854254_significancia.txt
+?? resultados/20261121_custos_ic_breast-cancer.txt

@@ -1,0 +1,28 @@
+Base: dados/breast-cancer.arff  | registros: 286
+
+age: ausentes=0 | distintos=6 | mais frequente=50-59 (96, 33.6%)
+   frequências: 20-29=1, 30-39=36, 40-49=90, 50-59=96, 60-69=57, 70-79=6
+   valores declarados que nunca aparecem: 10-19, 80-89, 90-99
+menopause: ausentes=0 | distintos=3 | mais frequente=premeno (150, 52.4%)
+   frequências: lt40=7, ge40=129, premeno=150
+tumor-size: ausentes=0 | distintos=11 | mais frequente=30-34 (60, 21.0%)
+   frequências: 0-4=8, 5-9=4, 10-14=28, 15-19=30, 20-24=50, 25-29=54, 30-34=60, 35-39=19, 40-44=22, 45-49=3, 50-54=8
+   valores declarados que nunca aparecem: 55-59
+inv-nodes: ausentes=0 | distintos=7 | mais frequente=0-2 (213, 74.5%)
+   frequências: 0-2=213, 3-5=36, 6-8=17, 9-11=10, 12-14=3, 15-17=6, 24-26=1
+   valores declarados que nunca aparecem: 18-20, 21-23, 27-29, 30-32, 33-35, 36-39
+node-caps: ausentes=8 | distintos=2 | mais frequente=no (222, 77.6%)
+   frequências: yes=56, no=222
+deg-malig: ausentes=0 | distintos=3 | mais frequente=2 (130, 45.5%)
+   frequências: 1=71, 2=130, 3=85
+breast: ausentes=0 | distintos=2 | mais frequente=left (152, 53.1%)
+   frequências: left=152, right=134
+breast-quad: ausentes=1 | distintos=5 | mais frequente=left_low (110, 38.5%)
+   frequências: left_up=97, left_low=110, right_up=33, right_low=24, central=21
+irradiat: ausentes=0 | distintos=2 | mais frequente=no (218, 76.2%)
+   frequências: yes=68, no=218
+Class: ausentes=0 | distintos=2 | mais frequente=no-recurrence-events (201, 70.3%)
+   frequências: no-recurrence-events=201, recurrence-events=85
+
+Registros repetidos (cópias além da primeira): 14
+Combinações de atributos com classes conflitantes: 6

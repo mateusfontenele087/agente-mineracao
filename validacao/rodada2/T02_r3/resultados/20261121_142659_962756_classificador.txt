@@ -1,0 +1,153 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /tmp/copias_validacao/T02_r3/dados/breast-cancer.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.functions.SMO -- -M
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 2:27:03 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 2:27:03 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.functions.SMO -- -M 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using reweighted training instances
+
+weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -M -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+
+Classifier Model
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: no-recurrence-events, recurrence-events
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+        -0.6049 * (normalized) age=20-29
+ +       0.3575 * (normalized) age=30-39
+ +      -0.2436 * (normalized) age=40-49
+ +      -0.1613 * (normalized) age=50-59
+ +       0.4245 * (normalized) age=60-69
+ +       0.2278 * (normalized) age=70-79
+ +       0.6272 * (normalized) menopause=lt40
+ +      -0.561  * (normalized) menopause=ge40
+ +      -0.0662 * (normalized) menopause=premeno
+ +      -0.0266 * (normalized) tumor-size=0-4
+ +      -0.6272 * (normalized) tumor-size=5-9
+ +      -0.8534 * (normalized) tumor-size=10-14
+ +      -0.0648 * (normalized) tumor-size=15-19
+ +       0.1267 * (normalized) tumor-size=20-24
+ +       0.1999 * (normalized) tumor-size=25-29
+ +       0.3856 * (normalized) tumor-size=30-34
+ +      -0.0578 * (normalized) tumor-size=35-39
+ +      -0.4512 * (normalized) tumor-size=40-44
+ +       0.6272 * (normalized) tumor-size=45-49
+ +       0.7416 * (normalized) tumor-size=50-54
+ +      -0.4761 * (normalized) inv-nodes=0-2
+ +       0.1754 * (normalized) inv-nodes=3-5
+ +       0.127  * (normalized) inv-nodes=6-8
+ +       0.4515 * (normalized) inv-nodes=9-11
+ +      -0.0527 * (normalized) inv-nodes=12-14
+ +      -0.2251 * (normalized) inv-nodes=15-17
+ +      -0.3563 * (normalized) node-caps=no
+ +      -0.2804 * (normalized) deg-malig=1
+ +      -0.4569 * (normalized) deg-malig=2
+ +       0.7372 * (normalized) deg-malig=3
+ +      -0.1873 * (normalized) breast=right
+ +      -0.0831 * (normalized) breast-quad=left_up
+ +       0.1014 * (normalized) breast-quad=left_low
+ +       0.4445 * (normalized) breast-quad=right_up
+ +      -0.2879 * (normalized) breast-quad=right_low
+ +      -0.1749 * (normalized) breast-quad=central
+ +      -0.4465 * (normalized) irradiat=no
+ +       1.2078
+
+Number of kernel evaluations: 32583 (89.025% cached)
+
+Calibration model fit to the output:
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+                            Class
+Variable     no-recurrence-events
+=================================
+pred                       -1.109
+Intercept                 -0.1161
+
+
+Odds Ratios...
+                            Class
+Variable     no-recurrence-events
+=================================
+pred                       0.3299
+
+
+
+
+Cost Matrix
+ 0 1
+ 3 0
+
+
+Time taken to build model: 0.93 seconds
+
+Time taken to test model on training data: 0.03 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances         197               68.8811 %
+Incorrectly Classified Instances        89               31.1189 %
+Kappa statistic                          0.365 
+Mean absolute error                      0.4014
+Root mean squared error                  0.4551
+Relative absolute error                 95.966  %
+Root relative squared error             99.5707 %
+Total Number of Instances              286     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.652    0.224    0.873      0.652    0.746      0.392    0.778     0.879     no-recurrence-events
+                 0.776    0.348    0.485      0.776    0.597      0.392    0.778     0.611     recurrence-events
+Weighted Avg.    0.689    0.261    0.758      0.689    0.702      0.392    0.778     0.799     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 131  70 |   a = no-recurrence-events
+  19  66 |   b = recurrence-events
+
+Time taken to perform cross-validation: 0.85 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances         175               61.1888 %
+Incorrectly Classified Instances       111               38.8112 %
+Kappa statistic                          0.2034
+Mean absolute error                      0.4448
+Root mean squared error                  0.5026
+Relative absolute error                106.3094 %
+Root relative squared error            109.9575 %
+Total Number of Instances              286     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.602    0.365    0.796      0.602    0.686      0.217    0.650     0.791     no-recurrence-events
+                 0.635    0.398    0.403      0.635    0.493      0.217    0.650     0.453     recurrence-events
+Weighted Avg.    0.612    0.375    0.679      0.612    0.628      0.217    0.650     0.690     
+
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+ 121  80 |   a = no-recurrence-events
+  31  54 |   b = recurrence-events
+
