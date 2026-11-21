@@ -1,0 +1,171 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/copias_validacao/T04_r3/dados/labor.arff -x 10 -s 1
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=33383 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 2:32:21 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 2:32:21 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                                   Class
+Attribute                            bad    good
+                                  (0.36)  (0.64)
+=================================================
+duration
+  mean                                  2    2.25
+  std. dev.                        0.7071  0.6821
+  weight sum                           20      36
+  precision                             1       1
+
+wage-increase-first-year
+  mean                             2.6563  4.3837
+  std. dev.                        0.8643  1.1773
+  weight sum                           20      36
+  precision                        0.3125  0.3125
+
+wage-increase-second-year
+  mean                             2.9524   4.447
+  std. dev.                        0.8193  0.9805
+  weight sum                           15      31
+  precision                        0.3571  0.3571
+
+wage-increase-third-year
+  mean                             2.0344  4.5795
+  std. dev.                        0.1678  0.7893
+  weight sum                            4      11
+  precision                        0.3875  0.3875
+
+cost-of-living-adjustment
+  none                               10.0    14.0
+  tcf                                 2.0     8.0
+  tc                                  6.0     3.0
+  [total]                            18.0    25.0
+
+working-hours
+  mean                            39.4887 37.5491
+  std. dev.                        1.8903  2.9266
+  weight sum                           19      32
+  precision                        1.8571  1.8571
+
+pension
+  none                               12.0     1.0
+  ret_allw                            3.0     3.0
+  empl_contr                          6.0     8.0
+  [total]                            21.0    12.0
+
+standby-pay
+  mean                                2.5    11.2
+  std. dev.                         0.866  2.0396
+  weight sum                            4       5
+  precision                             2       2
+
+shift-differential
+  mean                             2.4691  5.6818
+  std. dev.                        1.5738  5.0584
+  weight sum                            9      22
+  precision                        2.7778  2.7778
+
+education-allowance
+  yes                                 4.0     8.0
+  no                                 10.0     4.0
+  [total]                            14.0    12.0
+
+statutory-holidays
+  mean                               10.2 11.4182
+  std. dev.                         0.805  1.2224
+  weight sum                           20      33
+  precision                           1.2     1.2
+
+vacation
+  below_average                      12.0     8.0
+  average                             8.0    11.0
+  generous                            3.0    15.0
+  [total]                            23.0    34.0
+
+longterm-disability-assistance
+  yes                                 6.0    16.0
+  no                                  9.0     1.0
+  [total]                            15.0    17.0
+
+contribution-to-dental-plan
+  none                                8.0     3.0
+  half                                8.0     9.0
+  full                                1.0    14.0
+  [total]                            17.0    26.0
+
+bereavement-assistance
+  yes                                10.0    19.0
+  no                                  4.0     1.0
+  [total]                            14.0    20.0
+
+contribution-to-health-plan
+  none                                9.0     1.0
+  half                                3.0     8.0
+  full                                7.0    15.0
+  [total]                            19.0    24.0
+
+
+
+Time taken to build model: 0.37 seconds
+
+Time taken to test model on training data: 0.01 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances          56               98.2456 %
+Incorrectly Classified Instances         1                1.7544 %
+Kappa statistic                          0.961 
+Mean absolute error                      0.0481
+Root mean squared error                  0.1532
+Relative absolute error                 10.5249 %
+Root relative squared error             32.1057 %
+Total Number of Instances               57     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.950    0.000    1.000      0.950    0.974      0.962    0.993     0.990     bad
+                 1.000    0.050    0.974      1.000    0.987      0.962    0.993     0.996     good
+Weighted Avg.    0.982    0.032    0.983      0.982    0.982      0.962    0.993     0.994     
+
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 19  1 |  a = bad
+  0 37 |  b = good
+
+Time taken to perform cross-validation: 0.05 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances          51               89.4737 %
+Incorrectly Classified Instances         6               10.5263 %
+Kappa statistic                          0.7741
+Mean absolute error                      0.1042
+Root mean squared error                  0.2637
+Relative absolute error                 22.7763 %
+Root relative squared error             55.2266 %
+Total Number of Instances               57     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.900    0.108    0.818      0.900    0.857      0.776    0.965     0.926     bad
+                 0.892    0.100    0.943      0.892    0.917      0.776    0.965     0.983     good
+Weighted Avg.    0.895    0.103    0.899      0.895    0.896      0.776    0.965     0.963     
+
+
+=== Confusion Matrix ===
+
+  a  b   <-- classified as
+ 18  2 |  a = bad
+  4 33 |  b = good
+
