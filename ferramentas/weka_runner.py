@@ -1,6 +1,7 @@
 """Executa classificadores do Weka e registra os resultados."""
 
 import argparse
+import os
 import re
 import subprocess
 import sys
@@ -9,7 +10,8 @@ from pathlib import Path
 
 
 JAVA = "java"
-WEKA_JAR = r"C:\Program Files\Weka-3-8-7\weka.jar"
+# Classpath do Weka. Padrão: instalação no Windows. Em outro ambiente, defina WEKA_CP.
+WEKA_JAR = os.environ.get("WEKA_CP", r"C:\Program Files\Weka-3-8-7\weka.jar")
 PASTA_PROJETO = Path(__file__).resolve().parent.parent
 PASTA_DADOS = PASTA_PROJETO / "dados"
 PASTA_RESULTADOS = "resultados"
