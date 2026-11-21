@@ -1,0 +1,13 @@
+n = 209
+atrib       min       Q1  mediana     media       Q3      max      IQR zeros  >Q3+3IQR
+MYCT         17     50.0    110.0     203.8    225.0     1500    175.0     0        17
+MMIN         64    768.0   2000.0    2868.0   4000.0    32000   3232.0     0         8
+MMAX         64   4000.0   8000.0   11796.2  16000.0    64000  12000.0     0         4
+CACH          0      0.0      8.0      25.2     32.0      256     32.0    69         6
+CHMIN         0      1.0      2.0       4.7      6.0       52      5.0     5         5
+CHMAX         0      5.0      8.0      18.3     24.0      176     19.0     5         7
+class         6     27.0     50.0     105.6    113.0     1150     86.0     0        11
+linhas duplicadas (todas as 7 colunas): 0
+grupos com configuração idêntica (6 atributos) e >1 máquina: 15
+MMIN > MMAX: []
+CHMIN > CHMAX: []
