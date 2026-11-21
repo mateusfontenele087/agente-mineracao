@@ -1,0 +1,133 @@
+# Transcrição T06
+
+### Usuário
+
+Sem usar o tipo de vidro, existem grupos naturais de vidros pela composição química? Base glass.arff.
+
+
+### Agente
+
+Vou começar lendo o manual de decisões e localizando a base.
+
+- `Bash`: `ls; ls dados ferramentas resultados 2>/dev/null | head -50; grep -n -i "agrupamento\|cluster" conhecimento/manual_decisoes.md | head -60`
+- `Read`: `/home/user/agente-mineracao/conhecimento/manual_decisoes.md`
+- `Bash`: `python3 ferramentas/agrupamento.py --help; python3 ferramentas/weka_runner.py resumo dados/glass.arff`
+- `Bash`: `python3 ferramentas/weka_runner.py resumo glass.arff`
+- `Bash`: `mkdir -p analises && cat > analises/perfil_glass.py <<'EOF'
+# Perfil descritivo da base glass.arff (estatísticas descritivas, não modelos).
+from scipy.io import arff
+import pandas as pd
+
+dados, meta = arff.loadarff("dados/glass.arff")
+df = pd.DataFrame(dados)
+df["Type"] = df["Type"].str.decode("utf-`
+- `Bash`: `python3 ferramentas/agrupamento.py glass.arff --remover "last" --kmin 2 --kmax 10 --sementes 5 --embaralhamentos 20 2>&1 | grep -v "Picked up"`
+- `Bash`: `which python3; python3 -c "import sklearn" ; ls /opt/conda/bin/python 2>/dev/null; pip list 2>/dev/null | grep -i -E "scikit|numpy"`
+- `Bash`: `pip install -q scikit-learn 2>&1 | tail -2; python3 ferramentas/agrupamento.py glass.arff --remover "last" --kmin 2 --kmax 10 --sementes 5 --embaralhamentos 20 2>&1 | grep -v -E "Picked up|semente|embaralh.* [0-9]+/"`
+- `Read`: `/home/user/agente-mineracao/resultados/20261121_132649_255872_glass_agrupamento.txt`
+- `Bash`: `python3 ferramentas/agrupamento.py glass.arff --remover "last" --kmin 6 --kmax 6 --sementes 5 --embaralhamentos 20 --k-final 6 2>&1 | grep -E "Relatório|k final"; python3 ferramentas/agrupamento.py glass.arff --remover "last" --kmin 3 --kmax 3 --sementes 5 --embaralhamentos 20 --k-final 3 2>&1 | gre`
+- `Bash`: `for f in resultados/20261121_132917_612681_glass_agrupamento.txt resultados/20261121_133059_265516_glass_agrupamento.txt; do echo "== $f"; sed -n '30,200p' $f | grep -v -E "^Silhueta:|^As atrib|^Arquivo"; done`
+
+### Agente
+
+Agora a verificação "classes para clusters" no Weka (`-c last`). Nesse modo o Weka ignora o tipo ao agrupar e só o usa para comparar depois.
+
+- `Bash`: `sed -n '30,40p' resultados/20261121_133059_265516_glass_agrupamento.txt | grep -i "mínimo"; CP='/tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/*'; for a in "2 1" "6 4"; do set -- $a; echo "######## k=$1 S=$2"; java -cp "$CP" weka.clusterers.SimpleK`
+- `Bash`: `grep -E "SSE (real|embaralhado)|Grupo [0-9]: " resultados/20261121_133059_265516_glass_agrupamento.txt resultados/20261121_132917_612681_glass_agrupamento.txt`
+
+### Agente
+
+# Existem grupos naturais de vidros pela composição química?
+
+**Sim, mas a estrutura é moderada, não forte.** A base de 214 vidros tem grupos reais: com 2, 3 e 6 grupos, o SSE dos dados reais ficou abaixo das 20 versões embaralhadas. O sinal mais claro é a separação entre vidros **com magnésio** e vidros **praticamente sem magnésio, com bário e mais alumínio**. Uma divisão mais fina em 6 grupos também passa na linha de base, e com folga maior. Nenhuma das soluções chega a uma silhueta "forte".
+
+## 1. Preparação
+- **Atributo retirado:** `Type`, a classe. Ele só voltou depois, para verificação. Não há identificadores.
+- **Atributos usados:** RI, Na, Mg, Al, Si, K, Ca, Ba, Fe, todos numéricos e sem valores ausentes.
+- **Normalização:** a distância euclidiana do Weka normaliza cada atributo para a faixa 0–1. Sem isso, o Si (cerca de 72%) dominaria as distâncias.
+- **Qualidade dos dados** (`resultados/perfil_glass.txt`, script `analises/perfil_glass.py`):
+  - **Os zeros são ausência real do elemento, não ausentes disfarçados:** Ba vale zero em 82% dos vidros, Fe em 67%, Mg em 20% e K em 14%. A soma dos óxidos fica entre 99,0% e 100,1% em todas as linhas, o que confirma que esses valores foram medidos.
+  - **Distribuições assimétricas e extremos:** K tem assimetria de 6,6 e máximo de 6,21. Ba e Ca também têm extremos. Isso puxa os centros do K-means.
+  - Há uma linha duplicada, mantida.
+  - RI e Ca têm correlação de 0,81, então medem quase a mesma coisa e pesam em dobro na distância.
+
+## 2. Algoritmo e parâmetros
+- `SimpleKMeans` com inicialização k-means++ (`-init 1`), 5 sementes por k. Em cada k fiquei com a semente de menor SSE.
+- Comando: `python3 ferramentas/agrupamento.py glass.arff --remover "last" --kmin 2 --kmax 10 --sementes 5 --embaralhamentos 20`
+- Comando base do Weka: `weka.clusterers.SimpleKMeans -N <k> -S <semente> -init 1`
+
+## 3. Escolha de k (saída do Weka; silhueta e estabilidade calculadas em Python a partir das atribuições do Weka)
+
+| k | SSE (melhor semente) | Faixa do SSE entre sementes | Silhueta média | Estabilidade (ARI) |
+|---|---|---|---|---|
+| 2 | 34,13 | 34,13–49,95 | **0,52** | 0,45 |
+| 3 | 29,15 | 29,15–31,53 | 0,34 | 0,71 |
+| 4 | 23,71 | 23,71–28,49 | 0,36 | 0,68 |
+| 5 | 21,57 | 21,57–24,99 | 0,36 | 0,80 |
+| 6 | 19,10 | 19,10–23,27 | 0,37 | 0,81 |
+| 7 | 17,53 | 17,53–18,42 | 0,37 | 0,84 |
+| 8 | 16,39 | 16,39–17,58 | 0,37 | 0,79 |
+| 9 | 15,68 | 15,68–20,55 | 0,33 | 0,69 |
+| 10 | 14,22 | 14,22–17,00 | 0,24 | 0,61 |
+
+- **A silhueta tem pico em k = 2 (0,52)**, na faixa "estrutura razoável". De k = 3 a k = 8 ela fica num patamar entre 0,34 e 0,37, que é estrutura fraca.
+- **k = 2 é instável:** o SSE varia de 34 a 50 conforme a semente e o ARI é 0,45. Algumas sementes dividem os dados de outro jeito, bem pior.
+- **De k = 5 a k = 7 as soluções são bem mais estáveis** (ARI de 0,80 a 0,84).
+- A curva de SSE não tem um joelho nítido.
+
+## 4. Validação
+
+**Contra dados embaralhados (a verificação decisiva):**
+
+| k | SSE real | SSE embaralhado (mín.–máx., 20 versões) | Redução sobre a média | Versões com SSE ≤ real |
+|---|---|---|---|---|
+| 2 | 34,13 | 36,95–37,45 | cerca de 8% | 0/20 |
+| 3 | 29,15 | 31,41–33,18 | cerca de 10% | 0/20 |
+| 6 | 19,10 | 24,70–26,49 | **cerca de 26%** | 0/20 |
+
+Nos três valores de k os grupos superam os dados sem estrutura. Mas a margem em k = 2 e k = 3 é pequena. **A estrutura fica mais evidente em k = 6**, onde a vantagem sobre os embaralhados é três vezes maior.
+
+**Pureza em relação ao `Type`** (modo "classes para clusters" do Weka, `-c last`):
+- **k = 2:** 55,6% das instâncias ficam fora da classe atribuída ao grupo. O grupo menor reúne 25 dos 29 vidros de **farol** e 12 dos 13 de **recipientes**. Os vidros de janela caem quase todos no grupo maior.
+- **k = 6:** 57,0% ficam fora da classe atribuída. Os faróis se concentram num grupo (23 de 29) e os recipientes em outro (7 de 13). Os três tipos de janela ficam misturados entre si.
+- **Leitura:** a química separa bem os vidros de janela do resto (faróis, recipientes, louça). Ela não separa os tipos de janela entre si, que são quimicamente muito parecidos. Isso é um achado, não uma falha: os grupos não têm obrigação de reproduzir os tipos.
+
+## 5. Descrição dos grupos
+
+**Com k = 2 (a divisão mais clara):**
+- **Grupo 1 (n = 162, silhueta 0,62), "com magnésio":** Mg com mediana de 3,54, Ba praticamente zero, Al um pouco abaixo da média. São quase todos vidros de janela.
+- **Grupo 2 (n = 52, silhueta 0,21, frágil), "sem magnésio":** Mg com mediana zero, Ba mais alto (mediana 0,32), Al de 1,88 e Na de 14,1, ambos acima da média. Reúne faróis, recipientes e parte da louça.
+- **Cuidado:** esta divisão é, em boa parte, "Mg presente × Mg ausente". Quando um único atributo explica quase toda a separação, os grupos podem ser só faixas dele. O Ba e o Al reforçam a divisão, mas o Mg domina.
+
+**Com k = 6 (mais detalhe, estrutura mais clara contra os embaralhados):**
+
+| Grupo | n | Silhueta | O que o distingue | Tipo predominante (só verificação) |
+|---|---|---|---|---|
+| 1 | 99 | 0,47 | Perfil "típico": Mg alto, Ba e Fe quase zero | Janelas de prédio, misturadas |
+| 2 | 18 | 0,23 | **Ca muito alto** (média 12,5), Mg perto de zero, RI alto | Variado, inclui recipientes |
+| 3 | 40 | 0,28 | **Fe presente** (mediana 0,21), resto parecido com o grupo 1 | Janelas de prédio |
+| 4 | 29 | 0,37 | **Ba alto** (0,79), Al alto (2,18), Na alto, Mg zero | Faróis |
+| 5 | 23 | 0,31 | **Al baixo** (0,90), K baixo, RI alto, Si mais baixo | Janelas *float* |
+| 6 | 5 | **−0,07** | Ba muito alto (2,3), K alto, Si baixo | Sem classe dominante |
+
+- **O grupo 6 não é um grupo de verdade:** são 5 vidros extremos que o K-means reuniu, e a silhueta negativa mostra que eles não pertencem bem a lugar nenhum. São candidatos a revisão: podem ser vidros especiais, variação extrema ou erro de medição. Só quem conhece o domínio sabe dizer.
+- Os grupos 2 e 3 são frágeis (silhueta abaixo de 0,3).
+- Os nomes entre aspas, como "com magnésio", são descritivos. Só os adoto como rótulo se fizerem sentido para você.
+- Pertencer a um grupo não explica por que o vidro tem aquela composição. E os grupos valem para esta amostra de 214 vidros.
+
+## 6. O que não foi feito e limitações
+- **Rodei só uma família de algoritmos (K-means).** Pelos sinais aqui (grupos de tamanhos muito diferentes, 5 a 162, e extremos que puxam centros), vale confirmar com o `HierarchicalClusterer` (ligação AVERAGE ou WARD) ou com o `EM` com `-N -1`. Fica como próximo passo. O EM, porém, supõe distribuições normais, o que é ruim para Ba, Fe e K, que são cheios de zeros.
+- **DBSCAN não foi testado:** não vem no Weka padrão. O pacote `optics_dbScan` exige alterar a instalação do Weka, e só faço isso com sua autorização.
+- **Os extremos de K, Ba e Ca não foram tratados.** O grupo 6 é efeito deles. Também não testei transformações como log ou presença/ausência dos óxidos raros.
+- **Estabilidade:** foi medida trocando a semente, não com subamostras de 80%.
+- **Ambiente:** instalei o `scikit-learn` neste ambiente, porque a ferramenta precisa dele para a estabilidade. Os grupos e o SSE continuam vindo do Weka.
+
+**Arquivos gerados em `resultados/`:**
+- `20261121_132649_255872_glass_agrupamento.txt` (k de 2 a 10)
+- `20261121_133059_265516_glass_agrupamento.txt` (k = 3)
+- `20261121_132917_612681_glass_agrupamento.txt` (k = 6)
+- `glass_classes_para_clusters_k2.txt` e `glass_classes_para_clusters_k6.txt`
+- `perfil_glass.txt`
+
+**Decisão sua:** qual nível de detalhe interessa? A divisão em 2 grupos (janela × não janela) é simples e tem a melhor silhueta, mas é instável e quase só "Mg sim × Mg não". A divisão em 6 é estável e se destaca mais dos dados embaralhados, mas tem grupos frágeis e um grupo de extremos. Se quiser, o próximo passo é rodar o agrupamento hierárquico para ver se ele confirma uma das duas.
+
