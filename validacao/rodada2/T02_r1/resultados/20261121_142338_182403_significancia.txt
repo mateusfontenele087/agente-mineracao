@@ -1,0 +1,35 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: /tmp/copias_validacao/T02_r1/dados/breast-cancer.arff
+Classificador A: weka.classifiers.bayes.NaiveBayes
+Classificador B: weka.classifiers.functions.SMO -M
+Matriz de custo: [0.0 1.0; 3.0 0.0]
+Classe positiva: recurrence-events
+Repetições: 10; partes por repetição: 10; total de pares: 100
+Sementes: 1..10; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /tmp/copias_validacao/T02_r1/dados/breast-cancer.arff -o /tmp/weka_significancia__57rpk5o/teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /tmp/copias_validacao/T02_r1/dados/breast-cancer.arff -o /tmp/weka_significancia__57rpk5o/treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /tmp/weka_significancia__57rpk5o/treino_r1_f1.arff -T /tmp/weka_significancia__57rpk5o/teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.bayes.NaiveBayes --
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /tmp/weka_significancia__57rpk5o/treino_r1_f1.arff -T /tmp/weka_significancia__57rpk5o/teste_r1_f1.arff -o -c last -cost-matrix "[0.0 1.0; 3.0 0.0]" -W weka.classifiers.functions.SMO -- -M
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 2/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 3/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 4/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 5/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 6/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 7/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 8/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 9/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+Repetição 10/10: 29, 29, 29, 29, 29, 29, 28, 28, 28, 28; soma=286
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.660049 | 0.083589 | 0.621256 | 0.089727 | 0.038793 | 1.802678 | 0.074481 | empate técnico |
+| recall_recurrence-events | 0.645000 | 0.172722 | 0.634722 | 0.169352 | 0.010278 | 0.320150 | 0.749529 | empate técnico |
+| precisao_recurrence-events | 0.454696 | 0.106514 | 0.417129 | 0.102190 | 0.037568 | 1.500167 | 0.136754 | empate técnico |
+| f1_recurrence-events | 0.526368 | 0.117196 | 0.496618 | 0.112287 | 0.029751 | 1.202294 | 0.232117 | empate técnico |
+| custo_total | 15.740000 | 4.489314 | 17.030000 | 4.497934 | -1.290000 | -1.292248 | 0.199280 | empate técnico |
