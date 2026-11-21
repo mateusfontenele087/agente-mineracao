@@ -1,0 +1,20 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.core.Instances /home/user/agente-mineracao/dados/breast-cancer.arff
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Relation Name:  breast-cancer
+Num Instances:  286
+Num Attributes: 10
+
+     Name                      Type  Nom  Int Real     Missing      Unique  Dist
+ 1 age                        Nom 100%   0%   0%     0 /  0%     1 /  0%     6 
+ 2 menopause                  Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+ 3 tumor-size                 Nom 100%   0%   0%     0 /  0%     0 /  0%    11 
+ 4 inv-nodes                  Nom 100%   0%   0%     0 /  0%     1 /  0%     7 
+ 5 node-caps                  Nom  97%   0%   0%     8 /  3%     0 /  0%     2 
+ 6 deg-malig                  Nom 100%   0%   0%     0 /  0%     0 /  0%     3 
+ 7 breast                     Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+ 8 breast-quad                Nom 100%   0%   0%     1 /  0%     0 /  0%     5 
+ 9 irradiat                   Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+10 Class                      Nom 100%   0%   0%     0 /  0%     0 /  0%     2 
+
