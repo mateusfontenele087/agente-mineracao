@@ -13,9 +13,17 @@ DESTINO="$RAIZ/validacao/rodada2/$NOME"
 mkdir -p "$(dirname "$COPIA")" "$DESTINO"
 git -C "$RAIZ" worktree add -q --detach "$COPIA" "${COMMIT_BASE:-HEAD}"
 cd "$COPIA"
+# Remove da cópia tudo o que foi gerado durante a validação (respostas, relatórios, gabaritos,
+# análises e saídas da rodada 1), para o agente não ler nada disso. Ficam só as correções
+# (manual, agente, ferramentas, requirements) e os scripts de execução.
+git diff --name-only --diff-filter=A "${COMMIT_PRE_VALIDACAO:-e1536cb}" HEAD \
+  | grep -v -E '^(ferramentas/|requirements.txt$|validacao/(rodar_tarefa.sh|rodada_isolada.sh|transcricao.py)$)' \
+  | xargs -r git rm -q --cached
+git -c user.email=validacao@local -c user.name=validacao commit -q -m "copia limpa" --no-verify
+git clean -fdq
+git reset -q --hard
 validacao/rodar_tarefa.sh "$NOME" "$PEDIDO"
-if ! ls resultados/ | grep -q "classificador.txt\|significancia.txt"; then
-  NOVOS=$(git status --porcelain resultados | wc -l)
+if ! git status --porcelain resultados | grep -q "classificador.txt\|significancia.txt"; then
   echo "parou_para_perguntar=sim" > "$DESTINO/processo.txt"
   validacao/rodar_tarefa.sh "$NOME" "$RESPOSTA" continuar
 else
