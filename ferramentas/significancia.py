@@ -355,8 +355,14 @@ def comparar(
     custo_texto=None,
     positiva=None,
     repeticoes=10,
+    sem_envelope=False,
 ):
-    """Executa folds repetidos no Weka e compara as métricas pareadas."""
+    """Executa folds repetidos no Weka e compara as métricas pareadas.
+
+    sem_envelope=True: a matriz de custo só é usada para CALCULAR o custo total;
+    os classificadores rodam exatamente como informados (útil quando um deles já
+    é um CostSensitiveClassifier com opções próprias, como -M).
+    """
     if repeticoes < 1:
         raise ValueError("--repeticoes deve ser pelo menos 1.")
     caminho_dados = _resolver_arquivo_arff(arquivo_arff)
@@ -406,11 +412,13 @@ def comparar(
                 _executar(comando_teste)
                 _executar(comando_treino)
 
+                # Com sem_envelope, não envolve no CostSensitiveClassifier
+                custo_envelope = None if sem_envelope else texto_custo
                 comando_a = _comando_classificador(
-                    classificador_a, opcoes_a, treino, teste, texto_custo
+                    classificador_a, opcoes_a, treino, teste, custo_envelope
                 )
                 comando_b = _comando_classificador(
-                    classificador_b, opcoes_b, treino, teste, texto_custo
+                    classificador_b, opcoes_b, treino, teste, custo_envelope
                 )
                 saida_a = _executar(comando_a)
                 saida_b = _executar(comando_b)
@@ -477,6 +485,11 @@ def main(argv=None):
     parser.add_argument("--custo")
     parser.add_argument("--positiva")
     parser.add_argument("--repeticoes", type=int, default=10)
+    parser.add_argument(
+        "--sem-envelope",
+        action="store_true",
+        help="usa --custo só para calcular o custo; não envolve os classificadores",
+    )
     argumentos = parser.parse_args(argv)
 
     try:
@@ -489,6 +502,7 @@ def main(argv=None):
             argumentos.custo,
             argumentos.positiva,
             argumentos.repeticoes,
+            argumentos.sem_envelope,
         )
     except (FileNotFoundError, RuntimeError, ValueError) as erro:
         print(erro, file=sys.stderr)

@@ -1,0 +1,88 @@
+Comando executado: java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.meta.CostSensitiveClassifier -t /home/user/agente-mineracao/dados/hypothyroid_bin.arff -x 10 -s 1 -cost-matrix "[0.0 1.0; 10.0 0.0]" -M -W weka.classifiers.trees.RandomForest
+
+Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/etc/ssl/certs/java/cacerts -Djavax.net.ssl.trustStoreType=JKS -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=41945 -Dhttp.nonProxyHosts=localhost|127.0.0.1|::1|127.*|0.*|::|169.254.*|api.anthropic.com|api-staging.anthropic.com|api-pr-preview.anthropic.com|mcp-proxy.anthropic.com|mcp-proxy-staging.anthropic.com|registry.npmjs.org|jsr.io|npm.jsr.io|pypi.org|files.pythonhosted.org|index.crates.io|proxy.golang.org|host.docker.internal|10.*|172.16.*|172.17.*|172.18.*|172.19.*|172.20.*|172.21.*|172.22.*|172.23.*|172.24.*|172.25.*|172.26.*|172.27.*|172.28.*|172.29.*|172.30.*|172.31.*|192.168.*|100.64.0.0/10|*.svc.cluster.local|*.svc.cluster.local -Djdk.http.auth.tunneling.disabledSchemes= -Djdk.http.auth.proxying.disabledSchemes=
+Picked up _JAVA_OPTIONS: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_encodeBlock,_base64_decodeBlock
+Nov 21, 2026 1:29:21 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeSystemARPACK
+Nov 21, 2026 1:29:21 PM com.github.fommil.netlib.ARPACK <clinit>
+WARNING: Failed to load implementation from: com.github.fommil.netlib.NativeRefARPACK
+
+Options: -cost-matrix "[0.0 1.0; 10.0 0.0]" -M -W weka.classifiers.trees.RandomForest 
+
+=== Classifier model (full training set) ===
+
+CostSensitiveClassifier using minimized expected misclasification cost
+
+weka.classifiers.trees.RandomForest -P 100 -I 100 -num-slots 1 -K 0 -M 1.0 -V 0.001 -S 1
+
+Classifier Model
+RandomForest
+
+Bagging with 100 iterations and base learner
+
+weka.classifiers.trees.RandomTree -K 0 -M 1.0 -V 0.001 -S 1 -do-not-check-capabilities
+
+Cost Matrix
+  0  1
+ 10  0
+
+
+Time taken to build model: 2.8 seconds
+
+Time taken to test model on training data: 0.91 seconds
+
+=== Error on training data ===
+
+Correctly Classified Instances        3754               99.5228 %
+Incorrectly Classified Instances        18                0.4772 %
+Kappa statistic                          0.9674
+Mean absolute error                      0.0048
+Root mean squared error                  0.0691
+Relative absolute error                  3.3469 %
+Root relative squared error             25.8895 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.995    0.000    1.000      0.995    0.997      0.968    0.997     1.000     negative
+                 1.000    0.005    0.942      1.000    0.970      0.968    0.997     0.942     hypothyroid
+Weighted Avg.    0.995    0.000    0.996      0.995    0.995      0.968    0.997     0.995     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3463   18 |    a = negative
+    0  291 |    b = hypothyroid
+
+Time taken to perform cross-validation: 11.81 seconds
+
+
+=== Stratified cross-validation ===
+
+Correctly Classified Instances        3710               98.3563 %
+Incorrectly Classified Instances        62                1.6437 %
+Kappa statistic                          0.8942
+Mean absolute error                      0.0164
+Root mean squared error                  0.1282
+Relative absolute error                 11.5264 %
+Root relative squared error             48.0488 %
+Total Number of Instances             3772     
+
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0.983    0.007    0.999      0.983    0.991      0.899    0.988     0.998     negative
+                 0.993    0.017    0.828      0.993    0.903      0.899    0.988     0.823     hypothyroid
+Weighted Avg.    0.984    0.008    0.986      0.984    0.984      0.899    0.988     0.985     
+
+
+=== Confusion Matrix ===
+
+    a    b   <-- classified as
+ 3421   60 |    a = negative
+    2  289 |    b = hypothyroid
+
