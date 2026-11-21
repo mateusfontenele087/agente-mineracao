@@ -1,0 +1,32 @@
+Comparação de classificadores — teste t pareado corrigido de Nadeau-Bengio
+Arquivo ARFF: /home/user/agente-mineracao/dados/soybean.arff
+Classificador A: weka.classifiers.functions.SMO
+Classificador B: weka.classifiers.bayes.NaiveBayes
+Matriz de custo: não informada
+Classe positiva: não informada
+Repetições: 10; partes por repetição: 10; total de pares: 100
+Sementes: 1..10; proporção n_teste/n_treino usada: 1/9
+
+Exemplos dos comandos Weka executados:
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/soybean.arff -o /tmp/weka_significancia_25uyxs8o/teste_r1_f1.arff -c last -N 10 -F 1 -S 1
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.filters.supervised.instance.StratifiedRemoveFolds -i /home/user/agente-mineracao/dados/soybean.arff -o /tmp/weka_significancia_25uyxs8o/treino_r1_f1.arff -c last -N 10 -F 1 -S 1 -V
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.functions.SMO -t /tmp/weka_significancia_25uyxs8o/treino_r1_f1.arff -T /tmp/weka_significancia_25uyxs8o/teste_r1_f1.arff -o -c last
+java -cp /tmp/claude-0/-home-user-agente-mineracao/81725601-beb2-514a-b444-9616134651c8/scratchpad/weka/lib/* weka.classifiers.bayes.NaiveBayes -t /tmp/weka_significancia_25uyxs8o/treino_r1_f1.arff -T /tmp/weka_significancia_25uyxs8o/teste_r1_f1.arff -o -c last
+
+Tamanhos das partes de teste (por repetição):
+Repetição 1/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 2/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 3/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 4/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 5/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 6/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 7/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 8/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 9/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+Repetição 10/10: 69, 69, 69, 68, 68, 68, 68, 68, 68, 68; soma=683
+
+Resumo por métrica (A - B; custo: menor é melhor):
+| Métrica | Média A | DP A | Média B | DP B | Dif. média | t | p bilateral | Conclusão (5%) |
+|---|---:|---:|---:|---:|---:|---:|---:|---|
+| acuracia | 0.930735 | 0.027571 | 0.929422 | 0.029175 | 0.001313 | 0.131938 | 0.895301 | empate técnico |
+| f1_macro | 0.953135 | 0.021525 | 0.950767 | 0.025939 | 0.002368 | 0.264304 | 0.792095 | empate técnico |

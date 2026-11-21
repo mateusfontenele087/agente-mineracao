@@ -1,0 +1,28 @@
+Arquivos: resultados/20261121_134406_078723_baseline_ZeroR.txt, resultados/20261121_134406_078723_classificador.txt, resultados/20261121_134412_388766_classificador.txt
+
+modelo                                   acurácia  IC95%            kappa  F1 macro
+ZeroR                                      0.1395  [0.115; 0.169]  0.000    0.0129
+SMO -t /home/user/agente-mineracao/dados/soybean_sem_dup.arff -x 10 -s 1   0.9287  [0.906; 0.946]  0.922    0.9554
+NaiveBayes -t /home/user/agente-mineracao/dados/soybean_sem_dup.arff -x 10 -s 1   0.9208  [0.897; 0.939]  0.913    0.9501
+
+F1 por classe (validação cruzada):
+classe                              ZeroR        SMO NaiveBayes
+diaporthe-stem-canker               0.000      1.000      1.000
+charcoal-rot                        0.000      1.000      1.000
+rhizoctonia-root-rot                0.000      1.000      1.000
+phytophthora-rot                    0.000      0.993      0.979
+brown-stem-rot                      0.000      1.000      1.000
+powdery-mildew                      0.000      1.000      1.000
+downy-mildew                        0.000      1.000      1.000
+brown-spot                          0.000      0.910      0.873
+bacterial-blight                    0.000      0.909      0.952
+bacterial-pustule                   0.000      0.889      0.947
+purple-seed-stain                   0.000      1.000      1.000
+anthracnose                         0.000      0.989      0.989
+phyllosticta-leaf-spot              0.000      0.821      0.780
+alternarialeaf-spot                 0.245      0.853      0.846
+frog-eye-leaf-spot                  0.000      0.789      0.786
+diaporthe-pod-&-stem-blight         0.000      1.000      0.966
+cyst-nematode                       0.000      1.000      1.000
+2-4-d-injury                        0.000      1.000      0.933
+herbicide-injury                    0.000      1.000      1.000
