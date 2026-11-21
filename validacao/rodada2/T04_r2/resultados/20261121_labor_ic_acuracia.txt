@@ -1,0 +1,7 @@
+ZeroR: 0.649 IC95% Wilson [0.519, 0.760]
+J48: 0.737 IC95% Wilson [0.610, 0.834]
+JRip: 0.772 IC95% Wilson [0.648, 0.862]
+NaiveBayes: 0.895 IC95% Wilson [0.789, 0.951]
+IBk: 0.912 IC95% Wilson [0.811, 0.962]
+SMO: 0.877 IC95% Wilson [0.768, 0.939]
+RandomForest: 0.895 IC95% Wilson [0.789, 0.951]
